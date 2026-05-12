@@ -33,6 +33,20 @@ export async function POST(request: Request) {
     const metadata = session.metadata ?? {};
 
     try {
+      const { data: existing, error: lookupError } = await supabaseAdmin
+        .from('purchases')
+        .select('id')
+        .eq('stripe_session_id', session.id)
+        .maybeSingle();
+
+      if (lookupError) {
+        return Response.json({ error: lookupError.message }, { status: 400 });
+      }
+
+      if (existing) {
+        return Response.json({ received: true }, { status: 200 });
+      }
+
       const answers = metadata.answers ? JSON.parse(metadata.answers) : [];
       const result = metadata.result ? JSON.parse(metadata.result) : null;
 

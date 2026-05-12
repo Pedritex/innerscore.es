@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,7 +35,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div className="flex flex-1 flex-col">{children}</div>
+        <Footer />
+        <CookieBanner />
+      </body>
     </html>
   );
 }

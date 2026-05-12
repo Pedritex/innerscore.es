@@ -1,78 +1,193 @@
+import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
 import { Resend } from 'resend';
-import { marked } from 'marked';
 import { supabaseAdmin } from '@/lib/supabase';
-// @ts-expect-error - html-pdf-node ships without type declarations
-import htmlPdf from 'html-pdf-node';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 const FROM_ADDRESS = 'reports@innerscore.es';
 
-function buildHtml(reportHtml: string) {
-  return `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>InnerScore EQ Report</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap');
-* { box-sizing: border-box; }
-body {
-  font-family: 'Inter', Georgia, serif;
-  color: #0f172a;
-  line-height: 1.7;
-  padding: 56px;
-  margin: 0;
-  background: #fdf6f0;
+const PAGE_WIDTH = 595;
+const PAGE_HEIGHT = 842;
+const MARGIN_X = 56;
+const MARGIN_Y = 64;
+const CONTENT_WIDTH = PAGE_WIDTH - MARGIN_X * 2;
+
+const BLUE = rgb(0.114, 0.306, 0.847);
+const ORANGE = rgb(0.918, 0.345, 0.047);
+const DARK = rgb(0.059, 0.09, 0.165);
+const MUTED = rgb(0.392, 0.455, 0.545);
+
+function normalize(s: string): string {
+  return s
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[–—]/g, '-')
+    .replace(/…/g, '...')
+    .replace(/ /g, ' ')
+    .replace(/[^\x20-\x7E\xA0-\xFF]/g, '');
 }
-h1, h2, h3, h4 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 700;
-  margin-top: 1.6em;
-  margin-bottom: 0.4em;
+
+function stripInline(s: string): string {
+  return s.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1');
 }
-h1 { color: #1d4ed8; font-size: 34px; margin-top: 0; }
-h2 { color: #0f172a; font-size: 26px; border-bottom: 2px solid #ea580c; padding-bottom: 8px; }
-h3 { color: #0f172a; font-style: italic; font-size: 20px; }
-h4 { color: #1d4ed8; font-size: 17px; }
-p { margin: 0 0 1em; }
-strong { color: #1d4ed8; }
-em { color: #ea580c; font-style: italic; }
-ul, ol { padding-left: 22px; margin: 0 0 1em; }
-li { margin-bottom: 0.4em; }
-blockquote {
-  border-left: 3px solid #ea580c;
-  padding: 8px 16px;
-  color: #64748b;
-  font-style: italic;
-  margin: 1em 0;
-  background: #fff;
+
+function wrapLines(
+  text: string,
+  font: PDFFont,
+  size: number,
+  width: number,
+): string[] {
+  const words = text.split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let current = '';
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (font.widthOfTextAtSize(candidate, size) <= width) {
+      current = candidate;
+    } else {
+      if (current) lines.push(current);
+      current = word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines.length ? lines : [''];
 }
-hr { border: none; border-top: 1px solid #e8d5c8; margin: 2em 0; }
-code { background: #eff6ff; color: #1d4ed8; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-</style>
-</head>
-<body>
-${reportHtml}
-</body>
-</html>`;
+
+async function buildPdf(reportText: string): Promise<Uint8Array> {
+  const pdfDoc = await PDFDocument.create();
+  pdfDoc.setTitle('InnerScore EQ Report');
+  pdfDoc.setProducer('InnerScore');
+
+  const times = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+  const timesBold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+  const timesItalic = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
+  const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  let page: PDFPage = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+  let y = PAGE_HEIGHT - MARGIN_Y;
+
+  const newPage = () => {
+    page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+    y = PAGE_HEIGHT - MARGIN_Y;
+  };
+
+  const ensure = (needed: number) => {
+    if (y - needed < MARGIN_Y) newPage();
+  };
+
+  const drawWrapped = (
+    text: string,
+    font: PDFFont,
+    size: number,
+    color = DARK,
+    leading?: number,
+    indent = 0,
+  ) => {
+    const lead = leading ?? Math.round(size * 1.45);
+    const lines = wrapLines(text, font, size, CONTENT_WIDTH - indent);
+    for (const line of lines) {
+      ensure(lead);
+      page.drawText(line, {
+        x: MARGIN_X + indent,
+        y,
+        font,
+        size,
+        color,
+      });
+      y -= lead;
+    }
+  };
+
+  const drawRule = (color = ORANGE, thickness = 1.5) => {
+    ensure(thickness + 4);
+    page.drawLine({
+      start: { x: MARGIN_X, y },
+      end: { x: MARGIN_X + CONTENT_WIDTH, y },
+      thickness,
+      color,
+    });
+    y -= 4;
+  };
+
+  const lines = reportText.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = normalize(raw);
+
+    if (!line.trim()) {
+      y -= 8;
+      continue;
+    }
+
+    if (line.startsWith('# ')) {
+      y -= 10;
+      drawWrapped(stripInline(line.slice(2)), timesBold, 26, BLUE, 32);
+      drawRule(BLUE, 2);
+      y -= 8;
+    } else if (line.startsWith('## ')) {
+      y -= 12;
+      drawWrapped(stripInline(line.slice(3)), timesBold, 19, DARK, 26);
+      drawRule(ORANGE, 1.2);
+      y -= 6;
+    } else if (line.startsWith('### ')) {
+      y -= 6;
+      drawWrapped(stripInline(line.slice(4)), timesItalic, 15, DARK, 22);
+      y -= 2;
+    } else if (line.startsWith('#### ')) {
+      drawWrapped(stripInline(line.slice(5)), timesBold, 12, BLUE, 18);
+    } else if (/^[-*]\s+/.test(line)) {
+      const body = stripInline(line.replace(/^[-*]\s+/, ''));
+      ensure(16);
+      page.drawText('•', {
+        x: MARGIN_X,
+        y,
+        font: helvetica,
+        size: 11,
+        color: ORANGE,
+      });
+      drawWrapped(body, helvetica, 11, DARK, 16, 14);
+    } else if (/^>\s*/.test(line)) {
+      const body = stripInline(line.replace(/^>\s*/, ''));
+      ensure(18);
+      page.drawLine({
+        start: { x: MARGIN_X, y: y + 12 },
+        end: { x: MARGIN_X, y: y - 4 },
+        thickness: 2,
+        color: ORANGE,
+      });
+      drawWrapped(body, timesItalic, 11, MUTED, 16, 12);
+    } else if (/^---+\s*$/.test(line)) {
+      y -= 6;
+      drawRule(rgb(0.91, 0.835, 0.784), 1);
+      y -= 6;
+    } else {
+      drawWrapped(stripInline(line), helvetica, 11, DARK, 16);
+      y -= 4;
+    }
+  }
+
+  const total = pdfDoc.getPageCount();
+  for (let p = 0; p < total; p++) {
+    const pg = pdfDoc.getPage(p);
+    pg.drawText(`InnerScore  ·  Page ${p + 1} of ${total}`, {
+      x: MARGIN_X,
+      y: 28,
+      font: helvetica,
+      size: 9,
+      color: MUTED,
+    });
+  }
+
+  return pdfDoc.save();
 }
 
 export async function POST(request: Request) {
   try {
     const { email, reportText } = await request.json();
 
-    const reportHtml = await marked.parse(reportText);
-    const fullHtml = buildHtml(reportHtml as string);
-
-    const pdfBuffer: Buffer = await htmlPdf.generatePdf(
-      { content: fullHtml },
-      {
-        format: 'A4',
-        margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
-        printBackground: true,
-      },
-    );
+    const pdfBytes = await buildPdf(reportText);
+    const pdfBuffer = Buffer.from(pdfBytes);
 
     const { error: emailError } = await resend.emails.send({
       from: FROM_ADDRESS,

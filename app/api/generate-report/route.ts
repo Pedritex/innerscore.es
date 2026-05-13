@@ -3,6 +3,8 @@ import { QUESTIONS } from '@/lib/questions';
 import { getDimensionLabel } from '@/lib/scoring';
 import type { QuizAnswer, QuizResult } from '@/types';
 
+export const maxDuration = 800;
+
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 });

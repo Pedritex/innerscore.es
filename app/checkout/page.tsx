@@ -161,7 +161,7 @@ function OrderSummary({ archetype }: { archetype: string }) {
         </span>
       </div>
       <p className="mt-2 text-xs text-[#94a3b8]">
-        Entrega instantánea · PDF en tu correo · Pago único
+        Te enviaremos tu informe por correo electrónico · Pago único
       </p>
     </div>
   );

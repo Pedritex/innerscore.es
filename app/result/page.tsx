@@ -331,7 +331,7 @@ export default function ResultPage() {
           </button>
 
           <p className="mt-4 text-center text-xs text-[#94a3b8]">
-            Entrega instantánea · PDF en tu correo · Pago único
+            Te enviaremos tu informe por correo electrónico · Pago único
           </p>
         </section>
       </div>

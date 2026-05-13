@@ -126,7 +126,7 @@ function Hero() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8]">
           <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
-          <TrustItem icon={<IconBolt />} text="Entrega instantánea" />
+          <TrustItem icon={<IconBolt />} text="Te enviaremos tu informe por correo electrónico" />
           <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
         </div>
       </div>
@@ -164,8 +164,8 @@ function Features() {
       />
       <FeatureCard
         accent="#dc2626"
-        title="Entrega instantánea"
-        body="PDF enviado a tu correo en minutos tras la compra"
+        title="Por correo electrónico"
+        body="Te enviaremos tu informe por correo electrónico"
       />
     </section>
   );
@@ -206,7 +206,7 @@ function WhatYouGet() {
     { icon: <IconHeart />, text: 'Análisis de empatía y habilidades sociales' },
     { icon: <IconShield />, text: 'Estrategias de autorregulación emocional' },
     { icon: <IconMap />, text: 'Plan de acción personalizado' },
-    { icon: <IconInbox />, text: 'PDF de 15 páginas al instante en tu bandeja de entrada' },
+    { icon: <IconInbox />, text: 'Te enviaremos tu informe por correo electrónico' },
   ];
 
   return (

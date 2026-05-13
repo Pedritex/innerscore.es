@@ -19,11 +19,11 @@ const RING_RADIUS = 90;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 const BULLETS = [
-  '15-page personalized PDF report',
-  'Deep analysis of all 5 EQ dimensions',
-  'Your emotional archetype profile',
-  'Impact on relationships, work & decision-making',
-  'Personalized 90-day growth plan',
+  'Emotional Archetype deep dive',
+  '90-day growth roadmap',
+  'Relationship patterns analysis',
+  'Workplace EQ strategies',
+  'Personalized action steps',
 ];
 
 export default function ResultPage() {
@@ -183,41 +183,71 @@ export default function ResultPage() {
               style={{ border: '1px solid #e8d5c8' }}
               aria-hidden
             >
-              <div className="p-6" style={{ filter: 'blur(6px)' }}>
-                <div className="h-3 w-1/3 rounded bg-[#cbd5e1]" />
-                <div className="mt-4 h-3 w-full rounded bg-[#e2e8f0]" />
-                <div className="mt-3 h-3 w-5/6 rounded bg-[#e2e8f0]" />
-                <div className="mt-3 h-3 w-2/3 rounded bg-[#e2e8f0]" />
-                <div className="mt-8 h-3 w-1/4 rounded bg-[#cbd5e1]" />
-                <div className="mt-4 h-3 w-full rounded bg-[#e2e8f0]" />
-                <div className="mt-3 h-3 w-11/12 rounded bg-[#e2e8f0]" />
-                <div className="mt-3 h-3 w-3/4 rounded bg-[#e2e8f0]" />
+              <div className="px-7 pb-20 pt-7">
+                <p className="text-[10px] font-medium uppercase tracking-widest text-[#1d4ed8]">
+                  Section 3 of 8 — Preview
+                </p>
+                <h3 className="font-display mt-3 text-2xl font-bold text-[#0f172a]">
+                  Your Emotional Archetype:{' '}
+                  <span className="italic">{result.archetype}</span>
+                </h3>
+
+                <div style={{ filter: 'blur(4px)' }}>
+                  <p className="mt-5 text-sm leading-relaxed text-[#0f172a]">
+                    People who score like you tend to navigate close
+                    relationships with a quiet, steady presence — anchoring the
+                    people around them in moments of tension. But this same
+                    instinct can quietly cost you when…
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-[#0f172a]">
+                    At work, this pattern shows up as an unusual ability to
+                    absorb pressure before it spreads to the team. The data
+                    points to three specific scenarios where this serves you,
+                    and two where it…
+                  </p>
+
+                  <div
+                    className="mt-6 h-px w-full"
+                    style={{ backgroundColor: '#e8d5c8' }}
+                  />
+
+                  <p className="mt-5 text-[10px] font-medium uppercase tracking-widest text-[#dc2626]">
+                    Relationship Impact
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-[#0f172a]">
+                    Your closest partners likely describe you as the person who
+                    holds the centre when things shake. The hidden trade-off…
+                  </p>
+                </div>
               </div>
             </div>
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 rounded-b-xl"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 rounded-b-xl"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(253,246,240,0) 0%, rgba(253,246,240,0.9) 60%, #fdf6f0 100%)',
+                  'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(253,246,240,0.92) 55%, #fdf6f0 100%)',
               }}
             />
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="pointer-events-none absolute inset-x-0 bottom-5 flex items-center justify-center">
               <div
-                className="rounded-full bg-white p-3"
+                className="flex items-center gap-2 rounded-full bg-white px-4 py-2"
                 style={{
                   border: '1px solid #e8d5c8',
-                  boxShadow: '0 4px 12px rgba(15,23,42,0.06)',
+                  boxShadow: '0 4px 12px rgba(15,23,42,0.08)',
                 }}
               >
                 <LockIcon />
+                <span className="text-xs font-medium text-[#0f172a]">
+                  12 more pages locked
+                </span>
               </div>
             </div>
           </div>
 
           <p className="mt-6 text-center text-sm leading-relaxed text-[#64748b]">
-            Your full 15-page report includes detailed analysis, your emotional
-            archetype profile, impact on relationships &amp; work, and a
-            personalized 90-day growth plan.
+            You&apos;re one step away from the full picture — the parts that
+            explain <span className="italic">why</span> you score the way you
+            do, and what to do about it next.
           </p>
         </section>
 
@@ -230,7 +260,26 @@ export default function ResultPage() {
           className="rounded-2xl bg-white p-8"
           style={{ border: '1px solid #e8d5c8' }}
         >
-          <h2 className="font-display text-center text-3xl font-bold text-[#0f172a] md:text-4xl">
+          <div
+            className="mx-auto flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
+            style={{ backgroundColor: 'rgba(29,78,216,0.08)' }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span
+                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
+                style={{ backgroundColor: '#1d4ed8' }}
+              />
+              <span
+                className="relative inline-flex h-2 w-2 rounded-full"
+                style={{ backgroundColor: '#1d4ed8' }}
+              />
+            </span>
+            <span className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
+              Your personalized report is ready to generate
+            </span>
+          </div>
+
+          <h2 className="font-display mt-5 text-center text-3xl font-bold text-[#0f172a] md:text-4xl">
             Unlock Your Full Report
           </h2>
 
@@ -240,6 +289,32 @@ export default function ResultPage() {
               {result.archetype}
             </span>
           </p>
+
+          <div className="mx-auto mt-7 max-w-sm">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-medium text-[#0f172a]">Report</span>
+              <span className="font-medium tabular-nums text-[#1d4ed8]">
+                94% complete
+              </span>
+            </div>
+            <div
+              className="mt-2 h-2 w-full overflow-hidden rounded-full"
+              style={{ backgroundColor: '#e2e8f0' }}
+            >
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: animated ? '94%' : '0%',
+                  backgroundColor: '#1d4ed8',
+                  transition:
+                    'width 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
+                }}
+              />
+            </div>
+            <p className="mt-2 text-center text-[11px] text-[#64748b]">
+              Unlock to finish the final 6%
+            </p>
+          </div>
 
           <div className="mt-8 flex items-baseline justify-center gap-3">
             <span className="font-display text-6xl font-bold text-[#0f172a]">
@@ -266,18 +341,17 @@ export default function ResultPage() {
             type="button"
             onClick={handleCheckout}
             disabled={checkoutLoading}
-            className="mt-8 w-full rounded-xl px-6 py-4 text-base font-semibold text-white transition-transform hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-10 w-full rounded-xl px-6 py-5 text-lg font-semibold text-white transition-transform hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 md:text-xl"
             style={{
               backgroundColor: '#ea580c',
-              boxShadow: '0 8px 24px rgba(234,88,12,0.35)',
+              boxShadow: '0 12px 28px rgba(234,88,12,0.4)',
             }}
           >
-            {checkoutLoading ? 'Redirecting…' : 'Get My Full Report'}
+            {checkoutLoading ? 'Redirecting…' : 'Get My Full Report — £9.99'}
           </button>
 
           <p className="mt-4 text-center text-xs text-[#94a3b8]">
-            Delivered instantly to your email · One-time payment · No
-            subscription
+            Instant delivery · PDF to your inbox · One-time payment
           </p>
         </section>
       </div>

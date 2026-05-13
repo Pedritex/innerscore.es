@@ -100,6 +100,7 @@ async function runReportPipeline(email: string, answers: unknown, result: unknow
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
+    console.log('Sending report to:', email);
     const genRes = await fetch(`${baseUrl}/api/generate-report`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

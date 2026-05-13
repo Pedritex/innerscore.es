@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { email, answers, result } = await request.json();
 
     if (!email || typeof email !== 'string') {
-      return Response.json({ error: 'Missing email' }, { status: 400 });
+      return Response.json({ error: 'Falta el correo electrónico' }, { status: 400 });
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       currency: 'gbp',
       payment_method_types: ['card'],
       receipt_email: email,
-      description: 'InnerScore — Full EQ Report',
+      description: 'InnerScore — Informe completo de IE',
       metadata: {
         email,
         answers: JSON.stringify(answers ?? []),

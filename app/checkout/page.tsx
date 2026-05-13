@@ -18,11 +18,11 @@ import { calculateScores } from '@/lib/scoring';
 type Session = { email: string; answers: QuizAnswer[] };
 
 const BULLETS = [
-  'Emotional Archetype deep dive',
-  '90-day growth roadmap',
-  'Relationship patterns analysis',
-  'Workplace EQ strategies',
-  'Personalized action steps',
+  'Análisis profundo de tu Arquetipo Emocional',
+  'Plan de crecimiento de 90 días',
+  'Análisis de patrones relacionales',
+  'Estrategias de IE en el trabajo',
+  'Pasos de acción personalizados',
 ];
 
 const stripePromise: Promise<StripeClient | null> = loadStripe(
@@ -80,7 +80,7 @@ export default function CheckoutPage() {
             href="/result"
             className="text-sm font-medium text-[#64748b] hover:text-[#0f172a]"
           >
-            ← Back to results
+            ← Volver a resultados
           </Link>
           <span className="font-display text-lg font-bold text-[#0f172a]">
             InnerScore
@@ -108,13 +108,13 @@ function OrderSummary({ archetype }: { archetype: string }) {
   return (
     <div>
       <p className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
-        Order Summary
+        Resumen del pedido
       </p>
       <h1 className="font-display mt-2 text-3xl font-bold text-[#0f172a] md:text-4xl">
-        InnerScore Full EQ Report
+        Informe completo de IE InnerScore
       </h1>
       <p className="mt-3 text-sm text-[#64748b]">
-        Tailored for{' '}
+        Personalizado para{' '}
         <span className="font-display font-bold italic text-[#0f172a]">
           {archetype}
         </span>
@@ -133,7 +133,7 @@ function OrderSummary({ archetype }: { archetype: string }) {
       />
 
       <p className="text-[11px] font-medium uppercase tracking-widest text-[#0f172a]">
-        What&apos;s included
+        Qué incluye
       </p>
       <ul className="mt-4 flex flex-col gap-3">
         {BULLETS.map((item) => (
@@ -155,13 +155,13 @@ function OrderSummary({ archetype }: { archetype: string }) {
       />
 
       <div className="flex items-baseline justify-between text-sm">
-        <span className="text-[#64748b]">Total due today</span>
+        <span className="text-[#64748b]">Total a pagar hoy</span>
         <span className="font-display text-xl font-bold text-[#0f172a]">
           £9.99
         </span>
       </div>
       <p className="mt-2 text-xs text-[#94a3b8]">
-        Instant delivery · PDF to your inbox · One-time payment
+        Entrega instantánea · PDF en tu correo · Pago único
       </p>
     </div>
   );
@@ -201,12 +201,12 @@ function CheckoutForm({
       });
       const intentData = await intentRes.json();
       if (!intentRes.ok || !intentData.clientSecret) {
-        throw new Error(intentData.error ?? 'Could not initialise payment');
+        throw new Error(intentData.error ?? 'No se pudo iniciar el pago');
       }
 
       const cardNumber = elements.getElement(CardNumberElement);
       if (!cardNumber) {
-        throw new Error('Card details missing');
+        throw new Error('Faltan los datos de la tarjeta');
       }
 
       const { error: confirmError, paymentIntent } =
@@ -218,7 +218,7 @@ function CheckoutForm({
         });
 
       if (confirmError) {
-        throw new Error(confirmError.message ?? 'Payment failed');
+        throw new Error(confirmError.message ?? 'El pago no se ha podido completar');
       }
 
       if (paymentIntent?.status === 'succeeded') {
@@ -226,9 +226,9 @@ function CheckoutForm({
         return;
       }
 
-      throw new Error('Payment did not complete');
+      throw new Error('El pago no se completó');
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Payment failed';
+      const message = err instanceof Error ? err.message : 'El pago no se ha podido completar';
       setError(message);
       setSubmitting(false);
     }
@@ -238,37 +238,37 @@ function CheckoutForm({
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div>
         <h2 className="font-display text-2xl font-bold text-[#0f172a]">
-          Payment details
+          Datos de pago
         </h2>
         <p className="mt-1 text-sm text-[#64748b]">
-          Your report is delivered to this email.
+          Tu informe se enviará a este correo.
         </p>
       </div>
 
-      <Field label="Email">
+      <Field label="Correo electrónico">
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder="tu@ejemplo.com"
           className="w-full rounded-lg bg-white px-3 py-2.5 text-sm text-[#0f172a] placeholder:text-[#94a3b8] focus:outline-none focus:ring-2 focus:ring-[#1d4ed8]/30"
           style={{ border: '1px solid #e8d5c8' }}
         />
       </Field>
 
-      <Field label="Name on card">
+      <Field label="Nombre en la tarjeta">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Jane Doe"
+          placeholder="Juan Pérez"
           className="w-full rounded-lg bg-white px-3 py-2.5 text-sm text-[#0f172a] placeholder:text-[#94a3b8] focus:outline-none focus:ring-2 focus:ring-[#1d4ed8]/30"
           style={{ border: '1px solid #e8d5c8' }}
         />
       </Field>
 
-      <Field label="Card number">
+      <Field label="Número de tarjeta">
         <ElementBox>
           <CardNumberElement
             options={{
@@ -281,7 +281,7 @@ function CheckoutForm({
       </Field>
 
       <div className="grid grid-cols-2 gap-4">
-        <Field label="Expiry">
+        <Field label="Caducidad">
           <ElementBox>
             <CardExpiryElement options={ELEMENT_OPTIONS} />
           </ElementBox>
@@ -308,13 +308,13 @@ function CheckoutForm({
           boxShadow: '0 10px 24px rgba(234,88,12,0.35)',
         }}
       >
-        {submitting ? 'Processing…' : 'Pay £9.99 securely'}
+        {submitting ? 'Procesando…' : 'Pagar 9,99 £ de forma segura'}
       </button>
 
       <div className="mt-2 flex items-center justify-between">
         <span className="flex items-center gap-1.5 text-xs text-[#64748b]">
           <LockIcon />
-          Powered by Stripe
+          Tecnología de Stripe
         </span>
         <span className="flex items-center gap-2">
           <VisaLogo />

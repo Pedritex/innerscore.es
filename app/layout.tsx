@@ -20,9 +20,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'InnerScore — Emotional Intelligence Assessment',
+  title: 'InnerScore — Evaluación de Inteligencia Emocional',
   description:
-    'Discover how you really manage your emotions. 14 questions, 5 dimensions, a 15-page personalized report.',
+    'Descubre cómo gestionas realmente tus emociones. 14 preguntas, 5 dimensiones, un informe personalizado de 15 páginas.',
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

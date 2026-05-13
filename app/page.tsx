@@ -35,7 +35,7 @@ function Header() {
             }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#1d4ed8]" />
-            EQ Assessment
+            Test de Inteligencia Emocional
           </span>
         </div>
         <div />
@@ -95,22 +95,22 @@ function Hero() {
             color: '#ea580c',
           }}
         >
-          Emotional Intelligence Test
+          Test de Inteligencia Emocional
         </span>
 
         <h1 className="font-display mt-6 text-5xl font-bold leading-[1.08] text-[#0f172a] md:text-6xl">
-          Discover how you really{' '}
+          Descubre cómo gestionas realmente{' '}
           <em
             className="font-display font-bold italic"
             style={{ color: '#ea580c' }}
           >
-            manage your emotions.
+            tus emociones.
           </em>
         </h1>
 
         <p className="mx-auto mt-6 max-w-lg text-base text-[#64748b] md:text-lg">
-          14 questions. 5 dimensions. A 15-page personalized report delivered
-          to your inbox.
+          14 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
+          en tu bandeja de entrada.
         </p>
 
         <Link
@@ -121,13 +121,13 @@ function Hero() {
             boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
           }}
         >
-          Take the free test
+          Hacer el test gratuito
         </Link>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8]">
-          <TrustItem icon={<IconUsers />} text="Join thousands discovering their EQ" />
-          <TrustItem icon={<IconBolt />} text="Instant delivery" />
-          <TrustItem icon={<IconSparkles />} text="Backed by science" />
+          <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
+          <TrustItem icon={<IconBolt />} text="Entrega instantánea" />
+          <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
         </div>
       </div>
     </section>
@@ -154,18 +154,18 @@ function Features() {
     <section className="mx-auto grid w-full max-w-5xl gap-4 px-6 py-20 md:grid-cols-3">
       <FeatureCard
         accent="#1d4ed8"
-        title="Science-based"
-        body="Built on Goleman's 5-dimension EQ model"
+        title="Basado en ciencia"
+        body="Construido sobre el modelo de IE de 5 dimensiones de Goleman"
       />
       <FeatureCard
         accent="#1d4ed8"
-        title="Fully personalized"
-        body="Your report is generated uniquely from your answers"
+        title="Totalmente personalizado"
+        body="Tu informe se genera de forma única a partir de tus respuestas"
       />
       <FeatureCard
         accent="#dc2626"
-        title="Instant delivery"
-        body="PDF sent to your email within minutes of purchase"
+        title="Entrega instantánea"
+        body="PDF enviado a tu correo en minutos tras la compra"
       />
     </section>
   );
@@ -201,12 +201,12 @@ function FeatureCard({
 
 function WhatYouGet() {
   const items = [
-    { icon: <IconChart />, text: 'Your overall EQ score across 5 dimensions' },
-    { icon: <IconEye />, text: 'Self-Awareness deep dive' },
-    { icon: <IconHeart />, text: 'Empathy & social skills analysis' },
-    { icon: <IconShield />, text: 'Emotional regulation strategies' },
-    { icon: <IconMap />, text: 'Personalized action plan' },
-    { icon: <IconInbox />, text: '15-page PDF delivered instantly to your inbox' },
+    { icon: <IconChart />, text: 'Tu puntuación global de IE en las 5 dimensiones' },
+    { icon: <IconEye />, text: 'Análisis profundo de Autoconciencia' },
+    { icon: <IconHeart />, text: 'Análisis de empatía y habilidades sociales' },
+    { icon: <IconShield />, text: 'Estrategias de autorregulación emocional' },
+    { icon: <IconMap />, text: 'Plan de acción personalizado' },
+    { icon: <IconInbox />, text: 'PDF de 15 páginas al instante en tu bandeja de entrada' },
   ];
 
   return (
@@ -216,10 +216,10 @@ function WhatYouGet() {
       >
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-            What you&apos;ll get
+            Lo que recibirás
           </h2>
           <p className="mt-3 text-[#64748b]">
-            Everything you need to understand and grow your emotional intelligence.
+            Todo lo que necesitas para entender y desarrollar tu inteligencia emocional.
           </p>
         </div>
 
@@ -255,7 +255,7 @@ function WhatYouGet() {
               boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
             }}
           >
-            Take the free test
+            Hacer el test gratuito
           </Link>
         </div>
       </div>
@@ -266,36 +266,36 @@ function WhatYouGet() {
 function PDFPreview() {
   const pages = [
     {
-      label: 'Page 1',
-      title: 'Self-Awareness Score',
+      label: 'Página 1',
+      title: 'Puntuación de Autoconciencia',
       score: 78,
       color: '#1d4ed8',
       bars: [
-        { label: 'Emotional Identification', value: 82 },
-        { label: 'Self-Reflection', value: 74 },
-        { label: 'Accurate Self-Assessment', value: 79 },
+        { label: 'Identificación emocional', value: 82 },
+        { label: 'Autorreflexión', value: 74 },
+        { label: 'Autoevaluación precisa', value: 79 },
       ],
     },
     {
-      label: 'Page 2',
-      title: 'Empathy Analysis',
+      label: 'Página 2',
+      title: 'Análisis de Empatía',
       score: 65,
       color: '#ea580c',
       bars: [
-        { label: 'Cognitive Empathy', value: 70 },
-        { label: 'Emotional Resonance', value: 61 },
-        { label: 'Social Attunement', value: 64 },
+        { label: 'Empatía cognitiva', value: 70 },
+        { label: 'Resonancia emocional', value: 61 },
+        { label: 'Sintonía social', value: 64 },
       ],
     },
     {
-      label: 'Page 3',
-      title: 'Emotional Regulation Profile',
+      label: 'Página 3',
+      title: 'Perfil de Autorregulación Emocional',
       score: 71,
       color: '#059669',
       bars: [
-        { label: 'Impulse Control', value: 68 },
-        { label: 'Stress Tolerance', value: 75 },
-        { label: 'Adaptability', value: 70 },
+        { label: 'Control de impulsos', value: 68 },
+        { label: 'Tolerancia al estrés', value: 75 },
+        { label: 'Adaptabilidad', value: 70 },
       ],
     },
   ];
@@ -308,10 +308,10 @@ function PDFPreview() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-            What&apos;s inside your report
+            Lo que contiene tu informe
           </h2>
           <p className="mt-3 text-[#64748b]">
-            A detailed, science-backed breakdown of your emotional intelligence.
+            Un desglose detallado y basado en ciencia de tu inteligencia emocional.
           </p>
         </div>
 
@@ -352,7 +352,7 @@ function ReportPageMockup({
         style={{ backgroundColor: color }}
       >
         <span className="text-xs font-semibold text-white opacity-80">
-          InnerScore Report
+          Informe InnerScore
         </span>
         <span className="text-xs font-medium text-white opacity-70">
           {label}
@@ -377,9 +377,9 @@ function ReportPageMockup({
             {score}
           </div>
           <div>
-            <p className="text-xs text-[#64748b]">Your score</p>
+            <p className="text-xs text-[#64748b]">Tu puntuación</p>
             <p className="text-sm font-semibold text-[#0f172a]">
-              {score >= 75 ? 'Above average' : score >= 55 ? 'Average' : 'Below average'}
+              {score >= 75 ? 'Por encima de la media' : score >= 55 ? 'En la media' : 'Por debajo de la media'}
             </p>
           </div>
         </div>
@@ -425,23 +425,23 @@ function Testimonials() {
     {
       name: 'Sara M.',
       age: 31,
-      result: 'EQ Score: 84',
+      result: 'Puntuación IE: 84',
       quote:
-        "I've always struggled to explain why I get so overwhelmed in conflicts. My report showed my Emotional Regulation score was 58 — lower than I expected. The action plan was concrete enough that I actually used it at work that same week.",
+        'Siempre me ha costado explicar por qué me bloqueo tanto en los conflictos. Mi informe me mostró que mi puntuación en Autorregulación era de 58, más baja de lo que esperaba. El plan de acción era lo bastante concreto como para usarlo en el trabajo esa misma semana.',
     },
     {
       name: 'Daniel R.',
       age: 27,
-      result: 'EQ Score: 71',
+      result: 'Puntuación IE: 71',
       quote:
-        "I took it skeptically, honestly. But my Empathy score came out at 63 and the breakdown explained exactly why I sometimes miss what people are feeling. Made me rethink how I listen in conversations.",
+        'Lo hice con escepticismo, la verdad. Pero mi puntuación de Empatía salió en 63 y el desglose explicaba exactamente por qué a veces no percibo lo que sienten los demás. Me ha hecho replantear cómo escucho en las conversaciones.',
     },
     {
-      name: 'Camille T.',
+      name: 'Camila T.',
       age: 38,
-      result: 'EQ Score: 91',
+      result: 'Puntuación IE: 91',
       quote:
-        "I scored well overall but my Self-Awareness dimension was a 69. The report called out a pattern I hadn't named before. Sent it to my therapist — she said it was one of the most useful self-assessments she'd seen a client bring in.",
+        'En general saqué buena puntuación, pero mi dimensión de Autoconciencia se quedó en 69. El informe identificaba un patrón que yo no había nombrado antes. Se lo enseñé a mi terapeuta y me dijo que era una de las autoevaluaciones más útiles que había visto traer a una consulta.',
     },
   ];
 
@@ -450,10 +450,10 @@ function Testimonials() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-            Real results, real people
+            Resultados reales, personas reales
           </h2>
           <p className="mt-3 text-[#64748b]">
-            Here&apos;s what others discovered about themselves.
+            Esto es lo que otras personas descubrieron sobre sí mismas.
           </p>
         </div>
 
@@ -487,7 +487,7 @@ function TestimonialCard({
       }}
     >
       {/* Stars */}
-      <div className="flex gap-0.5 text-[#ea580c]" aria-label="5 stars">
+      <div className="flex gap-0.5 text-[#ea580c]" aria-label="5 estrellas">
         {Array.from({ length: 5 }).map((_, i) => (
           <IconStar key={i} />
         ))}

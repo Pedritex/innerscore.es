@@ -1,183 +1,194 @@
 export const metadata = {
-  title: 'Terms of Service — InnerScore',
+  title: 'Condiciones del Servicio — InnerScore',
 };
 
 export default function TermsOfServicePage() {
   return (
     <>
       <h1 className="font-display text-4xl font-bold text-[#0f172a]">
-        Terms of Service
+        Condiciones del Servicio
       </h1>
       <p className="mt-2 text-sm text-[#64748b]">
-        Last updated: 12 May 2026
+        Última actualización: 12 de mayo de 2026
       </p>
 
-      <Section title="1. Who we are">
+      <Section title="1. Quiénes somos">
         <p>
-          InnerScore is operated by <strong>FastwaySolutions</strong>
-          (&ldquo;we&rdquo;, &ldquo;us&rdquo;), through the website{' '}
-          <strong>innerscore.es</strong>. By using the website you agree to
-          these Terms of Service, the Privacy Policy and the Cookie Policy.
-          If you do not agree, please do not use the service.
+          InnerScore está operado por <strong>FastwaySolutions</strong>
+          (&ldquo;nosotros&rdquo;), a través del sitio web{' '}
+          <strong>innerscore.es</strong>. Al utilizar el sitio web aceptas
+          estas Condiciones del Servicio, la Política de Privacidad y la
+          Política de Cookies. Si no estás de acuerdo, por favor no
+          utilices el servicio.
         </p>
       </Section>
 
-      <Section title="2. The service">
+      <Section title="2. El servicio">
         <p>
-          InnerScore offers a self-assessment questionnaire on emotional
-          intelligence (14 questions across 5 dimensions). After completing
-          the quiz, you receive a free on-screen preview of your overall
-          score, dimension scores and emotional archetype.
+          InnerScore ofrece un cuestionario de autoevaluación sobre
+          inteligencia emocional (14 preguntas en 5 dimensiones). Al
+          completar el test recibes una vista previa gratuita en pantalla
+          de tu puntuación global, tus puntuaciones por dimensión y tu
+          arquetipo emocional.
         </p>
         <p className="mt-3">
-          You may then optionally purchase the <strong>Full Report</strong>:
-          a personalized 15-page PDF, generated automatically based on your
-          answers and result, delivered to the email address you provide. No
-          physical goods are shipped.
+          Posteriormente puedes adquirir, de forma opcional, el{' '}
+          <strong>Informe Completo</strong>: un PDF personalizado de 15
+          páginas generado automáticamente a partir de tus respuestas y de
+          tu resultado, enviado al correo electrónico que indiques. No se
+          envía ningún producto físico.
         </p>
       </Section>
 
-      <Section title="3. Price and payment">
+      <Section title="3. Precio y pago">
         <p>
-          The Full Report has a one-time price of{' '}
-          <strong>£9.99 (GBP)</strong>, taxes included where applicable.
-          The price is shown on the results page before purchase. Payment
-          is processed by <strong>Stripe</strong>; we do not store full
-          card details on our servers.
+          El Informe Completo tiene un precio único de{' '}
+          <strong>9,99 £ (GBP)</strong>, impuestos incluidos cuando proceda.
+          El precio se muestra en la página de resultados antes de la
+          compra. El pago lo procesa <strong>Stripe</strong>; no
+          almacenamos los datos completos de la tarjeta en nuestros
+          servidores.
         </p>
         <p className="mt-3">
-          The purchase is a one-off transaction. There is no recurring
-          subscription, no auto-renewal and no hidden charges.
+          La compra es una transacción única. No hay suscripción
+          recurrente, ni renovación automática, ni cargos ocultos.
         </p>
       </Section>
 
-      <Section title="4. Delivery">
+      <Section title="4. Entrega">
         <p>
-          After your payment is confirmed by Stripe, generation of your
-          Full Report starts automatically. The PDF is typically delivered
-          to your email within a few minutes. Please check your spam folder
-          if you do not see it shortly after purchase.
+          Una vez confirmado el pago por Stripe, la generación de tu
+          Informe Completo se inicia automáticamente. El PDF se entrega
+          normalmente por correo electrónico en unos minutos. Por favor,
+          revisa la carpeta de spam si no lo ves poco después de la
+          compra.
         </p>
       </Section>
 
-      <Section title="5. Right of withdrawal — digital content">
+      <Section title="5. Derecho de desistimiento — contenido digital">
         <p>
-          The Full Report is digital content delivered immediately upon
-          payment and is therefore subject to the legal exemption from the
-          14-day right of withdrawal that normally applies to consumer
-          purchases.
+          El Informe Completo es contenido digital que se entrega
+          inmediatamente tras el pago y, por tanto, queda sujeto a la
+          exención legal del plazo de 14 días de derecho de desistimiento
+          que normalmente se aplica a las compras de consumo.
         </p>
         <p className="mt-3">
-          By clicking{' '}
+          Al hacer clic en{' '}
           <em className="italic text-[#ea580c]">
-            &ldquo;Get My Full Report&rdquo;
+            &ldquo;Quiero mi informe completo&rdquo;
           </em>{' '}
-          on the results page, you:
+          en la página de resultados:
         </p>
         <ul className="mt-2 list-disc space-y-2 pl-6 text-[15px]">
           <li>
-            <strong>expressly consent</strong> to the supply of the digital
-            content beginning immediately, before the expiry of the 14-day
-            withdrawal period; and
+            <strong>consientes expresamente</strong> que el suministro del
+            contenido digital comience de forma inmediata, antes de que
+            expire el plazo de desistimiento de 14 días; y
           </li>
           <li>
-            <strong>acknowledge</strong> that you therefore lose your right
-            of withdrawal once the report has been generated and sent to
-            your email.
+            <strong>reconoces</strong> que, por tanto, pierdes tu derecho
+            de desistimiento una vez que el informe ha sido generado y
+            enviado a tu correo electrónico.
           </li>
         </ul>
         <p className="mt-3">
-          This is in accordance with Article 103(m) of the Spanish General
-          Law for the Defence of Consumers and Users (transposing Article
-          16(m) of EU Directive 2011/83/EU on consumer rights).
+          Lo anterior se ajusta al artículo 103.m) del Texto Refundido de
+          la Ley General para la Defensa de los Consumidores y Usuarios
+          (que transpone el artículo 16.m) de la Directiva 2011/83/UE sobre
+          derechos de los consumidores).
         </p>
       </Section>
 
-      <Section title="6. Refunds">
+      <Section title="6. Reembolsos">
         <p>
-          Because the Full Report is generated individually for each user
-          and delivered immediately, we generally do not offer refunds once
-          the report has been delivered. If something goes wrong (the
-          report was never delivered, was unreadable, was duplicated and
-          charged twice, etc.), please contact us at{' '}
+          Dado que el Informe Completo se genera de forma individual para
+          cada persona y se entrega inmediatamente, por regla general no
+          ofrecemos reembolsos una vez entregado. Si algo no funciona como
+          debería (el informe no se entregó, era ilegible, se duplicó y se
+          cobró dos veces, etc.), escríbenos a{' '}
           <a
             href="mailto:support@innerscore.es"
             className="text-[#1d4ed8] hover:underline"
           >
             support@innerscore.es
           </a>{' '}
-          within 14 days of purchase and we will resolve the issue, which
-          may include re-sending the report or refunding the payment.
+          dentro de los 14 días posteriores a la compra y resolveremos la
+          incidencia, lo que puede incluir el reenvío del informe o la
+          devolución del importe.
         </p>
       </Section>
 
-      <Section title="7. Acceptable use">
+      <Section title="7. Uso aceptable">
         <p>
-          You agree to use the service in good faith and only for your own
-          self-reflection. You agree not to: misrepresent another
-          person&apos;s identity; resell, redistribute or sub-license the
-          report; attempt to access, probe or disrupt the service or its
-          underlying infrastructure; or use the service to harm yourself
-          or others.
+          Te comprometes a utilizar el servicio de buena fe y únicamente
+          para tu propia autorreflexión. Te comprometes a no: suplantar la
+          identidad de otra persona; revender, redistribuir o sublicenciar
+          el informe; intentar acceder, sondear o interrumpir el servicio
+          o la infraestructura subyacente; o utilizar el servicio para
+          dañarte a ti misma o a otras personas.
         </p>
       </Section>
 
-      <Section title="8. Not medical or psychological advice">
+      <Section title="8. No constituye asesoramiento médico ni psicológico">
         <p>
-          InnerScore is an educational and self-reflection tool. The
-          assessment and the report are <strong>not</strong> a clinical
-          diagnosis, psychological evaluation, therapy, or medical advice.
-          They do not replace professional consultation with a qualified
-          mental-health professional. If you are in distress or believe
-          you may have a mental-health condition, please seek qualified
-          help.
+          InnerScore es una herramienta educativa y de autorreflexión. La
+          evaluación y el informe <strong>no</strong> son un diagnóstico
+          clínico, una evaluación psicológica, una terapia, ni
+          asesoramiento médico. No sustituyen la consulta profesional con
+          un especialista cualificado en salud mental. Si te encuentras
+          en una situación de malestar o crees que podrías tener una
+          condición de salud mental, busca ayuda profesional cualificada.
         </p>
       </Section>
 
-      <Section title="9. Intellectual property">
+      <Section title="9. Propiedad intelectual">
         <p>
-          The questionnaire, scoring methodology, archetype framework,
-          report template, website content and source code are owned by
-          FastwaySolutions or its licensors. You receive a personal,
-          non-transferable, non-exclusive licence to read and keep your own
-          report for personal use. Any reproduction, public distribution,
-          commercial use or derivative work based on the service or its
-          outputs is not permitted without our prior written consent.
+          El cuestionario, la metodología de puntuación, el marco de
+          arquetipos, la plantilla del informe, el contenido del sitio web
+          y el código fuente son propiedad de FastwaySolutions o de sus
+          licenciantes. Recibes una licencia personal, intransferible y no
+          exclusiva para leer y conservar tu propio informe para uso
+          personal. No están permitidas la reproducción, distribución
+          pública, el uso comercial o las obras derivadas basadas en el
+          servicio o en sus resultados sin nuestro consentimiento previo
+          por escrito.
         </p>
       </Section>
 
-      <Section title="10. Liability">
+      <Section title="10. Responsabilidad">
         <p>
-          To the extent permitted by law, our total liability arising out
-          of or in connection with the service is limited to the price paid
-          by you for the Full Report. We are not liable for indirect,
-          incidental or consequential damages.
+          En la medida permitida por la ley, nuestra responsabilidad total
+          derivada del servicio se limita al precio que hayas pagado por el
+          Informe Completo. No somos responsables de daños indirectos,
+          incidentales o consecuentes.
         </p>
         <p className="mt-3">
-          Nothing in these Terms limits any right you may have as a
-          consumer under applicable mandatory legislation, including the
-          right to a service that conforms with what was offered.
+          Nada en estas Condiciones limita los derechos que, en su caso,
+          te correspondan como persona consumidora conforme a la
+          legislación imperativa aplicable, incluido el derecho a un
+          servicio conforme a lo ofrecido.
         </p>
       </Section>
 
-      <Section title="11. Changes to the service or these Terms">
+      <Section title="11. Cambios en el servicio o en estas Condiciones">
         <p>
-          We may improve, change or discontinue parts of the service over
-          time. We may also update these Terms; the version in force at the
-          time of your purchase will apply to that purchase. Material
-          changes will be notified on the website.
+          Podemos mejorar, modificar o interrumpir partes del servicio con
+          el tiempo. También podemos actualizar estas Condiciones; a tu
+          compra se aplicará la versión vigente en el momento de la misma.
+          Los cambios sustanciales se notificarán en el sitio web.
         </p>
       </Section>
 
-      <Section title="12. Governing law and disputes">
+      <Section title="12. Ley aplicable y resolución de conflictos">
         <p>
-          These Terms are governed by Spanish law. Disputes will be subject
-          to the competent courts at the consumer&apos;s domicile, where
-          applicable under mandatory consumer-protection rules.
+          Estas Condiciones se rigen por la ley española. Las controversias
+          se someterán a los juzgados y tribunales competentes del
+          domicilio de la persona consumidora, cuando así proceda conforme
+          a las normas imperativas de protección de consumidores.
         </p>
         <p className="mt-3">
-          The European Commission also operates an Online Dispute
-          Resolution platform available at{' '}
+          La Comisión Europea también pone a disposición una plataforma de
+          Resolución de Litigios en Línea disponible en{' '}
           <a
             href="https://ec.europa.eu/consumers/odr"
             target="_blank"
@@ -190,9 +201,10 @@ export default function TermsOfServicePage() {
         </p>
       </Section>
 
-      <Section title="13. Contact">
+      <Section title="13. Contacto">
         <p>
-          For any question regarding these Terms, contact us at{' '}
+          Para cualquier consulta relativa a estas Condiciones,
+          contáctanos en{' '}
           <a
             href="mailto:support@innerscore.es"
             className="text-[#1d4ed8] hover:underline"

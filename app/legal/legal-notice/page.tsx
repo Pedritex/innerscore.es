@@ -1,28 +1,28 @@
 export const metadata = {
-  title: 'Legal Notice — InnerScore',
+  title: 'Aviso Legal — InnerScore',
 };
 
 export default function LegalNoticePage() {
   return (
     <>
       <h1 className="font-display text-4xl font-bold text-[#0f172a]">
-        Legal Notice
+        Aviso Legal
       </h1>
       <p className="mt-2 text-sm text-[#64748b]">
-        Last updated: 12 May 2026
+        Última actualización: 12 de mayo de 2026
       </p>
 
-      <Section title="1. Site owner">
+      <Section title="1. Titular del sitio">
         <p>
-          The website <strong>innerscore.es</strong> (hereinafter, the
-          &ldquo;Website&rdquo;) is owned and operated by{' '}
-          <strong>FastwaySolutions</strong> (hereinafter, the &ldquo;Owner&rdquo;
-          or &ldquo;we&rdquo;).
+          El sitio web <strong>innerscore.es</strong> (en adelante, el
+          &ldquo;Sitio Web&rdquo;) es propiedad y está operado por{' '}
+          <strong>FastwaySolutions</strong> (en adelante, el &ldquo;Titular&rdquo;
+          o &ldquo;nosotros&rdquo;).
         </p>
         <p className="mt-3">
-          Tax ID / Business registration: [to be completed]<br />
-          Registered address: [to be completed]<br />
-          Contact email:{' '}
+          NIF / Identificación fiscal: [pendiente de completar]<br />
+          Domicilio social: [pendiente de completar]<br />
+          Correo de contacto:{' '}
           <a
             href="mailto:legal@innerscore.es"
             className="text-[#1d4ed8] hover:underline"
@@ -32,77 +32,84 @@ export default function LegalNoticePage() {
         </p>
       </Section>
 
-      <Section title="2. Purpose">
+      <Section title="2. Objeto">
         <p>
-          The Website offers an online emotional intelligence (EQ) assessment.
-          Users complete a 14-question quiz and may optionally purchase a
-          personalized 15-page PDF report delivered to their email inbox. No
-          physical goods are shipped.
+          El Sitio Web ofrece una evaluación de inteligencia emocional (IE)
+          online. Las personas usuarias completan un cuestionario de 14
+          preguntas y, opcionalmente, pueden adquirir un informe en PDF
+          personalizado de 15 páginas que se envía a su correo electrónico. No
+          se envía ningún producto físico.
         </p>
       </Section>
 
-      <Section title="3. Use of the Website">
+      <Section title="3. Uso del Sitio Web">
         <p>
-          Accessing the Website grants you the status of user and implies your
-          acceptance of this Legal Notice as well as our Terms of Service,
-          Privacy Policy and Cookie Policy. You agree to use the Website in
-          good faith, in accordance with applicable law, and not to interfere
-          with its normal operation.
+          El acceso al Sitio Web te otorga la condición de persona usuaria e
+          implica la aceptación del presente Aviso Legal, así como de
+          nuestras Condiciones del Servicio, Política de Privacidad y
+          Política de Cookies. Te comprometes a utilizar el Sitio Web de
+          buena fe, conforme a la normativa aplicable, y a no interferir en
+          su funcionamiento normal.
         </p>
       </Section>
 
-      <Section title="4. Intellectual property">
+      <Section title="4. Propiedad intelectual">
         <p>
-          All content displayed on the Website — including texts,
-          assessments, scoring methodology, archetype framework, graphics,
-          logos, source code, and the PDF report — is the property of the
-          Owner or its licensors and is protected by applicable intellectual
-          property laws. No part of the Website or its outputs may be
-          reproduced, distributed, modified, or transmitted without prior
-          written authorization, except for personal, non-commercial use of
-          your own purchased report.
+          Todo el contenido mostrado en el Sitio Web —textos, evaluaciones,
+          metodología de puntuación, marco de arquetipos, gráficos,
+          logotipos, código fuente y el informe en PDF— es propiedad del
+          Titular o de sus licenciantes y está protegido por la legislación
+          aplicable en materia de propiedad intelectual. Ninguna parte del
+          Sitio Web ni de sus resultados puede ser reproducida, distribuida,
+          modificada ni transmitida sin autorización previa por escrito,
+          salvo para el uso personal y no comercial de tu propio informe
+          adquirido.
         </p>
       </Section>
 
-      <Section title="5. Liability">
+      <Section title="5. Responsabilidad">
         <p>
-          The Owner makes reasonable efforts to ensure that the information
-          provided on the Website is accurate and up to date. The EQ
-          assessment is intended for self-reflection and educational purposes
-          only and does not constitute medical, psychological, or therapeutic
-          advice. The Owner shall not be liable for any decisions taken on
-          the basis of the report.
+          El Titular realiza esfuerzos razonables para que la información
+          facilitada en el Sitio Web sea exacta y esté actualizada. La
+          evaluación de IE tiene fines exclusivamente de autorreflexión y
+          educativos, y no constituye asesoramiento médico, psicológico ni
+          terapéutico. El Titular no será responsable de las decisiones
+          adoptadas sobre la base del informe.
         </p>
         <p className="mt-3">
-          To the maximum extent permitted by law, the Owner declines all
-          liability for damages arising from the use of the Website,
-          interruptions in service, or third-party content that may be linked
-          from the Website.
+          En la máxima medida permitida por la ley, el Titular declina toda
+          responsabilidad por los daños derivados del uso del Sitio Web, las
+          interrupciones del servicio o los contenidos de terceros enlazados
+          desde el Sitio Web.
         </p>
       </Section>
 
-      <Section title="6. External links">
+      <Section title="6. Enlaces externos">
         <p>
-          The Website may contain links to third-party services that we use
-          to deliver the product (payment, infrastructure, email). The Owner
-          is not responsible for the content or practices of those third
-          parties; their use is governed by their own terms.
+          El Sitio Web puede contener enlaces a servicios de terceros que
+          utilizamos para prestar el producto (pago, infraestructura,
+          correo). El Titular no es responsable del contenido ni de las
+          prácticas de esos terceros; su uso se rige por sus propias
+          condiciones.
         </p>
       </Section>
 
-      <Section title="7. Modifications">
+      <Section title="7. Modificaciones">
         <p>
-          The Owner reserves the right to update this Legal Notice at any
-          time. The version in force at the moment of access shall apply.
+          El Titular se reserva el derecho a actualizar este Aviso Legal en
+          cualquier momento. Resultará de aplicación la versión vigente en el
+          momento del acceso.
         </p>
       </Section>
 
-      <Section title="8. Applicable law and jurisdiction">
+      <Section title="8. Ley aplicable y jurisdicción">
         <p>
-          This Legal Notice is governed by Spanish law. Any dispute arising
-          from the use of the Website shall be subject to the competent
-          courts of the Owner&apos;s registered address, without prejudice to
-          consumers&apos; rights under applicable mandatory legislation.
+          Este Aviso Legal se rige por la ley española. Cualquier
+          controversia derivada del uso del Sitio Web se someterá a los
+          juzgados y tribunales competentes del domicilio social del
+          Titular, sin perjuicio de los derechos que correspondan a las
+          personas consumidoras conforme a la legislación imperativa
+          aplicable.
         </p>
       </Section>
     </>

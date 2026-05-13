@@ -12,7 +12,7 @@ export default function LegalLayout({
           href="/"
           className="inline-flex items-center gap-1 text-sm font-medium text-[#1d4ed8] hover:underline"
         >
-          ← Back to InnerScore
+          ← Volver a InnerScore
         </Link>
         <article
           className="mt-8 rounded-2xl bg-white p-8 md:p-12 leading-relaxed text-[#0f172a]"

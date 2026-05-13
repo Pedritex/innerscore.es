@@ -12,19 +12,28 @@ const DIMENSION_ORDER: Dimension[] = [
 ];
 
 const ARCHETYPES: Record<Dimension, string> = {
-  'self-awareness': 'The Observer',
-  'self-regulation': 'The Anchor',
-  motivation: 'The Driver',
-  empathy: 'The Empath',
-  'social-skills': 'The Connector',
+  'self-awareness': 'El Observador',
+  'self-regulation': 'El Ancla',
+  motivation: 'El Impulsor',
+  empathy: 'El Empático',
+  'social-skills': 'El Conector',
+};
+
+// "ancla" is feminine in Spanish, so its evolved form uses "Evolucionada".
+const EVOLVED_ARCHETYPES: Record<Dimension, string> = {
+  'self-awareness': 'El Observador Evolucionado',
+  'self-regulation': 'El Ancla Evolucionada',
+  motivation: 'El Impulsor Evolucionado',
+  empathy: 'El Empático Evolucionado',
+  'social-skills': 'El Conector Evolucionado',
 };
 
 const LABELS: Record<Dimension, string> = {
-  'self-awareness': 'Self-Awareness',
-  'self-regulation': 'Self-Regulation',
-  motivation: 'Motivation',
-  empathy: 'Empathy',
-  'social-skills': 'Social Skills',
+  'self-awareness': 'Autoconciencia',
+  'self-regulation': 'Autorregulación',
+  motivation: 'Motivación',
+  empathy: 'Empatía',
+  'social-skills': 'Habilidades Sociales',
 };
 
 export function calculateScores(answers: QuizAnswer[]): QuizResult {
@@ -54,10 +63,8 @@ export function calculateScores(answers: QuizAnswer[]): QuizResult {
     }
   }
 
-  let archetype = ARCHETYPES[topDim];
-  if (totalScore >= 80) {
-    archetype = archetype.replace(/^The /, 'The Evolved ');
-  }
+  const archetype =
+    totalScore >= 80 ? EVOLVED_ARCHETYPES[topDim] : ARCHETYPES[topDim];
 
   return { totalScore, dimensions, archetype };
 }

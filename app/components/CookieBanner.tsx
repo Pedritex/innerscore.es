@@ -25,21 +25,21 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-live="polite"
-      aria-label="Cookie consent"
+      aria-label="Consentimiento de cookies"
       className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-2xl rounded-2xl bg-white p-5 shadow-lg md:p-6"
       style={{ border: '1px solid #e8d5c8' }}
     >
       <p className="text-sm text-[#0f172a] leading-relaxed">
-        InnerScore uses essential local storage to remember your test
-        answers and your cookie choice. We don&apos;t use analytics or
-        advertising cookies. Read our{' '}
+        InnerScore utiliza almacenamiento local esencial para recordar tus
+        respuestas del test y tu elección sobre las cookies. No usamos
+        cookies de analítica ni de publicidad. Lee nuestra{' '}
         <Link
           href="/legal/cookies"
           className="font-medium text-[#1d4ed8] underline-offset-2 hover:underline"
         >
-          cookie policy
+          política de cookies
         </Link>{' '}
-        for details.
+        para más detalles.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         <button
@@ -51,7 +51,7 @@ export default function CookieBanner() {
             boxShadow: '0 4px 12px rgba(29,78,216,0.25)',
           }}
         >
-          Accept
+          Aceptar
         </button>
         <button
           type="button"
@@ -59,7 +59,7 @@ export default function CookieBanner() {
           className="rounded-lg px-4 py-2 text-sm font-medium text-[#0f172a] transition-colors hover:bg-[#fdf6f0]"
           style={{ border: '1px solid #e8d5c8' }}
         >
-          Decline
+          Rechazar
         </button>
       </div>
     </div>

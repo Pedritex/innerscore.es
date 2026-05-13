@@ -7,11 +7,11 @@ import { getDimensionLabel } from '@/lib/scoring';
 import type { QuizAnswer } from '@/types';
 
 const SCALE = [
-  { num: 1, label: 'Never' },
-  { num: 2, label: 'Rarely' },
-  { num: 3, label: 'Sometimes' },
-  { num: 4, label: 'Often' },
-  { num: 5, label: 'Always' },
+  { num: 1, label: 'Nunca' },
+  { num: 2, label: 'Rara vez' },
+  { num: 3, label: 'A veces' },
+  { num: 4, label: 'A menudo' },
+  { num: 5, label: 'Siempre' },
 ];
 
 export default function QuizPage() {
@@ -57,8 +57,8 @@ export default function QuizPage() {
         <div className="flex items-center justify-between text-sm">
           <span className="font-medium text-[#1d4ed8]">
             {phase === 'email'
-              ? 'Final step'
-              : `Question ${String(currentIndex + 1).padStart(2, '0')} of ${String(total).padStart(2, '0')}`}
+              ? 'Último paso'
+              : `Pregunta ${String(currentIndex + 1).padStart(2, '0')} de ${String(total).padStart(2, '0')}`}
           </span>
           <span className="font-medium text-[#94a3b8] tabular-nums">
             {Math.round(progressPct)}%
@@ -110,16 +110,16 @@ export default function QuizPage() {
         ) : (
           <form onSubmit={handleSubmit} className="w-full max-w-md">
             <h2 className="font-display text-center text-4xl font-bold italic text-[#0f172a] md:text-5xl">
-              Almost there.
+              Ya casi estás.
             </h2>
             <p className="mt-3 text-center text-base text-[#64748b]">
-              Where should we send your personalized result?
+              ¿A dónde te enviamos tu resultado personalizado?
             </p>
             <input
               type="email"
               required
               autoFocus
-              placeholder="you@example.com"
+              placeholder="tu@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-8 w-full rounded-lg bg-white px-4 py-3 text-base text-[#0f172a] outline-none placeholder:text-[#94a3b8] transition-colors"
@@ -139,7 +139,7 @@ export default function QuizPage() {
                 boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
               }}
             >
-              See my results
+              Ver mis resultados
             </button>
           </form>
         )}

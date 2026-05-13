@@ -19,11 +19,11 @@ const RING_RADIUS = 90;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 const BULLETS = [
-  'Emotional Archetype deep dive',
-  '90-day growth roadmap',
-  'Relationship patterns analysis',
-  'Workplace EQ strategies',
-  'Personalized action steps',
+  'Análisis profundo de tu Arquetipo Emocional',
+  'Plan de crecimiento de 90 días',
+  'Análisis de patrones relacionales',
+  'Estrategias de IE en el trabajo',
+  'Pasos de acción personalizados',
 ];
 
 export default function ResultPage() {
@@ -72,10 +72,10 @@ export default function ResultPage() {
       <div className="mx-auto max-w-2xl px-6 py-20">
         <section>
           <h1 className="font-display text-center text-4xl font-bold text-[#0f172a] md:text-5xl">
-            Your EQ Profile
+            Tu perfil de IE
           </h1>
           <p className="mt-2 text-center text-sm text-[#64748b]">
-            Based on Goleman&apos;s 5-dimension EQ model
+            Basado en el modelo de IE de 5 dimensiones de Goleman
           </p>
 
           <div className="mt-14 flex flex-col items-center">
@@ -114,7 +114,7 @@ export default function ResultPage() {
                   {result.totalScore}
                 </span>
                 <span className="mt-1 text-[10px] font-medium uppercase tracking-widest text-[#64748b]">
-                  Overall EQ Score
+                  Puntuación global de IE
                 </span>
               </div>
             </div>
@@ -165,25 +165,26 @@ export default function ResultPage() {
             >
               <div className="px-7 pb-20 pt-7">
                 <p className="text-[10px] font-medium uppercase tracking-widest text-[#1d4ed8]">
-                  Section 3 of 8 — Preview
+                  Sección 3 de 8 — Vista previa
                 </p>
                 <h3 className="font-display mt-3 text-2xl font-bold text-[#0f172a]">
-                  Your Emotional Archetype:{' '}
+                  Tu Arquetipo Emocional:{' '}
                   <span className="italic">{result.archetype}</span>
                 </h3>
 
                 <div style={{ filter: 'blur(4px)' }}>
                   <p className="mt-5 text-sm leading-relaxed text-[#0f172a]">
-                    People who score like you tend to navigate close
-                    relationships with a quiet, steady presence — anchoring the
-                    people around them in moments of tension. But this same
-                    instinct can quietly cost you when…
+                    Las personas con una puntuación como la tuya suelen
+                    navegar las relaciones cercanas con una presencia tranquila
+                    y constante, sirviendo de ancla a quienes las rodean en los
+                    momentos de tensión. Pero ese mismo instinto puede salirte
+                    caro cuando…
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-[#0f172a]">
-                    At work, this pattern shows up as an unusual ability to
-                    absorb pressure before it spreads to the team. The data
-                    points to three specific scenarios where this serves you,
-                    and two where it…
+                    En el trabajo, este patrón se manifiesta como una
+                    capacidad poco común de absorber presión antes de que se
+                    extienda al equipo. Los datos apuntan a tres escenarios
+                    concretos donde esto te beneficia y dos en los que…
                   </p>
 
                   <div
@@ -192,11 +193,12 @@ export default function ResultPage() {
                   />
 
                   <p className="mt-5 text-[10px] font-medium uppercase tracking-widest text-[#dc2626]">
-                    Relationship Impact
+                    Impacto en tus relaciones
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-[#0f172a]">
-                    Your closest partners likely describe you as the person who
-                    holds the centre when things shake. The hidden trade-off…
+                    Tus personas más cercanas probablemente te describen como
+                    quien sostiene el centro cuando todo tiembla. La concesión
+                    oculta…
                   </p>
                 </div>
               </div>
@@ -218,15 +220,15 @@ export default function ResultPage() {
               >
                 <LockIcon />
                 <span className="text-xs font-medium text-[#0f172a]">
-                  12 more pages locked
+                  12 páginas más bloqueadas
                 </span>
               </div>
             </div>
           </div>
 
           <p className="font-display mx-auto mt-10 max-w-xl text-center text-3xl font-bold leading-tight text-[#0f172a] md:text-4xl">
-            You&apos;re one step away from understanding yourself{' '}
-            <span className="italic">completely.</span>
+            Estás a un paso de entenderte{' '}
+            <span className="italic">por completo.</span>
           </p>
         </section>
 
@@ -254,16 +256,16 @@ export default function ResultPage() {
               />
             </span>
             <span className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
-              Your personalized report is ready to generate
+              Tu informe personalizado está listo para generarse
             </span>
           </div>
 
           <h2 className="font-display mt-5 text-center text-3xl font-bold text-[#0f172a] md:text-4xl">
-            Unlock Your Full Report
+            Desbloquea tu informe completo
           </h2>
 
           <p className="mt-3 text-center text-sm text-[#64748b]">
-            Tailored for{' '}
+            Personalizado para{' '}
             <span className="font-display font-bold italic text-[#0f172a]">
               {result.archetype}
             </span>
@@ -271,9 +273,9 @@ export default function ResultPage() {
 
           <div className="mx-auto mt-7 max-w-sm">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-medium text-[#0f172a]">Report</span>
+              <span className="font-medium text-[#0f172a]">Informe</span>
               <span className="font-medium tabular-nums text-[#1d4ed8]">
-                50% complete
+                50% completado
               </span>
             </div>
             <div
@@ -291,7 +293,7 @@ export default function ResultPage() {
               />
             </div>
             <p className="mt-2 text-center text-[11px] text-[#64748b]">
-              Unlock to complete the remaining 50%
+              Desbloquéalo para completar el 50% restante
             </p>
           </div>
 
@@ -325,11 +327,11 @@ export default function ResultPage() {
               boxShadow: '0 12px 28px rgba(234,88,12,0.4)',
             }}
           >
-            Get My Full Report — £9.99
+            Quiero mi informe completo — 9,99 £
           </button>
 
           <p className="mt-4 text-center text-xs text-[#94a3b8]">
-            Instant delivery · PDF to your inbox · One-time payment
+            Entrega instantánea · PDF en tu correo · Pago único
           </p>
         </section>
       </div>

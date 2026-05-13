@@ -55,7 +55,7 @@ function wrapLines(
 
 async function buildPdf(reportText: string): Promise<Uint8Array> {
   const pdfDoc = await PDFDocument.create();
-  pdfDoc.setTitle('InnerScore EQ Report');
+  pdfDoc.setTitle('Informe InnerScore de IE');
   pdfDoc.setProducer('InnerScore');
 
   const times = await pdfDoc.embedFont(StandardFonts.TimesRoman);
@@ -170,7 +170,7 @@ async function buildPdf(reportText: string): Promise<Uint8Array> {
   const total = pdfDoc.getPageCount();
   for (let p = 0; p < total; p++) {
     const pg = pdfDoc.getPage(p);
-    pg.drawText(`InnerScore  ·  Page ${p + 1} of ${total}`, {
+    pg.drawText(`InnerScore  ·  Página ${p + 1} de ${total}`, {
       x: MARGIN_X,
       y: 28,
       font: helvetica,
@@ -192,10 +192,10 @@ export async function POST(request: Request) {
     const { error: emailError } = await resend.emails.send({
       from: FROM_ADDRESS,
       to: [email],
-      subject: 'Your InnerScore EQ Report — Download Attached',
-      html: '<p>Hi,</p><p>Your personalized emotional intelligence report is ready! Download it below.</p><p>InnerScore Team</p>',
+      subject: 'Tu informe de IE InnerScore — Descarga adjunta',
+      html: '<p>Hola,</p><p>Tu informe personalizado de inteligencia emocional ya está listo. Lo encontrarás adjunto a este correo.</p><p>El equipo de InnerScore</p>',
       attachments: [
-        { filename: 'InnerScore-EQ-Report.pdf', content: pdfBuffer },
+        { filename: 'InnerScore-Informe-IE.pdf', content: pdfBuffer },
       ],
     });
 

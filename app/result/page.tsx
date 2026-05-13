@@ -244,10 +244,9 @@ export default function ResultPage() {
             </div>
           </div>
 
-          <p className="mt-6 text-center text-sm leading-relaxed text-[#64748b]">
-            You&apos;re one step away from the full picture — the parts that
-            explain <span className="italic">why</span> you score the way you
-            do, and what to do about it next.
+          <p className="font-display mx-auto mt-10 max-w-xl text-center text-3xl font-bold leading-tight text-[#0f172a] md:text-4xl">
+            You&apos;re one step away from understanding yourself{' '}
+            <span className="italic">completely.</span>
           </p>
         </section>
 
@@ -294,7 +293,7 @@ export default function ResultPage() {
             <div className="flex items-center justify-between text-xs">
               <span className="font-medium text-[#0f172a]">Report</span>
               <span className="font-medium tabular-nums text-[#1d4ed8]">
-                94% complete
+                50% complete
               </span>
             </div>
             <div
@@ -304,7 +303,7 @@ export default function ResultPage() {
               <div
                 className="h-full rounded-full"
                 style={{
-                  width: animated ? '94%' : '0%',
+                  width: animated ? '50%' : '0%',
                   backgroundColor: '#1d4ed8',
                   transition:
                     'width 1.4s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -312,7 +311,7 @@ export default function ResultPage() {
               />
             </div>
             <p className="mt-2 text-center text-[11px] text-[#64748b]">
-              Unlock to finish the final 6%
+              Unlock to complete the remaining 50%
             </p>
           </div>
 

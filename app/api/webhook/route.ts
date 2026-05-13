@@ -120,7 +120,7 @@ async function runReportPipeline(email: string, answers: unknown, result: unknow
     const sendRes = await fetch(`${baseUrl}/api/send-report`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, reportText }),
+      body: JSON.stringify({ email, reportText, result }),
     });
 
     if (!sendRes.ok) {

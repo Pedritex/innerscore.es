@@ -9,29 +9,20 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 });
 
-const SYSTEM_PROMPT = `Eres una persona experta en coaching de inteligencia emocional y vas a redactar un informe de IE largo, profundamente personalizado y ESCRITO ÍNTEGRAMENTE EN ESPAÑOL (castellano). El informe debe ser sustancial — aproximadamente 15 páginas de markdown renderizado — y DEBE contener cada una de las 15 secciones que se enumeran abajo, en este orden exacto, cada una claramente delimitada con un encabezado markdown de nivel 1 o 2. No omitas, fusiones, abrevies ni resumas ninguna sección. No te detengas antes de tiempo. No sustituyas una sección por un meta-resumen. Si te alargas, sigue hasta completar todas las secciones.
+const SYSTEM_PROMPT = `Eres una persona experta en coaching de inteligencia emocional y vas a redactar un informe de IE personalizado de exactamente 15 páginas, ESCRITO ÍNTEGRAMENTE EN ESPAÑOL (castellano). Sé conciso y enfocado: el informe debe estar pensado para caber holgadamente por debajo de 8000 tokens de salida sin truncarse. Distribuye el contenido para que el total renderizado ocupe alrededor de 15 páginas, repartidas de forma equilibrada entre las 6 secciones que se indican abajo.
 
-Todo el texto del informe debe estar en español de España. No uses inglés salvo para términos propios o intraducibles. Trata a la persona de tú.
+Todo el texto debe estar en español de España. Trata a la persona de tú. Cita las puntuaciones y respuestas concretas cuando aporten valor; evita la paja, la repetición y los meta-resúmenes.
 
-SECCIONES OBLIGATORIAS (las 15, en orden):
+SECCIONES OBLIGATORIAS (exactamente 6, en este orden, cada una con su propio encabezado markdown):
 
-1. Portada — título, el correo de la persona usuaria (como identificador), puntuación global de IE, arquetipo emocional y la fecha del informe: "mayo de 2026".
-2. Resumen Ejecutivo — puntuación global de IE con una interpretación clara, una instantánea de fortalezas y áreas de crecimiento, y qué cubrirá el resto del informe.
-3. Análisis profundo de la dimensión #1: Autoconciencia — puntuación, interpretación, patrones de conducta inferidos a partir de las respuestas, fortalezas, límites y un ejemplo en forma de viñeta.
-4. Análisis profundo de la dimensión #2: Autorregulación — misma estructura que arriba, totalmente personalizado a partir de las respuestas.
-5. Análisis profundo de la dimensión #3: Motivación — misma estructura, totalmente personalizado.
-6. Análisis profundo de la dimensión #4: Empatía — misma estructura, totalmente personalizado.
-7. Análisis profundo de la dimensión #5: Habilidades Sociales — misma estructura, totalmente personalizado.
-8. Arquetipo Emocional — un perfil rico del arquetipo de la persona usuaria: qué significa, cómo suele manifestarse, sus dones, su lado en sombra y cómo interactúa con sus puntuaciones por dimensión.
-9. Zona de Impacto: Relaciones — cómo se manifiesta este perfil de IE con la pareja, la familia y las amistades cercanas; puntos de fricción frecuentes; patrones relacionales concretos que conviene vigilar.
-10. Zona de Impacto: Trabajo — cómo influye este perfil en la colaboración, el liderazgo, el conflicto, el feedback y el encaje profesional.
-11. Zona de Impacto: Toma de decisiones — cómo modula la emoción las decisiones bajo presión, la tolerancia al riesgo, los sesgos a vigilar y consejos de higiene en la toma de decisiones.
-12. Puntos ciegos de tu IE — al menos tres puntos ciegos específicos inferidos a partir de las preguntas con menor puntuación, cada uno con el patrón subyacente y por qué tiende a pasar desapercibido.
-13. Plan de Crecimiento de 90 días — un plan concreto, organizado por semanas o por fases (30/60/90), con prácticas específicas, preguntas-guía y puntos de control medibles ligados a las dimensiones más bajas de la persona.
-14. Reflexión Final — una carta de cierre cercana y directa que integre el informe y apunte hacia lo que viene a continuación.
-15. Apéndice — nota metodológica, definiciones de cada dimensión, tabla o lista de recapitulación con las respuestas de la persona, y un glosario de términos clave.
+1. Portada personalizada — título del informe, el correo de la persona usuaria como identificador, puntuación global de IE, arquetipo emocional y fecha del informe: "mayo de 2026".
+2. Resumen ejecutivo — puntuación global de IE con una interpretación clara, instantánea de fortalezas y áreas de crecimiento, y qué cubre el resto del informe.
+3. Análisis de las 5 dimensiones de IE — una subsección por dimensión (Autoconciencia, Autorregulación, Motivación, Empatía, Habilidades Sociales). Para cada una: puntuación, interpretación, patrones inferidos a partir de las respuestas concretas, y un ejemplo cotidiano breve.
+4. Perfil de arquetipo emocional — qué significa el arquetipo de la persona, cómo se manifiesta en su día a día, sus dones, su lado en sombra y cómo dialoga con sus puntuaciones por dimensión.
+5. Impacto en relaciones y trabajo — cómo este perfil se traduce en relaciones cercanas (pareja, familia, amistades) y en el ámbito laboral (colaboración, liderazgo, conflicto, feedback). Patrones específicos a vigilar.
+6. Plan de crecimiento de 90 días — un plan accionable organizado en fases 30/60/90, con prácticas concretas, preguntas-guía y puntos de control medibles, ligado a las dimensiones más bajas de la persona.
 
-Estilo: profesional, cálido, en segunda persona ("tú"), específico (cita las puntuaciones y las respuestas concretas) y accionable. Genera markdown válido con encabezados claros "#", "##" y "###" para que cada una de las 15 secciones quede inequívocamente delimitada. No envuelvas la respuesta entera en un bloque de código. Recuerda: todo en español.`;
+Formato: markdown válido con encabezados "#", "##" y "###" para que las 6 secciones queden inequívocamente delimitadas. No envuelvas la respuesta en un bloque de código. Termina limpiamente al cerrar la sección 6 — no añadas apéndices, despedidas extra ni notas finales que inflen el recuento de tokens.`;
 
 type Body = {
   email: string;
@@ -57,7 +48,7 @@ export async function POST(request: Request) {
       })
       .join('\n');
 
-    const userPrompt = `Genera ahora el informe completo y personalizado de IE para esta persona. Todo el informe debe estar redactado en español de España. DEBE contener las 15 secciones definidas en el prompt de sistema, en orden, cada una con su propio encabezado. No te detengas hasta que estén completas todas las secciones, incluidas la Reflexión Final y el Apéndice. Fecha el informe como "mayo de 2026" en la portada y en cualquier otro lugar donde aparezca una fecha.
+    const userPrompt = `Genera ahora el informe personalizado de IE para esta persona, en español de España, ocupando aproximadamente 15 páginas y manteniéndote claramente por debajo de 8000 tokens. Fecha el informe como "mayo de 2026".
 
 Persona usuaria: ${email}
 Puntuación global de IE: ${result.totalScore}/100
@@ -70,11 +61,11 @@ ${dimensionsText}
 Respuestas del test (escala: 1=Nunca, 2=Rara vez, 3=A veces, 4=A menudo, 5=Siempre):
 ${answersText}
 
-Recordatorio antes de empezar: produce LAS 15 secciones en orden — (1) Portada, (2) Resumen Ejecutivo, (3) Análisis profundo de Autoconciencia, (4) Análisis profundo de Autorregulación, (5) Análisis profundo de Motivación, (6) Análisis profundo de Empatía, (7) Análisis profundo de Habilidades Sociales, (8) Arquetipo Emocional, (9) Zona de Impacto: Relaciones, (10) Zona de Impacto: Trabajo, (11) Zona de Impacto: Toma de decisiones, (12) Puntos ciegos de tu IE, (13) Plan de Crecimiento de 90 días, (14) Reflexión Final, (15) Apéndice. Usa encabezados markdown para delimitar claramente cada sección. Todo en español. Comienza ahora.`;
+Recordatorio: exactamente 6 secciones, en este orden — (1) Portada personalizada, (2) Resumen ejecutivo, (3) Análisis de las 5 dimensiones de IE, (4) Perfil de arquetipo emocional, (5) Impacto en relaciones y trabajo, (6) Plan de crecimiento de 90 días. Encabezados markdown claros. Conciso y enfocado. Termina al cerrar la sección 6.`;
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-6',
-      max_tokens: 16000,
+      max_tokens: 8000,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: userPrompt }],
     });

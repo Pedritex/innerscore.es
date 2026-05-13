@@ -32,7 +32,6 @@ export default function ResultPage() {
   const [result, setResult] = useState<QuizResult | null>(null);
   const [animated, setAnimated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     const raw = localStorage.getItem('innerscore_session');
@@ -55,28 +54,9 @@ export default function ResultPage() {
     }
   }, [router]);
 
-  const handleCheckout = async () => {
-    if (!session || !result || checkoutLoading) return;
-    setCheckoutLoading(true);
-    try {
-      const res = await fetch('/api/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: session.email,
-          answers: session.answers,
-          result,
-        }),
-      });
-      const data = await res.json();
-      if (data?.url) {
-        window.location.href = data.url;
-      } else {
-        setCheckoutLoading(false);
-      }
-    } catch {
-      setCheckoutLoading(false);
-    }
+  const handleCheckout = () => {
+    if (!session || !result) return;
+    router.push('/checkout');
   };
 
   if (loading || !result) {
@@ -339,14 +319,13 @@ export default function ResultPage() {
           <button
             type="button"
             onClick={handleCheckout}
-            disabled={checkoutLoading}
-            className="mt-10 w-full rounded-xl px-6 py-5 text-lg font-semibold text-white transition-transform hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 md:text-xl"
+            className="mt-10 w-full rounded-xl px-6 py-5 text-lg font-semibold text-white transition-transform hover:scale-[1.01] md:text-xl"
             style={{
               backgroundColor: '#ea580c',
               boxShadow: '0 12px 28px rgba(234,88,12,0.4)',
             }}
           >
-            {checkoutLoading ? 'Redirecting…' : 'Get My Full Report — £9.99'}
+            Get My Full Report — £9.99
           </button>
 
           <p className="mt-4 text-center text-xs text-[#94a3b8]">

@@ -130,13 +130,18 @@ export default function QuizPage() {
 
   if (phase === 'intro') {
     return (
-      <main className="min-h-dvh bg-white">
-        <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-16 pb-10 text-center">
-          <ProgressCircle
-            durationMs={INTRO_CIRCLE_MS}
-            checkVisible={introCheckVisible}
-            checkFadeMs={INTRO_CHECK_FADE_MS}
-          />
+      <main className="flex min-h-dvh items-center justify-center bg-white">
+        <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-10 text-center">
+          <h2 className="font-display text-3xl font-bold italic text-[#0f172a] md:text-4xl">
+            Preparando tu test...
+          </h2>
+          <div className="mt-10">
+            <ProgressCircle
+              durationMs={INTRO_CIRCLE_MS}
+              checkVisible={introCheckVisible}
+              checkFadeMs={INTRO_CHECK_FADE_MS}
+            />
+          </div>
           <div
             className="mt-10 w-full max-w-md"
             style={{ position: 'relative', height: '4rem' }}

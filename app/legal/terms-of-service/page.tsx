@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
       <Section title="2. El servicio">
         <p>
           InnerScore ofrece un cuestionario de autoevaluación sobre
-          inteligencia emocional (14 preguntas en 5 dimensiones). Al
+          inteligencia emocional (30 preguntas en 5 dimensiones). Al
           completar el test recibes una vista previa gratuita en pantalla
           de tu puntuación global, tus puntuaciones por dimensión y tu
           arquetipo emocional.

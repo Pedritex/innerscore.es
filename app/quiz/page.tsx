@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { QUESTIONS } from '@/lib/questions';
 import { getDimensionLabel } from '@/lib/scoring';
 import type { QuizAnswer } from '@/types';
@@ -14,16 +14,58 @@ const SCALE = [
   { num: 5, label: 'Siempre' },
 ];
 
+const GENDER_OPTIONS = [
+  { value: 'hombre', label: 'Hombre' },
+  { value: 'mujer', label: 'Mujer' },
+  { value: 'prefiero-no-decirlo', label: 'Prefiero no decirlo' },
+];
+
+const INTRO_MESSAGES = [
+  'Responda a cada afirmación basándose en su opinión personal.',
+  'No puedes saltarte las preguntas, pero puedes volver a ellas más tarde.',
+  'Responde con sinceridad, no hay respuestas correctas.',
+];
+
+type Phase = 'gender' | 'intro' | 'quiz' | 'email';
+
 export default function QuizPage() {
   const router = useRouter();
+  const [phase, setPhase] = useState<Phase>('gender');
+  const [gender, setGender] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [email, setEmail] = useState('');
-  const [phase, setPhase] = useState<'quiz' | 'email'>('quiz');
+  const [introStep, setIntroStep] = useState(0);
 
   const total = QUESTIONS.length;
   const completed = phase === 'email' ? total : currentIndex;
   const progressPct = (completed / total) * 100;
+
+  useEffect(() => {
+    if (phase !== 'intro') return;
+    const PER_MESSAGE_MS = 2000;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    for (let i = 1; i < INTRO_MESSAGES.length; i++) {
+      timers.push(
+        setTimeout(() => setIntroStep(i), i * PER_MESSAGE_MS),
+      );
+    }
+    timers.push(
+      setTimeout(
+        () => setPhase('quiz'),
+        INTRO_MESSAGES.length * PER_MESSAGE_MS,
+      ),
+    );
+    return () => {
+      timers.forEach(clearTimeout);
+    };
+  }, [phase]);
+
+  const handleGenderSelect = (value: string) => {
+    setGender(value);
+    setIntroStep(0);
+    setPhase('intro');
+  };
 
   const handleAnswer = (value: number) => {
     const question = QUESTIONS[currentIndex];
@@ -39,21 +81,83 @@ export default function QuizPage() {
     }
   };
 
+  const handlePrevious = () => {
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim()) return;
     localStorage.setItem(
       'innerscore_session',
-      JSON.stringify({ email, answers }),
+      JSON.stringify({ email, gender, answers }),
     );
     router.push('/result');
   };
 
+  if (phase === 'gender') {
+    return (
+      <main className="min-h-dvh bg-white">
+        <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-10 pb-10">
+          <h2 className="font-display text-center text-3xl font-bold italic leading-snug text-[#0f172a] md:text-4xl">
+            ¿Con qué género te identificas?
+          </h2>
+          <div className="mt-10 flex w-full flex-col gap-3">
+            {GENDER_OPTIONS.map((opt) => (
+              <GenderButton
+                key={opt.value}
+                label={opt.label}
+                onClick={() => handleGenderSelect(opt.value)}
+              />
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (phase === 'intro') {
+    return (
+      <main className="min-h-dvh bg-white">
+        <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-16 pb-10 text-center">
+          <h2 className="font-display flex items-baseline justify-center gap-1 text-3xl font-bold italic text-[#0f172a] md:text-4xl">
+            <span>Preparando tu test</span>
+            <LoadingDots />
+          </h2>
+          <div
+            className="mt-10 w-full max-w-md"
+            style={{ position: 'relative', height: '4rem' }}
+          >
+            {INTRO_MESSAGES.map((msg, i) => (
+              <p
+                key={i}
+                className="text-base text-[#64748b] md:text-lg"
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  opacity: introStep === i ? 1 : 0,
+                  transition: 'opacity 500ms ease-in-out',
+                }}
+              >
+                {msg}
+              </p>
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   const currentQuestion = QUESTIONS[currentIndex];
+  const selectedValue = answers.find(
+    (a) => a.questionId === currentQuestion?.id,
+  )?.value;
 
   return (
     <main className="min-h-dvh bg-white">
-      <div className="mx-auto max-w-2xl px-6 pt-10">
+      <div className="mx-auto max-w-2xl px-6 pt-4">
         <div className="flex items-center justify-between text-sm">
           <span className="font-medium text-[#1d4ed8]">
             {phase === 'email'
@@ -79,7 +183,7 @@ export default function QuizPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 py-16">
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-6 pb-10">
         {phase === 'quiz' ? (
           <>
             <span
@@ -96,16 +200,28 @@ export default function QuizPage() {
               {currentQuestion.text}
             </h2>
 
-            <div className="mt-12 flex w-full flex-col gap-3">
+            <div className="mt-10 flex w-full flex-col gap-3">
               {SCALE.map((s) => (
                 <AnswerButton
                   key={s.num}
                   num={s.num}
                   label={s.label}
+                  selected={selectedValue === s.num}
                   onClick={() => handleAnswer(s.num)}
                 />
               ))}
             </div>
+
+            {currentIndex > 0 && (
+              <button
+                type="button"
+                onClick={handlePrevious}
+                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#64748b] transition-colors hover:text-[#1d4ed8]"
+              >
+                <span aria-hidden>←</span>
+                Anterior
+              </button>
+            )}
           </>
         ) : (
           <form onSubmit={handleSubmit} className="w-full max-w-md">
@@ -151,10 +267,12 @@ export default function QuizPage() {
 function AnswerButton({
   num,
   label,
+  selected,
   onClick,
 }: {
   num: number;
   label: string;
+  selected: boolean;
   onClick: () => void;
 }) {
   return (
@@ -163,16 +281,20 @@ function AnswerButton({
       onClick={onClick}
       className="flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left text-base font-medium text-[#0f172a] transition-all"
       style={{
-        backgroundColor: '#f8faff',
-        border: '1px solid #dde8ff',
+        backgroundColor: selected ? '#eff6ff' : '#f8faff',
+        border: selected ? '1px solid #1d4ed8' : '1px solid #dde8ff',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.border = '1px solid #1d4ed8';
         e.currentTarget.style.backgroundColor = '#eff6ff';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.border = '1px solid #dde8ff';
-        e.currentTarget.style.backgroundColor = '#f8faff';
+        e.currentTarget.style.border = selected
+          ? '1px solid #1d4ed8'
+          : '1px solid #dde8ff';
+        e.currentTarget.style.backgroundColor = selected
+          ? '#eff6ff'
+          : '#f8faff';
       }}
     >
       <span
@@ -186,5 +308,65 @@ function AnswerButton({
       </span>
       <span>{label}</span>
     </button>
+  );
+}
+
+function GenderButton({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full items-center justify-center rounded-xl px-5 py-4 text-base font-medium text-[#0f172a] transition-all"
+      style={{
+        backgroundColor: '#f8faff',
+        border: '1px solid #dde8ff',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.border = '1px solid #1d4ed8';
+        e.currentTarget.style.backgroundColor = '#eff6ff';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.border = '1px solid #dde8ff';
+        e.currentTarget.style.backgroundColor = '#f8faff';
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
+function LoadingDots() {
+  return (
+    <span aria-hidden className="inline-flex gap-0.5">
+      <Dot delay="0ms" />
+      <Dot delay="200ms" />
+      <Dot delay="400ms" />
+      <style>{`
+        @keyframes innerscore-dot-bounce {
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+          30% { transform: translateY(-4px); opacity: 1; }
+        }
+      `}</style>
+    </span>
+  );
+}
+
+function Dot({ delay }: { delay: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        animation: 'innerscore-dot-bounce 1.2s ease-in-out infinite',
+        animationDelay: delay,
+      }}
+    >
+      .
+    </span>
   );
 }

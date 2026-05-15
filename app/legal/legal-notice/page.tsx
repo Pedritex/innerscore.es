@@ -35,7 +35,7 @@ export default function LegalNoticePage() {
       <Section title="2. Objeto">
         <p>
           El Sitio Web ofrece una evaluación de inteligencia emocional (IE)
-          online. Las personas usuarias completan un cuestionario de 14
+          online. Las personas usuarias completan un cuestionario de 30
           preguntas y, opcionalmente, pueden adquirir un informe en PDF
           personalizado de 15 páginas que se envía a su correo electrónico. No
           se envía ningún producto físico.

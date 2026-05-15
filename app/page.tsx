@@ -104,12 +104,13 @@ function Hero() {
             className="font-display font-bold italic"
             style={{ color: '#ea580c' }}
           >
-            tus emociones.
+            tus emociones
           </em>
+          {' '}con este test de inteligencia emocional
         </h1>
 
         <p className="mx-auto mt-6 max-w-lg text-base text-[#64748b] md:text-lg">
-          14 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
+          30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
           en tu bandeja de entrada.
         </p>
 

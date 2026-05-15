@@ -37,7 +37,7 @@ export default function PrivacyPolicyPage() {
               tú para recibir tu informe.
             </>,
             <>
-              <strong>Respuestas del test</strong> — las 14 respuestas
+              <strong>Respuestas del test</strong> — las 30 respuestas
               numéricas (1–5) que envías durante la evaluación.
             </>,
             <>

@@ -80,4 +80,84 @@ export const QUESTIONS: Question[] = [
     dimension: 'social-skills',
     text: 'Puedo expresar mis ideas y necesidades con claridad sin herir a los demás.',
   },
+  {
+    id: 15,
+    dimension: 'self-awareness',
+    text: 'Reconozco con facilidad cómo mi estado de ánimo influye en las decisiones que tomo cada día.',
+  },
+  {
+    id: 16,
+    dimension: 'self-awareness',
+    text: 'Soy consciente de mis principales fortalezas y limitaciones emocionales.',
+  },
+  {
+    id: 17,
+    dimension: 'self-awareness',
+    text: 'Cuando reacciono de forma desproporcionada, después soy capaz de entender qué lo provocó.',
+  },
+  {
+    id: 18,
+    dimension: 'self-regulation',
+    text: 'Logro adaptarme con flexibilidad cuando cambian los planes de manera inesperada.',
+  },
+  {
+    id: 19,
+    dimension: 'self-regulation',
+    text: 'Cuando siento una emoción intensa, encuentro maneras saludables de canalizarla.',
+  },
+  {
+    id: 20,
+    dimension: 'self-regulation',
+    text: 'Evito decir o hacer cosas de las que después pueda arrepentirme cuando estoy alterado.',
+  },
+  {
+    id: 21,
+    dimension: 'motivation',
+    text: 'Disfruto del proceso de aprender y mejorar, no solo de los resultados que obtengo.',
+  },
+  {
+    id: 22,
+    dimension: 'motivation',
+    text: 'Me recupero rápidamente del desánimo después de un fracaso o un revés importante.',
+  },
+  {
+    id: 23,
+    dimension: 'motivation',
+    text: 'Me marco metas claras y trabajo de forma constante para alcanzarlas.',
+  },
+  {
+    id: 24,
+    dimension: 'motivation',
+    text: 'Mantengo una actitud optimista incluso cuando las circunstancias son difíciles.',
+  },
+  {
+    id: 25,
+    dimension: 'empathy',
+    text: 'Soy capaz de ponerme en el lugar de personas cuya forma de pensar es muy distinta a la mía.',
+  },
+  {
+    id: 26,
+    dimension: 'empathy',
+    text: 'Capto las señales no verbales —tono, gestos, silencios— que muestran cómo se siente alguien.',
+  },
+  {
+    id: 27,
+    dimension: 'empathy',
+    text: 'Cuando alguien necesita desahogarse, soy capaz de escuchar sin juzgar.',
+  },
+  {
+    id: 28,
+    dimension: 'social-skills',
+    text: 'Me resulta fácil construir y mantener relaciones de confianza con personas distintas.',
+  },
+  {
+    id: 29,
+    dimension: 'social-skills',
+    text: 'Sé negociar y llegar a acuerdos en los que todas las partes se sientan respetadas.',
+  },
+  {
+    id: 30,
+    dimension: 'social-skills',
+    text: 'En un grupo, contribuyo a generar un clima de colaboración y cohesión.',
+  },
 ];

@@ -35,6 +35,20 @@ export default function Footer() {
           ))}
         </nav>
       </div>
+      <div className="mx-auto max-w-6xl px-6 pb-8 text-[11px] leading-relaxed text-[#94a3b8]">
+        <p>
+          La web no ofrece consejos u opiniones profesionales o de una
+          exactitud absoluta sobre productos o servicios. La información y las
+          opiniones proporcionadas tienen únicamente fines de entretenimiento y
+          educativos y no deben utilizarse con fines de asesoramiento
+          profesional. Por lo tanto, antes de tomar cualquier decisión basada
+          en tus puntuaciones, te recomendamos que consultes con los
+          profesionales oportunos. No proporcionamos ningún asesoramiento
+          profesional o de exactitud absoluta sobre productos o servicios.
+          CUALQUIER USO O CREDIBILIDAD QUE SE OTORGUE A LA INFORMACIÓN
+          ENCONTRADA EN LA WEB ES POR TU CUENTA Y RIESGO.
+        </p>
+      </div>
     </footer>
   );
 }

@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: 'InnerScore — Evaluación de Inteligencia Emocional',
   description:
-    'Descubre cómo gestionas realmente tus emociones. 14 preguntas, 5 dimensiones, un informe personalizado de 15 páginas.',
+    'Descubre cómo gestionas realmente tus emociones. 30 preguntas, 5 dimensiones, un informe personalizado de 15 páginas.',
 };
 
 export default function RootLayout({

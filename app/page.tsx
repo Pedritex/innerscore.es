@@ -86,7 +86,7 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 py-6 text-center md:py-24">
+      <div className="relative mx-auto max-w-3xl px-6 pt-6 pb-3 text-center md:py-24">
         <span
           className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
           style={{
@@ -98,7 +98,7 @@ function Hero() {
           Test de Inteligencia Emocional
         </span>
 
-        <h1 className="font-display mt-3 text-lg font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
+        <h1 className="font-display mt-3 text-2xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
           Descubre cómo gestionas realmente{' '}
           <em
             className="font-display font-bold italic"
@@ -152,7 +152,7 @@ function TrustItem({
 
 function Features() {
   return (
-    <section className="mx-auto grid w-full max-w-5xl gap-4 px-6 py-20 md:grid-cols-3">
+    <section className="mx-auto grid w-full max-w-5xl gap-4 px-6 py-6 md:grid-cols-3 md:py-20">
       <FeatureCard
         accent="#1d4ed8"
         title="Basado en ciencia"

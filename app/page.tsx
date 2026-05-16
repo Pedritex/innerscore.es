@@ -19,7 +19,7 @@ function Header() {
       className="bg-white"
       style={{ borderBottom: '1px solid #e8d5c8' }}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-3 items-center px-6 py-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-3 items-center px-6 py-3 md:py-4">
         <Link href="/" className="text-xl">
           <span className="font-display font-bold italic text-[#0f172a]">
             Inner
@@ -86,7 +86,7 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 py-24 text-center">
+      <div className="relative mx-auto max-w-3xl px-6 py-8 text-center md:py-24">
         <span
           className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
           style={{
@@ -98,7 +98,7 @@ function Hero() {
           Test de Inteligencia Emocional
         </span>
 
-        <h1 className="font-display mt-6 text-5xl font-bold leading-[1.08] text-[#0f172a] md:text-6xl">
+        <h1 className="font-display mt-4 text-3xl font-bold leading-[1.08] text-[#0f172a] md:mt-6 md:text-6xl">
           Descubre cómo gestionas realmente{' '}
           <em
             className="font-display font-bold italic"
@@ -109,14 +109,14 @@ function Hero() {
           {' '}con este test de inteligencia emocional
         </h1>
 
-        <p className="mx-auto mt-6 max-w-lg text-base text-[#64748b] md:text-lg">
+        <p className="mx-auto mt-4 max-w-lg text-sm text-[#64748b] md:mt-6 md:text-lg">
           30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
           en tu bandeja de entrada.
         </p>
 
         <Link
           href="/quiz"
-          className="mt-10 inline-flex items-center justify-center rounded-xl px-8 py-3 text-base font-semibold text-white transition-transform hover:scale-[1.02]"
+          className="mt-6 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
           style={{
             backgroundColor: '#1d4ed8',
             boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
@@ -125,7 +125,7 @@ function Hero() {
           Hacer el test gratuito
         </Link>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8]">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:mt-10">
           <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
           <TrustItem icon={<IconBolt />} text="Te enviaremos tu informe por correo electrónico" />
           <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />

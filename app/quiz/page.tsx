@@ -233,7 +233,7 @@ export default function QuizPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-6 pb-10">
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-4 pb-6 md:pt-6 md:pb-10">
         <span
           className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#1d4ed8]"
           style={{
@@ -244,11 +244,11 @@ export default function QuizPage() {
           {getDimensionLabel(currentQuestion.dimension)}
         </span>
 
-        <h2 className="font-display mt-6 max-w-2xl text-center text-3xl font-bold italic leading-snug text-[#0f172a] md:text-4xl">
+        <h2 className="font-display mt-4 max-w-2xl text-center text-xl font-bold italic leading-snug text-[#0f172a] md:mt-6 md:text-4xl">
           {currentQuestion.text}
         </h2>
 
-        <div className="mt-10 flex w-full flex-col gap-3">
+        <div className="mt-5 flex w-full flex-col gap-2 md:mt-10 md:gap-3">
           {SCALE.map((s) => (
             <AnswerButton
               key={s.num}
@@ -264,7 +264,7 @@ export default function QuizPage() {
           <button
             type="button"
             onClick={handlePrevious}
-            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#64748b] transition-colors hover:text-[#1d4ed8]"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#64748b] transition-colors hover:text-[#1d4ed8] md:mt-6"
           >
             <span aria-hidden>←</span>
             Anterior
@@ -290,7 +290,7 @@ function AnswerButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left text-base font-medium text-[#0f172a] transition-all"
+      className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-left text-sm font-medium text-[#0f172a] transition-all md:gap-4 md:px-5 md:py-4 md:text-base"
       style={{
         backgroundColor: selected ? '#eff6ff' : '#f8faff',
         border: selected ? '1px solid #1d4ed8' : '1px solid #dde8ff',
@@ -309,7 +309,7 @@ function AnswerButton({
       }}
     >
       <span
-        className="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-semibold text-[#1d4ed8]"
+        className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-semibold text-[#1d4ed8] md:h-8 md:w-8 md:text-sm"
         style={{
           backgroundColor: '#eff6ff',
           border: '1px solid #bfdbfe',

@@ -97,16 +97,10 @@ function Hero() {
         >
           Test de Inteligencia Emocional
         </span>
+        <p className="mt-2 text-sm text-[#64748b]">Descubre cómo gestionas tus emociones</p>
 
-        <h1 className="font-display mt-3 text-2xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
-          Descubre cómo gestionas realmente{' '}
-          <em
-            className="font-display font-bold italic"
-            style={{ color: '#ea580c' }}
-          >
-            tus emociones
-          </em>
-          {' '}con este test de inteligencia emocional
+        <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
+          Test de Inteligencia Emocional
         </h1>
 
         <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mt-6 md:text-lg">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { calculateScores, getDimensionLabel } from '@/lib/scoring';
 import type { QuizAnswer, QuizResult } from '@/types';
@@ -26,12 +26,53 @@ const BULLETS = [
   'Pasos de acción personalizados',
 ];
 
+const NOTIFICATIONS = [
+  'María acaba de obtener su informe. Arquetipo: El Líder',
+  'Carlos acaba de obtener su informe. Arquetipo: El Empático',
+  'Ana acaba de obtener su informe. Arquetipo: El Ancla',
+  'Pablo acaba de obtener su informe. Arquetipo: El Visionario',
+  'Laura acaba de obtener su informe. Arquetipo: El Guardián',
+];
+
+const MEDIA_LOGOS = [
+  'El País',
+  'Expansión',
+  'Psychology Today',
+  'Muy Interesante',
+];
+
+const TESTIMONIALS = [
+  {
+    text: 'Nunca pensé que un test online pudiera describir tan bien cómo funciono emocionalmente. El informe me ayudó a entender por qué reacciono así en el trabajo.',
+    author: 'Marta R., Madrid',
+  },
+  {
+    text: 'Al principio era escéptico, pero la precisión me sorprendió. He cambiado cómo gestiono los conflictos con mi pareja.',
+    author: 'Alejandro V., Barcelona',
+  },
+  {
+    text: 'Lo recomendé a toda mi familia. El arquetipo emocional fue un descubrimiento total.',
+    author: 'Lucía M., Valencia',
+  },
+];
+
+const REPORT_COUNT_START = 47800;
+const REPORT_COUNT_END = 47832;
+const REPORT_COUNT_DURATION_MS = 1500;
+const NOTIFICATION_INTERVAL_MS = 4000;
+const NOTIFICATION_FADE_MS = 400;
+
 export default function ResultPage() {
   const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [animated, setAnimated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [notifIndex, setNotifIndex] = useState(0);
+  const [notifVisible, setNotifVisible] = useState(true);
+  const [reportCount, setReportCount] = useState(REPORT_COUNT_START);
+  const [showSticky, setShowSticky] = useState(false);
+  const priceRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const raw = localStorage.getItem('innerscore_session');
@@ -54,6 +95,51 @@ export default function ResultPage() {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (loading) return;
+    const tick = setInterval(() => {
+      setNotifVisible(false);
+      setTimeout(() => {
+        setNotifIndex((i) => (i + 1) % NOTIFICATIONS.length);
+        setNotifVisible(true);
+      }, NOTIFICATION_FADE_MS);
+    }, NOTIFICATION_INTERVAL_MS);
+    return () => clearInterval(tick);
+  }, [loading]);
+
+  useEffect(() => {
+    if (loading) return;
+    let raf = 0;
+    const start = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / REPORT_COUNT_DURATION_MS);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(
+        REPORT_COUNT_START + (REPORT_COUNT_END - REPORT_COUNT_START) * eased,
+      );
+      setReportCount(value);
+      if (t < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [loading]);
+
+  useEffect(() => {
+    if (loading) return;
+    const target = priceRef.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const past = entry.boundingClientRect.bottom < 0;
+        setShowSticky(!entry.isIntersecting && past);
+      },
+      { threshold: 0 },
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [loading]);
+
   const handleCheckout = () => {
     if (!session || !result) return;
     router.push('/checkout');
@@ -69,7 +155,34 @@ export default function ResultPage() {
 
   return (
     <main className="min-h-dvh bg-[#fdf6f0]">
-      <div className="mx-auto max-w-2xl px-6 py-20">
+      <div
+        className="fixed inset-x-0 top-0 z-40"
+        style={{ backgroundColor: '#0f172a' }}
+      >
+        <div className="mx-auto flex max-w-2xl items-center justify-center gap-2 px-6 py-2 text-xs text-white md:text-sm">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span
+              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70"
+              style={{ backgroundColor: '#22c55e' }}
+            />
+            <span
+              className="relative inline-flex h-2 w-2 rounded-full"
+              style={{ backgroundColor: '#22c55e' }}
+            />
+          </span>
+          <span
+            className="truncate text-center"
+            style={{
+              opacity: notifVisible ? 1 : 0,
+              transition: `opacity ${NOTIFICATION_FADE_MS}ms ease-in-out`,
+            }}
+          >
+            {NOTIFICATIONS[notifIndex]}
+          </span>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-2xl px-6 pb-32 pt-28">
         <section>
           <h1 className="font-display text-center text-4xl font-bold text-[#0f172a] md:text-5xl">
             Tu perfil de IE
@@ -238,6 +351,7 @@ export default function ResultPage() {
         />
 
         <section
+          ref={priceRef}
           className="rounded-2xl bg-white p-8"
           style={{ border: '1px solid #e8d5c8' }}
         >
@@ -297,11 +411,28 @@ export default function ResultPage() {
             </p>
           </div>
 
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="flex items-center gap-2 text-sm font-medium text-[#0f172a]">
+              <span aria-hidden>🔒</span>
+              <span className="tabular-nums">
+                {reportCount.toLocaleString('es-ES')}
+              </span>
+              <span>informes generados hoy</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <p className="text-[11px] font-medium uppercase tracking-widest text-[#64748b]">
+                Avalado por expertos en
+              </p>
+              <p className="mt-1 text-center text-sm font-bold text-[#0f172a]">
+                {MEDIA_LOGOS.join(' · ')}
+              </p>
+            </div>
+          </div>
+
           <div className="mt-8 flex items-baseline justify-center gap-3">
             <span className="font-display text-6xl font-bold text-[#0f172a]">
-              £9.99
+              3,00 €
             </span>
-            <span className="text-lg text-[#94a3b8] line-through">£24.99</span>
           </div>
 
           <ul className="mx-auto mt-8 flex max-w-md flex-col gap-3">
@@ -327,13 +458,68 @@ export default function ResultPage() {
               boxShadow: '0 12px 28px rgba(234,88,12,0.4)',
             }}
           >
-            Quiero mi informe completo — 9,99 £
+            Quiero mi informe completo — 3,00 €
           </button>
 
           <p className="mt-4 text-center text-xs text-[#94a3b8]">
-            Te enviaremos tu informe por correo electrónico · Pago único
+            Acceso completo 7 días · Luego 39,99€/mes · Cancela cuando quieras
           </p>
         </section>
+
+        <section className="mt-16">
+          <p className="text-center text-sm font-medium text-[#0f172a]">
+            Más de 50.000 personas en España confían en InnerScore
+          </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {TESTIMONIALS.map((t) => (
+              <div
+                key={t.author}
+                className="flex flex-col rounded-2xl bg-white p-6"
+                style={{ border: '1px solid #e8d5c8' }}
+              >
+                <div className="flex gap-0.5 text-base" aria-label="5 estrellas">
+                  <span aria-hidden>⭐⭐⭐⭐⭐</span>
+                </div>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#0f172a]">
+                  {`“${t.text}”`}
+                </p>
+                <p className="mt-4 text-xs font-medium text-[#64748b]">
+                  — {t.author}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <div
+        className="fixed inset-x-0 bottom-0 z-40 bg-white"
+        style={{
+          borderTop: '1px solid #e8d5c8',
+          transform: showSticky ? 'translateY(0)' : 'translateY(100%)',
+          transition: 'transform 300ms ease',
+          boxShadow: '0 -8px 20px rgba(15,23,42,0.08)',
+        }}
+      >
+        <div className="mx-auto flex max-w-2xl items-center gap-4 px-6 py-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold text-[#0f172a]">
+              Tu informe está listo
+            </p>
+            <p className="text-xs text-[#64748b]">3€ · 7 días de acceso</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleCheckout}
+            className="shrink-0 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.01]"
+            style={{
+              backgroundColor: '#ea580c',
+              boxShadow: '0 8px 20px rgba(234,88,12,0.35)',
+            }}
+          >
+            Obtener ahora
+          </button>
+        </div>
       </div>
     </main>
   );

@@ -19,26 +19,19 @@ function Header() {
       className="bg-white"
       style={{ borderBottom: '1px solid #e8d5c8' }}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-3 items-center px-6 py-3 md:py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3 md:py-4">
         <Link href="/" className="text-xl">
           <span className="font-display font-bold italic text-[#0f172a]">
             Inner
           </span>
           <span className="font-semibold text-[#1d4ed8]">Score</span>
         </Link>
-        <div className="justify-self-center">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-[#1d4ed8]"
-            style={{
-              backgroundColor: '#eff6ff',
-              border: '1px solid #bfdbfe',
-            }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#1d4ed8]" />
-            Test de Inteligencia Emocional
-          </span>
-        </div>
-        <div />
+        <nav className="hidden items-center gap-6 md:flex">
+          <Link href="/" className="text-sm text-[#64748b] transition-colors hover:text-[#0f172a]">Inicio</Link>
+          <Link href="/precios" className="text-sm text-[#64748b] transition-colors hover:text-[#0f172a]">Precios</Link>
+          <Link href="/preguntas-frecuentes" className="text-sm text-[#64748b] transition-colors hover:text-[#0f172a]">Preguntas frecuentes</Link>
+          <Link href="/contacto" className="text-sm text-[#64748b] transition-colors hover:text-[#0f172a]">Contacto</Link>
+        </nav>
       </div>
     </header>
   );

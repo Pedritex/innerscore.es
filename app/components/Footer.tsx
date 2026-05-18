@@ -14,7 +14,12 @@ export default function Footer() {
       className="mt-auto bg-white"
       style={{ borderTop: '1px solid #e8d5c8' }}
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[#64748b] md:flex-row">
+      <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-[#64748b]">
+        <p className="mb-5 text-center text-xs leading-relaxed text-[#94a3b8]">
+          <span className="font-semibold text-[#64748b]">Descargo de responsabilidad:</span>{' '}
+          InnerScore es una herramienta de autoconocimiento y no constituye un diagnóstico clínico ni sustituye la opinión de un profesional de salud mental.
+        </p>
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <p>
           © {year}{' '}
           <span className="font-display font-bold italic text-[#0f172a]">
@@ -34,6 +39,7 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
+        </div>
       </div>
     </footer>
   );

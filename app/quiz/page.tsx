@@ -79,7 +79,7 @@ export default function QuizPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 py-16">
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 py-10 md:py-16">
         {phase === 'quiz' ? (
           <>
             <span
@@ -92,11 +92,11 @@ export default function QuizPage() {
               {getDimensionLabel(currentQuestion.dimension)}
             </span>
 
-            <h2 className="font-display mt-6 max-w-2xl text-center text-3xl font-bold italic leading-snug text-[#0f172a] md:text-4xl">
+            <h2 className="font-display mt-6 max-w-2xl text-center text-4xl font-bold italic leading-snug text-[#0f172a] md:text-5xl">
               {currentQuestion.text}
             </h2>
 
-            <div className="mt-12 flex w-full flex-col gap-3">
+            <div className="mt-8 flex w-full flex-col gap-3">
               {SCALE.map((s) => (
                 <AnswerButton
                   key={s.num}
@@ -161,7 +161,7 @@ function AnswerButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left text-base font-medium text-[#0f172a] transition-all"
+      className="flex w-full items-center gap-4 rounded-xl px-5 py-4 text-left text-lg font-medium text-[#0f172a] transition-all"
       style={{
         backgroundColor: '#f8faff',
         border: '1px solid #dde8ff',

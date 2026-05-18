@@ -37,6 +37,7 @@ export default function Footer() {
       </div>
       <div className="mx-auto max-w-6xl px-6 pb-8 text-[11px] leading-relaxed text-[#94a3b8]">
         <p>
+          <span className="font-semibold">Descargo de responsabilidad:</span>{' '}
           La web no ofrece consejos u opiniones profesionales o de una
           exactitud absoluta sobre productos o servicios. La información y las
           opiniones proporcionadas tienen únicamente fines de entretenimiento y

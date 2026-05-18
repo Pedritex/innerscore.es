@@ -104,7 +104,7 @@ export default function QuizPage() {
 
   const handleGoToCheckout = () => {
     persistSession(answers);
-    router.push('/checkout');
+    router.push('/result');
   };
 
   if (phase === 'gender') {

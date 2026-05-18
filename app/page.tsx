@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Header from './components/Header';
 
 export default function Home() {
   return (
@@ -13,36 +14,6 @@ export default function Home() {
   );
 }
 
-function Header() {
-  return (
-    <header
-      className="bg-white"
-      style={{ borderBottom: '1px solid #e8d5c8' }}
-    >
-      <div className="mx-auto grid max-w-6xl grid-cols-3 items-center px-6 py-3 md:py-4">
-        <Link href="/" className="text-xl">
-          <span className="font-display font-bold italic text-[#0f172a]">
-            Inner
-          </span>
-          <span className="font-semibold text-[#1d4ed8]">Score</span>
-        </Link>
-        <div className="justify-self-center">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-[#1d4ed8]"
-            style={{
-              backgroundColor: '#eff6ff',
-              border: '1px solid #bfdbfe',
-            }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#1d4ed8]" />
-            Test de Inteligencia Emocional
-          </span>
-        </div>
-        <div />
-      </div>
-    </header>
-  );
-}
 
 function Hero() {
   return (

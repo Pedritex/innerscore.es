@@ -1,11 +1,18 @@
 // Shared report-generation + delivery pipeline. Called from /api/dispatch-report
 // after the user reaches /upsell/resumen.
 
-export async function runReportPipeline(
-  email: string,
-  answers: unknown,
-  result: unknown,
-) {
+export type ReportPipelineInput = {
+  email: string;
+  answers: unknown;
+  result: unknown;
+  tempPassword: string | null;
+  magicLinkUrl: string;
+  purchasedAt: Date;
+};
+
+export async function runReportPipeline(input: ReportPipelineInput) {
+  const { email, answers, result, tempPassword, magicLinkUrl, purchasedAt } =
+    input;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
@@ -27,7 +34,14 @@ export async function runReportPipeline(
     const sendRes = await fetch(`${baseUrl}/api/send-report`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, reportText, result }),
+      body: JSON.stringify({
+        email,
+        reportText,
+        result,
+        tempPassword,
+        magicLinkUrl,
+        purchasedAtIso: purchasedAt.toISOString(),
+      }),
     });
 
     if (!sendRes.ok) {

@@ -64,9 +64,9 @@ async function persistAndDispatch(
   metadata: Record<string, string>,
 ): Promise<{ error?: string }> {
   try {
-    const { data: existing, error: lookupError } = await supabaseAdmin
+    let { data: row, error: lookupError } = await supabaseAdmin
       .from('purchases')
-      .select('id')
+      .select('id, email, answers, result, report_sent')
       .eq('stripe_session_id', stripeId)
       .maybeSingle();
 
@@ -74,26 +74,46 @@ async function persistAndDispatch(
       return { error: lookupError.message };
     }
 
-    if (existing) {
+    // Fallback: the row should already exist (create-payment-intent inserts it),
+    // but in case the upfront insert failed, create a minimal row from metadata
+    // so we don't lose the dispatch entirely. Answers/result will be empty.
+    if (!row) {
+      const email = metadata.email;
+      if (!email) {
+        return { error: 'No purchase row and no email in metadata' };
+      }
+      const { data: inserted, error: insertError } = await supabaseAdmin
+        .from('purchases')
+        .insert({
+          email,
+          stripe_session_id: stripeId,
+          answers: [],
+          result: null,
+          report_sent: false,
+        })
+        .select('id, email, answers, result, report_sent')
+        .single();
+      if (insertError) {
+        return { error: insertError.message };
+      }
+      row = inserted;
+    }
+
+    if (row.report_sent) {
       return {};
     }
 
-    const answers = metadata.answers ? JSON.parse(metadata.answers) : [];
-    const result = metadata.result ? JSON.parse(metadata.result) : null;
-
-    const { error } = await supabaseAdmin.from('purchases').insert({
-      email: metadata.email,
-      stripe_session_id: stripeId,
-      answers,
-      result,
-      report_sent: false,
-    });
-
-    if (error) {
-      return { error: error.message };
+    // Mark as dispatched before scheduling the pipeline so duplicate webhook
+    // deliveries can't double-send the report.
+    const { error: updateError } = await supabaseAdmin
+      .from('purchases')
+      .update({ report_sent: true })
+      .eq('id', row.id);
+    if (updateError) {
+      return { error: updateError.message };
     }
 
-    after(() => runReportPipeline(metadata.email, answers, result));
+    after(() => runReportPipeline(row.email, row.answers, row.result));
     return {};
   } catch (err) {
     return {

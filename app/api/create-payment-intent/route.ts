@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+import { supabaseAdmin } from '@/lib/supabase';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -25,10 +26,23 @@ export async function POST(request: Request) {
       metadata: {
         kind: 'main',
         email,
-        answers: JSON.stringify(answers ?? []),
-        result: JSON.stringify(result ?? null),
       },
     });
+
+    // Persist quiz answers and result alongside the PI id so the webhook
+    // can dispatch the report without relying on Stripe metadata (which is
+    // limited to 500 chars per key — the answers JSON overflows it).
+    const { error: dbErr } = await supabaseAdmin.from('purchases').insert({
+      email,
+      stripe_session_id: paymentIntent.id,
+      answers: answers ?? [],
+      result: result ?? null,
+      report_sent: false,
+    });
+
+    if (dbErr) {
+      console.error('[create-payment-intent] purchases insert failed:', dbErr);
+    }
 
     return Response.json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {

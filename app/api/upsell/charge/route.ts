@@ -4,9 +4,9 @@ import { supabaseAdmin } from '@/lib/supabase';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const SLOT_TO_PRICE_ENV: Record<number, string> = {
-  1: 'STRIPE_PRICE_UPSELL_1',
-  2: 'STRIPE_PRICE_UPSELL_2',
-  3: 'STRIPE_PRICE_UPSELL_3',
+  1: 'STRIPE_UPSELL_1_PRICE',
+  2: 'STRIPE_UPSELL_2_PRICE',
+  3: 'STRIPE_UPSELL_3_PRICE',
 };
 
 export async function POST(request: Request) {

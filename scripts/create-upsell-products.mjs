@@ -32,21 +32,21 @@ const stripe = new Stripe(stripeKey);
 const UPSELLS = [
   {
     slot: 1,
-    envKey: 'STRIPE_PRICE_UPSELL_1',
+    envKey: 'STRIPE_UPSELL_1_PRICE',
     name: 'Guía de crecimiento emocional: ¡Encuentra tu mejor versión!',
     description:
       'Material complementario para profundizar en tu inteligencia emocional con ejercicios y herramientas prácticas.',
   },
   {
     slot: 2,
-    envKey: 'STRIPE_PRICE_UPSELL_2',
+    envKey: 'STRIPE_UPSELL_2_PRICE',
     name: 'Orientación y crecimiento profesional con IE',
     description:
       'Guía completa para aplicar la inteligencia emocional a tu carrera profesional y desarrollo laboral.',
   },
   {
     slot: 3,
-    envKey: 'STRIPE_PRICE_UPSELL_3',
+    envKey: 'STRIPE_UPSELL_3_PRICE',
     name: 'Guía de autoestima emocional: ¡Crea un yo más fuerte!',
     description:
       'Herramientas y prácticas para reforzar tu autoestima desde la inteligencia emocional.',

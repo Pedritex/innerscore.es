@@ -4,17 +4,23 @@ import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
+export type UpsellBenefit = { title: string; description: string };
+export type UpsellModule = { icon: string; title: string; description: string };
 export type UpsellTestimonial = {
-  text: string;
-  author: string;
+  name: string;
+  profession: string;
+  quote: string;
 };
 
 export type UpsellContent = {
   slot: 1 | 2 | 3;
   productTitle: string;
   shortDescription: string;
-  benefits: string[];
-  modules: string[];
+  whyImportantHeading: string;
+  whyImportantParagraph: string;
+  benefits: UpsellBenefit[];
+  whatIsIncludedHeading: string;
+  modules: UpsellModule[];
   testimonials: UpsellTestimonial[];
   mockup: React.ReactNode;
 };
@@ -34,7 +40,10 @@ function UpsellLayoutInner({
   slot,
   productTitle,
   shortDescription,
+  whyImportantHeading,
+  whyImportantParagraph,
   benefits,
+  whatIsIncludedHeading,
   modules,
   testimonials,
   mockup,
@@ -172,125 +181,143 @@ function UpsellLayoutInner({
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* "POR QUÉ ES IMPORTANTE" */}
       <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <h2 className="font-display text-center text-3xl font-bold text-[#0f172a] md:text-4xl">
-            Lo que conseguirás
+            {whyImportantHeading}
           </h2>
-          <ul
-            className={`mt-10 grid gap-5 md:gap-6 ${
-              benefits.length === 3
-                ? 'md:grid-cols-3'
-                : 'md:grid-cols-2 lg:grid-cols-4'
-            }`}
-          >
+          <p className="mt-6 text-center text-base leading-relaxed text-[#64748b] md:text-lg">
+            {whyImportantParagraph}
+          </p>
+
+          <ul className="mt-10 flex flex-col gap-4">
             {benefits.map((b) => (
               <li
-                key={b}
-                className="flex items-start gap-3 rounded-2xl p-5"
+                key={b.title}
+                className="flex items-start gap-4 rounded-2xl p-5"
                 style={{
                   backgroundColor: '#fdf6f0',
                   border: '1px solid #e8d5c8',
                 }}
               >
                 <span
-                  className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white"
+                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white"
                   style={{ backgroundColor: '#22c55e' }}
                   aria-hidden
                 >
                   <CheckIcon />
                 </span>
-                <span className="text-sm font-semibold text-[#0f172a]">
-                  {b}
-                </span>
+                <p className="text-sm leading-relaxed text-[#0f172a] md:text-base">
+                  <strong className="font-semibold">{b.title}:</strong>{' '}
+                  <span className="text-[#64748b]">{b.description}</span>
+                </p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* MODULES */}
+      {/* TWO-COLUMN: TESTIMONIOS (left) + MODULES (right) */}
       <section className="bg-[#fdf6f0]">
-        <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
-          <div className="text-center">
-            <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-              Lo que incluye esta guía
-            </h2>
-            <p className="mt-3 text-sm text-[#64748b]">
-              5 módulos diseñados para acompañarte paso a paso.
-            </p>
-          </div>
-          <ol className="mt-10 grid gap-5 md:grid-cols-2">
-            {modules.map((m, i) => (
-              <li
-                key={m}
-                className="flex items-start gap-4 rounded-2xl bg-white p-5"
-                style={{ border: '1px solid #e8d5c8' }}
-              >
-                <span
-                  className="font-display flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-base font-bold text-white"
-                  style={{ backgroundColor: '#1d4ed8' }}
-                  aria-hidden
-                >
-                  {i + 1}
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
+            {/* LEFT: Testimonials */}
+            <div>
+              <h2 className="font-display text-2xl font-bold text-[#0f172a] md:text-3xl">
+                Lo que dicen quienes ya la usan
+              </h2>
+              <div className="mt-3 flex items-center gap-1 text-[#ea580c]">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <StarIcon key={i} />
+                ))}
+                <span className="ml-2 text-sm font-medium text-[#64748b]">
+                  Valorado con 5/5
                 </span>
-                <span className="pt-1.5 text-sm font-medium text-[#0f172a]">
-                  {m}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
-          <div className="text-center">
-            <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-              Personas que ya lo están usando
-            </h2>
-            <div className="mt-3 flex items-center justify-center gap-1 text-[#ea580c]">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <StarIcon key={i} />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <div
-                key={t.author}
-                className="flex flex-col rounded-2xl p-6"
-                style={{
-                  backgroundColor: '#fdf6f0',
-                  border: '1px solid #e8d5c8',
-                }}
-              >
-                <div className="flex gap-0.5 text-[#ea580c]" aria-label="5 estrellas">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <StarIcon key={i} />
-                  ))}
-                </div>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-[#0f172a]">
-                  {`“${t.text}”`}
-                </p>
-                <p className="mt-5 text-xs font-medium text-[#64748b]">
-                  — {t.author}
-                </p>
               </div>
-            ))}
+
+              <div className="mt-8 flex flex-col gap-5">
+                {testimonials.map((t) => (
+                  <article
+                    key={t.name}
+                    className="rounded-2xl bg-white p-6"
+                    style={{ border: '1px solid #e8d5c8' }}
+                  >
+                    <div
+                      className="flex gap-0.5 text-[#ea580c]"
+                      aria-label="5 estrellas"
+                    >
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <StarIcon key={i} />
+                      ))}
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-[#0f172a]">
+                      {`“${t.quote}”`}
+                    </p>
+                    <p className="mt-4 text-xs font-medium text-[#0f172a]">
+                      {t.name}
+                      <span className="font-normal text-[#64748b]">
+                        {' '}
+                        — {t.profession}
+                      </span>
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT: Modules */}
+            <div>
+              <h2 className="font-display text-2xl font-bold text-[#0f172a] md:text-3xl">
+                {whatIsIncludedHeading}
+              </h2>
+              <p className="mt-3 text-sm text-[#64748b]">
+                5 módulos diseñados para acompañarte paso a paso.
+              </p>
+
+              <ol className="mt-8 flex flex-col gap-4">
+                {modules.map((m, i) => (
+                  <li
+                    key={m.title}
+                    className="flex items-start gap-4 rounded-2xl bg-white p-5"
+                    style={{ border: '1px solid #e8d5c8' }}
+                  >
+                    <span
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl"
+                      style={{
+                        backgroundColor: '#fdf6f0',
+                        border: '1px solid #e8d5c8',
+                      }}
+                      aria-hidden
+                    >
+                      {m.icon}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-[#0f172a] md:text-base">
+                        <span className="font-display mr-1 italic text-[#1d4ed8]">
+                          {i + 1}.
+                        </span>
+                        {m.title}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-[#64748b]">
+                        {m.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
 
       {/* REPEAT PRICE + CTA */}
-      <section className="bg-[#fdf6f0]">
+      <section className="bg-white">
         <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
           <div
-            className="rounded-3xl bg-white p-8 md:p-10"
+            className="rounded-3xl p-8 md:p-10"
             style={{
+              backgroundColor: '#fdf6f0',
               border: '1px solid #e8d5c8',
               boxShadow: '0 20px 40px rgba(15,23,42,0.06)',
             }}
@@ -439,7 +466,7 @@ function StepIndicator({ current }: { current: 1 | 2 | 3 }) {
 }
 
 function CheckIcon({ small = false }: { small?: boolean }) {
-  const size = small ? 12 : 14;
+  const size = small ? 12 : 16;
   return (
     <svg
       width={size}
@@ -459,7 +486,7 @@ function CheckIcon({ small = false }: { small?: boolean }) {
 
 function StarIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
     </svg>
   );

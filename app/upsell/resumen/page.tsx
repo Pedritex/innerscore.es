@@ -52,6 +52,19 @@ function ResumenInner() {
       .catch((err) => setError(err.message ?? 'Error al cargar el resumen'));
   }, [pi]);
 
+  useEffect(() => {
+    if (!pi) return;
+    // Fire-and-forget. Idempotency is enforced server-side via the
+    // report_sent flag, so refreshes/double-mounts won't resend.
+    fetch('/api/dispatch-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pi }),
+    }).catch((err) => {
+      console.error('[resumen] dispatch-report failed', err);
+    });
+  }, [pi]);
+
   const upsells = data?.upsells ?? [];
   const mainCents = data?.main.amountCents ?? 300;
   const currency = (data?.main.currency ?? 'eur').toUpperCase();

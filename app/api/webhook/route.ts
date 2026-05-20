@@ -43,6 +43,10 @@ export async function POST(request: Request) {
 
   if (event.type === 'payment_intent.succeeded') {
     const intent = event.data.object as Stripe.PaymentIntent;
+    // Skip non-main intents (e.g. upsell charges) so they don't kick off the report pipeline.
+    if (intent.metadata?.kind && intent.metadata.kind !== 'main') {
+      return Response.json({ received: true }, { status: 200 });
+    }
     const result = await persistAndDispatch(
       intent.id,
       intent.metadata ?? {},

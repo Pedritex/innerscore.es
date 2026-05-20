@@ -122,9 +122,9 @@ function OrderSummary({ archetype }: { archetype: string }) {
 
       <div className="mt-6 flex items-baseline gap-3">
         <span className="font-display text-5xl font-bold text-[#0f172a]">
-          £9.99
+          3,00 €
         </span>
-        <span className="text-base text-[#94a3b8] line-through">£24.99</span>
+        <span className="text-base text-[#94a3b8] line-through">39,99 €</span>
       </div>
 
       <div
@@ -157,7 +157,7 @@ function OrderSummary({ archetype }: { archetype: string }) {
       <div className="flex items-baseline justify-between text-sm">
         <span className="text-[#64748b]">Total a pagar hoy</span>
         <span className="font-display text-xl font-bold text-[#0f172a]">
-          £9.99
+          3,00 €
         </span>
       </div>
       <p className="mt-2 text-xs text-[#94a3b8]">
@@ -222,7 +222,9 @@ function CheckoutForm({
       }
 
       if (paymentIntent?.status === 'succeeded') {
-        router.push(`/success?email=${encodeURIComponent(email)}`);
+        router.push(
+          `/upsell/1?pi=${encodeURIComponent(paymentIntent.id)}&email=${encodeURIComponent(email)}`,
+        );
         return;
       }
 
@@ -308,7 +310,7 @@ function CheckoutForm({
           boxShadow: '0 10px 24px rgba(234,88,12,0.35)',
         }}
       >
-        {submitting ? 'Procesando…' : 'Pagar 9,99 £ de forma segura'}
+        {submitting ? 'Procesando…' : 'Pagar 3,00 € de forma segura'}
       </button>
 
       <div className="mt-2 flex items-center justify-between">

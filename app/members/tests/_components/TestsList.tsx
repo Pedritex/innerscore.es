@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import Modal from '../../_components/Modal';
+import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import type { CatalogTest } from '@/lib/members-content';
 
 type Filter = 'todos' | 'dimensiones' | 'personales';
@@ -15,7 +15,28 @@ export default function TestsList({
 }) {
   const [filter, setFilter] = useState<Filter>('todos');
   const [page, setPage] = useState(1);
-  const [openTitle, setOpenTitle] = useState<string | null>(null);
+  const [completed, setCompleted] = useState<Record<number, number | true>>({});
+
+  useEffect(() => {
+    const next: Record<number, number | true> = {};
+    for (const t of tests) {
+      try {
+        const done = localStorage.getItem(
+          `innerscore_test_${t.slot}_completed`,
+        );
+        if (done === 'true') {
+          const rawScore = localStorage.getItem(
+            `innerscore_test_${t.slot}_score`,
+          );
+          const score = rawScore ? Number(rawScore) : NaN;
+          next[t.slot] = Number.isFinite(score) ? score : true;
+        }
+      } catch {
+        // ignore
+      }
+    }
+    setCompleted(next);
+  }, [tests]);
 
   const recommended = useMemo(
     () => tests.find((t) => t.id === recommendedId) ?? tests[0],
@@ -105,18 +126,20 @@ export default function TestsList({
             <span className="text-[#64748b]">
               {recommended.questions} preguntas · {recommended.duration}
             </span>
+            <CompletionBadge result={completed[recommended.slot]} />
           </div>
-          <button
-            type="button"
-            onClick={() => setOpenTitle(recommended.title)}
+          <Link
+            href={`/members/tests/${recommended.slot}`}
             className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.01] md:w-auto"
             style={{
               backgroundColor: recommended.accent,
               boxShadow: '0 10px 24px rgba(15,23,42,0.18)',
             }}
           >
-            Iniciar ahora
-          </button>
+            {completed[recommended.slot] !== undefined
+              ? 'Repetir test'
+              : 'Iniciar ahora'}
+          </Link>
         </div>
         <div
           className="hidden h-full md:flex md:items-center md:justify-center"
@@ -145,18 +168,21 @@ export default function TestsList({
               aria-hidden
             />
             <div className="p-5">
-              <span
-                className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest"
-                style={{
-                  backgroundColor: '#fdf6f0',
-                  border: '1px solid #e8d5c8',
-                  color: '#64748b',
-                }}
-              >
-                {test.category === 'dimensiones'
-                  ? 'Dimensión IE'
-                  : 'Competencia personal'}
-              </span>
+              <div className="flex items-center justify-between gap-3">
+                <span
+                  className="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest"
+                  style={{
+                    backgroundColor: '#fdf6f0',
+                    border: '1px solid #e8d5c8',
+                    color: '#64748b',
+                  }}
+                >
+                  {test.category === 'dimensiones'
+                    ? 'Dimensión IE'
+                    : 'Competencia personal'}
+                </span>
+                <CompletionBadge result={completed[test.slot]} />
+              </div>
               <h3 className="font-display mt-3 text-lg font-bold text-[#0f172a]">
                 {test.title}
               </h3>
@@ -165,14 +191,15 @@ export default function TestsList({
                 <span className="text-xs text-[#94a3b8]">
                   {test.questions} preguntas · {test.duration}
                 </span>
-                <button
-                  type="button"
-                  onClick={() => setOpenTitle(test.title)}
+                <Link
+                  href={`/members/tests/${test.slot}`}
                   className="rounded-lg px-4 py-2 text-xs font-semibold text-white transition-transform hover:scale-[1.01]"
                   style={{ backgroundColor: test.accent }}
                 >
-                  Iniciar test
-                </button>
+                  {completed[test.slot] !== undefined
+                    ? 'Repetir test'
+                    : 'Iniciar test'}
+                </Link>
               </div>
             </div>
           </article>
@@ -191,28 +218,25 @@ export default function TestsList({
           </button>
         </div>
       ) : null}
-
-      <Modal
-        open={openTitle !== null}
-        onClose={() => setOpenTitle(null)}
-        title={openTitle ?? ''}
-        footer={
-          <button
-            type="button"
-            onClick={() => setOpenTitle(null)}
-            className="rounded-lg px-4 py-2 text-sm font-semibold text-white transition-transform hover:scale-[1.01]"
-            style={{ backgroundColor: '#1d4ed8' }}
-          >
-            Entendido
-          </button>
-        }
-      >
-        <p>
-          Próximamente — este test estará disponible muy pronto. Te avisaremos
-          por correo cuando se publique.
-        </p>
-      </Modal>
     </>
+  );
+}
+
+function CompletionBadge({ result }: { result: number | true | undefined }) {
+  if (result === undefined) return null;
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest"
+      style={{
+        backgroundColor: 'rgba(34,197,94,0.12)',
+        color: '#15803d',
+      }}
+    >
+      ✓ Completado
+      {typeof result === 'number' ? (
+        <span className="font-display ml-1 tabular-nums">{result}/10</span>
+      ) : null}
+    </span>
   );
 }
 

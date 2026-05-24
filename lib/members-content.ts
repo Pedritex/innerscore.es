@@ -582,6 +582,7 @@ export const TRIVIA_QUESTIONS: TriviaQuestion[] = [
 // ────────────────────────────────────────────────────────────────────────────
 export type CatalogTest = {
   id: string;
+  slot: number;
   title: string;
   description: string;
   category: 'dimensiones' | 'personales';
@@ -594,6 +595,7 @@ export type CatalogTest = {
 export const CATALOG_TESTS: CatalogTest[] = [
   {
     id: 'autoconciencia',
+    slot: 2,
     title: 'Test de Autoconciencia Emocional',
     description: 'Mide con precisión tu capacidad para identificar y comprender tus propias emociones en tiempo real.',
     category: 'dimensiones',
@@ -604,6 +606,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'autorregulacion',
+    slot: 1,
     title: 'Test de Autorregulación',
     description: 'Descubre cómo gestionas tus impulsos emocionales y tu capacidad de respuesta ante situaciones desafiantes.',
     category: 'dimensiones',
@@ -614,6 +617,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'motivacion',
+    slot: 3,
     title: 'Test de Motivación Intrínseca',
     description: 'Evalúa qué te mueve por dentro y cómo de alineado está tu motor interno con tus objetivos.',
     category: 'dimensiones',
@@ -624,6 +628,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'empatia',
+    slot: 4,
     title: 'Test de Empatía Avanzada',
     description: 'Mide tu empatía cognitiva y afectiva en distintos contextos: trabajo, familia, conflictos.',
     category: 'dimensiones',
@@ -634,6 +639,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'habilidades',
+    slot: 5,
     title: 'Test de Habilidades Sociales',
     description: 'Evalúa tu capacidad para leer grupos, comunicar con eficacia y construir relaciones sólidas.',
     category: 'dimensiones',
@@ -644,6 +650,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'estres',
+    slot: 6,
     title: 'Test de Gestión del Estrés',
     description: 'Identifica tus patrones bajo presión y qué estrategias de regulación funcionan mejor para ti.',
     category: 'personales',
@@ -653,6 +660,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'trabajo',
+    slot: 7,
     title: 'Test de Inteligencia Emocional en el Trabajo',
     description: 'Descubre cómo tu IE se manifiesta en el entorno laboral y dónde puedes desarrollarte más.',
     category: 'personales',
@@ -662,6 +670,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'resiliencia',
+    slot: 8,
     title: 'Test de Resiliencia Emocional',
     description: 'Mide tu capacidad para recuperarte de los contratiempos y mantener el equilibrio en la adversidad.',
     category: 'personales',
@@ -671,6 +680,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'comunicacion',
+    slot: 9,
     title: 'Test de Comunicación Empática',
     description: 'Evalúa la calidad de tu escucha activa, asertividad y capacidad de validación emocional.',
     category: 'personales',
@@ -680,6 +690,7 @@ export const CATALOG_TESTS: CatalogTest[] = [
   },
   {
     id: 'liderazgo',
+    slot: 10,
     title: 'Test de Liderazgo Emocional',
     description: 'Descubre qué tipo de líder eres desde la perspectiva de la inteligencia emocional aplicada.',
     category: 'personales',

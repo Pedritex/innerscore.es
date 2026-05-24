@@ -12,6 +12,7 @@ import { getDimensionLabel } from '@/lib/scoring';
 import DailyPill from './_components/DailyPill';
 import DailyTrivia from './_components/DailyTrivia';
 import StreakWidget from './_components/StreakWidget';
+import ProgressWidget from './_components/ProgressWidget';
 
 export const dynamic = 'force-dynamic';
 
@@ -98,35 +99,7 @@ export default async function MembersDashboard() {
           {/* RIGHT COLUMN */}
           <aside className="flex flex-col gap-6">
             <StreakWidget />
-
-            <div
-              className="rounded-2xl bg-white p-6"
-              style={{
-                border: '1px solid #e8d5c8',
-                boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
-              }}
-            >
-              <p className="text-xs font-medium uppercase tracking-widest text-[#64748b]">
-                Tu progreso
-              </p>
-              <ul className="mt-4 flex flex-col gap-4">
-                {[
-                  { label: 'Tests completados', value: 0 },
-                  { label: 'Cursos terminados', value: 0 },
-                  { label: 'Dimensiones exploradas', value: 0 },
-                ].map((item) => (
-                  <li
-                    key={item.label}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-sm text-[#0f172a]">{item.label}</span>
-                    <span className="font-display text-lg font-bold text-[#0f172a]">
-                      {item.value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ProgressWidget />
           </aside>
         </div>
 

@@ -313,7 +313,47 @@ function CheckoutForm({
         {submitting ? 'Procesando…' : 'Pagar 3,00 € de forma segura'}
       </button>
 
-      <div className="mt-2 flex items-center justify-between">
+      <p className="mt-4 text-center text-[11px] leading-relaxed text-[#94a3b8]">
+        Al continuar con el pago, aceptas que se te cobre la cantidad de 3,00 €
+        ahora, aceptas nuestras{' '}
+        <Link
+          href="/legal/terms-of-service"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          Condiciones del servicio
+        </Link>{' '}
+        y reconoces que has leído nuestra{' '}
+        <Link
+          href="/legal/privacy-policy"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          Política de privacidad
+        </Link>
+        . Tu pago aparecerá como &ldquo;innerscore.es&rdquo; en tu extracto
+        bancario. Después de 7 días, se te cobrará 39,99 € al mes hasta que
+        canceles tu suscripción. Puedes cancelar en cualquier momento desde tu
+        área de miembros. Para cualquier consulta, contáctanos en{' '}
+        <a
+          href="mailto:support@innerscore.es"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          support@innerscore.es
+        </a>
+        .
+      </p>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        <TrustBlock
+          title="Devolución del dinero"
+          body="Si no quedas completamente satisfecho durante el periodo de prueba de 7 días, contáctanos y estaremos encantados de tramitar un reembolso completo."
+        />
+        <TrustBlock
+          title="Cancela en cualquier momento"
+          body="Puedes cancelar en cualquier momento desde tu área de miembros o contactándonos en support@innerscore.es."
+        />
+      </div>
+
+      <div className="mt-6 flex items-center justify-between">
         <span className="flex items-center gap-1.5 text-xs text-[#64748b]">
           <LockIcon />
           Tecnología de Stripe
@@ -324,6 +364,23 @@ function CheckoutForm({
         </span>
       </div>
     </form>
+  );
+}
+
+function TrustBlock({ title, body }: { title: string; body: string }) {
+  return (
+    <div
+      className="rounded-xl p-4"
+      style={{
+        backgroundColor: '#fdf6f0',
+        border: '1px solid #e8d5c8',
+      }}
+    >
+      <p className="text-xs font-semibold text-[#0f172a]">{title}</p>
+      <p className="mt-1.5 text-[11px] leading-relaxed text-[#64748b]">
+        {body}
+      </p>
+    </div>
   );
 }
 

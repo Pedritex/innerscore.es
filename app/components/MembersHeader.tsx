@@ -14,28 +14,28 @@ export default function MembersHeader({ email }: { email: string }) {
       className="sticky top-0 z-30 bg-white"
       style={{ borderBottom: '1px solid #e8d5c8' }}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-        <Link href="/members" className="text-xl">
+      <div className="mx-auto grid max-w-6xl items-center gap-4 px-6 py-5 md:grid-cols-[1fr_auto_1fr]">
+        <Link href="/members" className="justify-self-start text-xl">
           <span className="font-display font-bold italic text-[#0f172a]">
             Inner
           </span>
           <span className="font-semibold text-[#1d4ed8]">Score</span>
         </Link>
 
-        <nav className="hidden flex-1 items-center gap-6 md:flex">
+        <nav className="hidden items-center justify-center gap-10 md:flex">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-[#64748b] transition-colors hover:text-[#0f172a]"
+              className="text-base font-semibold text-[#0f172a] transition-colors hover:text-[#1d4ed8]"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <span className="hidden truncate text-xs text-[#64748b] md:inline-block md:max-w-[200px]">
+        <div className="flex items-center justify-end gap-3">
+          <span className="hidden truncate text-xs text-[#64748b] md:inline-block md:max-w-[180px]">
             {email}
           </span>
           <SignOutButton />

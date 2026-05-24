@@ -106,7 +106,7 @@ export default function CheckoutPage() {
 
 function OrderSummary({ archetype }: { archetype: string }) {
   return (
-    <div>
+    <div className="hidden md:block">
       <p className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
         Resumen del pedido
       </p>

@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 
 const LINKS = [
@@ -7,8 +10,16 @@ const LINKS = [
   { href: '/legal/terms-of-service', label: 'Condiciones del Servicio' },
 ];
 
+const DISCLAIMER_FIRST =
+  'La web no ofrece consejos u opiniones profesionales o de una exactitud absoluta sobre productos o servicios.';
+
+const DISCLAIMER_REST =
+  ' La información y las opiniones proporcionadas tienen únicamente fines de entretenimiento y educativos y no deben utilizarse con fines de asesoramiento profesional. Por lo tanto, antes de tomar cualquier decisión basada en tus puntuaciones, te recomendamos que consultes con los profesionales oportunos. No proporcionamos ningún asesoramiento profesional o de exactitud absoluta sobre productos o servicios. CUALQUIER USO O CREDIBILIDAD QUE SE OTORGUE A LA INFORMACIÓN ENCONTRADA EN LA WEB ES POR TU CUENTA Y RIESGO.';
+
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <footer
       className="mt-auto bg-white"
@@ -35,19 +46,19 @@ export default function Footer() {
           ))}
         </nav>
       </div>
-      <div className="mx-auto max-w-6xl px-6 pb-8 text-[11px] leading-relaxed text-[#94a3b8]">
+      <div className="mx-auto max-w-6xl px-6 pb-8 text-sm leading-relaxed text-[#94a3b8]">
         <p>
           <span className="font-semibold">Descargo de responsabilidad:</span>{' '}
-          La web no ofrece consejos u opiniones profesionales o de una
-          exactitud absoluta sobre productos o servicios. La información y las
-          opiniones proporcionadas tienen únicamente fines de entretenimiento y
-          educativos y no deben utilizarse con fines de asesoramiento
-          profesional. Por lo tanto, antes de tomar cualquier decisión basada
-          en tus puntuaciones, te recomendamos que consultes con los
-          profesionales oportunos. No proporcionamos ningún asesoramiento
-          profesional o de exactitud absoluta sobre productos o servicios.
-          CUALQUIER USO O CREDIBILIDAD QUE SE OTORGUE A LA INFORMACIÓN
-          ENCONTRADA EN LA WEB ES POR TU CUENTA Y RIESGO.
+          {DISCLAIMER_FIRST}
+          {expanded ? DISCLAIMER_REST : null}{' '}
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            className="font-medium text-[#1d4ed8] underline transition-colors hover:text-[#1e40af]"
+            aria-expanded={expanded}
+          >
+            {expanded ? 'Leer menos' : 'Leer más'}
+          </button>
         </p>
       </div>
     </footer>

@@ -17,14 +17,6 @@ import { calculateScores } from '@/lib/scoring';
 
 type Session = { email: string; answers: QuizAnswer[] };
 
-const BULLETS = [
-  'Análisis profundo de tu Arquetipo Emocional',
-  'Plan de crecimiento de 90 días',
-  'Análisis de patrones relacionales',
-  'Estrategias de IE en el trabajo',
-  'Pasos de acción personalizados',
-];
-
 const stripePromise: Promise<StripeClient | null> = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
@@ -87,9 +79,7 @@ export default function CheckoutPage() {
           </span>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2">
-          <OrderSummary archetype={result.archetype} />
-
+        <div className="mx-auto max-w-xl">
           <div
             className="rounded-2xl bg-white p-8"
             style={{ border: '1px solid #e8d5c8' }}
@@ -104,68 +94,6 @@ export default function CheckoutPage() {
   );
 }
 
-function OrderSummary({ archetype }: { archetype: string }) {
-  return (
-    <div className="hidden md:block">
-      <p className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
-        Resumen del pedido
-      </p>
-      <h1 className="font-display mt-2 text-3xl font-bold text-[#0f172a] md:text-4xl">
-        Informe completo de IE InnerScore
-      </h1>
-      <p className="mt-3 text-sm text-[#64748b]">
-        Personalizado para{' '}
-        <span className="font-display font-bold italic text-[#0f172a]">
-          {archetype}
-        </span>
-      </p>
-
-      <div className="mt-6 flex items-baseline gap-3">
-        <span className="font-display text-5xl font-bold text-[#0f172a]">
-          3,00 €
-        </span>
-        <span className="text-base text-[#94a3b8] line-through">39,99 €</span>
-      </div>
-
-      <div
-        className="my-8 h-px w-full"
-        style={{ backgroundColor: '#e8d5c8' }}
-      />
-
-      <p className="text-[11px] font-medium uppercase tracking-widest text-[#0f172a]">
-        Qué incluye
-      </p>
-      <ul className="mt-4 flex flex-col gap-3">
-        {BULLETS.map((item) => (
-          <li
-            key={item}
-            className="flex items-start gap-3 text-sm text-[#0f172a]"
-          >
-            <span className="mt-0.5 shrink-0 text-[#1d4ed8]">
-              <CheckIcon />
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className="my-8 h-px w-full"
-        style={{ backgroundColor: '#e8d5c8' }}
-      />
-
-      <div className="flex items-baseline justify-between text-sm">
-        <span className="text-[#64748b]">Total a pagar hoy</span>
-        <span className="font-display text-xl font-bold text-[#0f172a]">
-          3,00 €
-        </span>
-      </div>
-      <p className="mt-2 text-xs text-[#94a3b8]">
-        Te enviaremos tu informe por correo electrónico · Pago único
-      </p>
-    </div>
-  );
-}
 
 function CheckoutForm({
   session,
@@ -407,24 +335,6 @@ function ElementBox({ children }: { children: React.ReactNode }) {
     >
       {children}
     </div>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }
 

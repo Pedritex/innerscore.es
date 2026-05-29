@@ -258,7 +258,7 @@ function CheckoutForm({
           Política de privacidad
         </Link>
         . Tu pago aparecerá como &ldquo;innerscore.es&rdquo; en tu extracto
-        bancario. Después de 7 días, se te cobrará 39,99 € al mes hasta que
+        bancario. Después de 7 días, se te cobrará 19,99 € al mes hasta que
         canceles tu suscripción. Puedes cancelar en cualquier momento desde tu
         área de miembros. Para cualquier consulta, contáctanos en{' '}
         <a

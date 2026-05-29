@@ -1,26 +1,42 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { CATALOG_COURSES, COURSE_CONTENT } from '@/lib/members-content';
 
 const TOTAL_TESTS = 10;
+const TOTAL_COURSES = CATALOG_COURSES.length;
 
 export default function ProgressWidget() {
   const [testsCompleted, setTestsCompleted] = useState(0);
+  const [coursesCompleted, setCoursesCompleted] = useState(0);
 
   useEffect(() => {
-    let count = 0;
     try {
+      let testCount = 0;
       for (let i = 1; i <= TOTAL_TESTS; i++) {
         if (
           localStorage.getItem(`innerscore_test_${i}_completed`) === 'true'
         ) {
-          count++;
+          testCount++;
         }
       }
+      setTestsCompleted(testCount);
+
+      let courseCount = 0;
+      for (const course of CATALOG_COURSES) {
+        const totalLessons = COURSE_CONTENT[course.id]?.lessons.length ?? 0;
+        if (totalLessons === 0) continue;
+        const raw = localStorage.getItem(
+          `innerscore_course_${course.id}_progress`,
+        );
+        if (raw && Number(raw) >= totalLessons) {
+          courseCount++;
+        }
+      }
+      setCoursesCompleted(courseCount);
     } catch {
       // ignore
     }
-    setTestsCompleted(count);
   }, []);
 
   const items: { label: string; value: string }[] = [
@@ -28,7 +44,10 @@ export default function ProgressWidget() {
       label: 'Tests completados',
       value: `${testsCompleted} / ${TOTAL_TESTS}`,
     },
-    { label: 'Cursos terminados', value: '0' },
+    {
+      label: 'Cursos terminados',
+      value: `${coursesCompleted} / ${TOTAL_COURSES}`,
+    },
     { label: 'Dimensiones exploradas', value: '0' },
   ];
 

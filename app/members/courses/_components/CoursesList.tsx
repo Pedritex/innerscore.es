@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import Modal from '../../_components/Modal';
+import Link from 'next/link';
 import type { CatalogCourse } from '@/lib/members-content';
 
 export default function CoursesList({
@@ -11,8 +10,6 @@ export default function CoursesList({
   recommended: CatalogCourse;
   others: CatalogCourse[];
 }) {
-  const [openTitle, setOpenTitle] = useState<string | null>(null);
-
   return (
     <>
       {/* Hero recommended course */}
@@ -49,9 +46,8 @@ export default function CoursesList({
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setOpenTitle(recommended.title)}
+          <Link
+            href={`/members/courses/${recommended.id}`}
             className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.01] md:w-auto"
             style={{
               background: `linear-gradient(135deg, ${recommended.gradient[0]} 0%, ${recommended.gradient[1]} 100%)`,
@@ -59,7 +55,7 @@ export default function CoursesList({
             }}
           >
             Iniciar curso
-          </button>
+          </Link>
         </div>
         <div
           className="hidden h-full md:flex md:items-center md:justify-center"
@@ -113,42 +109,19 @@ export default function CoursesList({
                 </span>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setOpenTitle(course.title)}
-                className="mt-5 w-full rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.01]"
+              <Link
+                href={`/members/courses/${course.id}`}
+                className="mt-5 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.01]"
                 style={{
                   background: `linear-gradient(135deg, ${course.gradient[0]} 0%, ${course.gradient[1]} 100%)`,
                 }}
               >
                 Iniciar curso
-              </button>
+              </Link>
             </div>
           </article>
         ))}
       </div>
-
-      <Modal
-        open={openTitle !== null}
-        onClose={() => setOpenTitle(null)}
-        title={openTitle ?? ''}
-        footer={
-          <button
-            type="button"
-            onClick={() => setOpenTitle(null)}
-            className="rounded-lg px-4 py-2 text-sm font-semibold text-white transition-transform hover:scale-[1.01]"
-            style={{ backgroundColor: '#1d4ed8' }}
-          >
-            Entendido
-          </button>
-        }
-      >
-        <p>
-          Próximamente — este curso estará disponible muy pronto. Te avisaremos
-          por correo cuando lo publiquemos para que seas de los primeros en
-          empezarlo.
-        </p>
-      </Modal>
     </>
   );
 }

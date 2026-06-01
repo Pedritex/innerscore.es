@@ -81,10 +81,10 @@ export default function Upsell3Page() {
       ]}
       mockup={
         <Mockup
-          emoji="💪"
+          illustration="/illustrations/overly-proud.svg"
           title="Autoestima emocional"
           subtitle="Crea un yo más fuerte"
-          gradient={['#dc2626', '#ea580c']}
+          accent="#dc2626"
         />
       }
     />

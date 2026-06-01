@@ -86,10 +86,10 @@ export default function Upsell2Page() {
       ]}
       mockup={
         <Mockup
-          emoji="💼"
+          illustration="/illustrations/goals.svg"
           title="Crecimiento profesional"
           subtitle="Carrera y liderazgo con IE"
-          gradient={['#0f172a', '#1d4ed8']}
+          accent="#1d4ed8"
         />
       }
     />

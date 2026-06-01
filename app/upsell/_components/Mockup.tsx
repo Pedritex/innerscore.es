@@ -1,41 +1,53 @@
 type MockupProps = {
-  emoji: string;
+  illustration: string;
   title: string;
   subtitle: string;
-  gradient: [string, string];
+  accent: string;
 };
 
-export default function Mockup({ emoji, title, subtitle, gradient }: MockupProps) {
+export default function Mockup({
+  illustration,
+  title,
+  subtitle,
+  accent,
+}: MockupProps) {
   return (
     <div
-      className="relative overflow-hidden rounded-2xl"
+      className="relative overflow-hidden rounded-2xl bg-white"
       style={{
         aspectRatio: '3 / 4',
-        background: `linear-gradient(135deg, ${gradient[0]} 0%, ${gradient[1]} 100%)`,
-        boxShadow: '0 20px 40px rgba(15,23,42,0.18)',
+        border: `1px solid ${accent}33`,
+        boxShadow: '0 20px 40px rgba(15,23,42,0.12)',
       }}
     >
-      <div className="absolute inset-0 flex flex-col items-center justify-between p-6 text-center text-white">
-        <span className="font-display text-[10px] font-semibold uppercase tracking-[0.3em] opacity-80">
+      <div
+        className="absolute inset-x-0 top-0 h-1.5"
+        style={{ backgroundColor: accent }}
+        aria-hidden
+      />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-between p-6 text-center">
+        <span
+          className="font-display text-[10px] font-semibold uppercase tracking-[0.3em]"
+          style={{ color: accent }}
+        >
           InnerScore
         </span>
-        <span className="text-7xl drop-shadow-md" aria-hidden>
-          {emoji}
-        </span>
+
+        <img
+          src={illustration}
+          alt=""
+          aria-hidden
+          className="my-4 w-full max-w-[80%]"
+        />
+
         <div>
-          <h3 className="font-display text-xl font-bold leading-tight md:text-2xl">
+          <h3 className="font-display text-xl font-bold leading-tight text-[#0f172a] md:text-2xl">
             {title}
           </h3>
-          <p className="mt-2 text-xs opacity-90">{subtitle}</p>
+          <p className="mt-2 text-xs text-[#64748b]">{subtitle}</p>
         </div>
       </div>
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-12"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%)',
-        }}
-      />
     </div>
   );
 }

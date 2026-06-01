@@ -86,10 +86,10 @@ export default function Upsell1Page() {
       ]}
       mockup={
         <Mockup
-          emoji="🌱"
+          illustration="/illustrations/level-up.svg"
           title="Crecimiento emocional"
           subtitle="Encuentra tu mejor versión"
-          gradient={['#1d4ed8', '#22c55e']}
+          accent="#22c55e"
         />
       }
     />

@@ -103,6 +103,49 @@ export default async function MembersDashboard() {
           </aside>
         </div>
 
+        {/* PILARES — ilustraciones decorativas */}
+        <section className="mt-14 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: 'Mindfulness',
+              body: 'Cultiva la atención plena, día a día.',
+              illustration: '/illustrations/meditation.svg',
+            },
+            {
+              title: 'Objetivos',
+              body: 'Define metas alineadas con tus valores.',
+              illustration: '/illustrations/goals.svg',
+            },
+            {
+              title: 'Crecimiento personal',
+              body: 'Practica el enfoque consciente que te transforma.',
+              illustration: '/illustrations/focused.svg',
+            },
+          ].map((pillar) => (
+            <div
+              key={pillar.title}
+              className="flex items-center gap-4 rounded-2xl bg-white p-5"
+              style={{
+                border: '1px solid #e8d5c8',
+                boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
+              }}
+            >
+              <img
+                src={pillar.illustration}
+                alt=""
+                aria-hidden
+                className="h-16 w-16 shrink-0"
+              />
+              <div>
+                <h3 className="font-display text-sm font-bold text-[#0f172a]">
+                  {pillar.title}
+                </h3>
+                <p className="mt-1 text-xs text-[#64748b]">{pillar.body}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+
         {/* DIMENSIONES */}
         <section className="mt-14">
           <div className="flex items-end justify-between">

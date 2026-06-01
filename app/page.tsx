@@ -90,6 +90,13 @@ function Hero() {
           Hacer el test gratuito
         </Link>
 
+        <img
+          src="/illustrations/overly-proud.svg"
+          alt=""
+          aria-hidden
+          className="mx-auto mt-8 w-full max-w-xs md:mt-12 md:max-w-sm"
+        />
+
         <div className="mt-10 hidden flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:flex">
           <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
           <TrustItem icon={<IconBolt />} text="Te enviaremos tu informe por correo electrónico" />

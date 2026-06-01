@@ -94,8 +94,14 @@ function ResumenInner() {
       <section className="bg-[#fdf6f0]">
         <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
           <div className="text-center">
+            <img
+              src="/illustrations/completed.svg"
+              alt=""
+              aria-hidden
+              className="mx-auto w-40 md:w-48"
+            />
             <span
-              className="inline-flex h-14 w-14 items-center justify-center rounded-full text-white"
+              className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full text-white"
               style={{
                 backgroundColor: '#22c55e',
                 boxShadow: '0 10px 25px rgba(34,197,94,0.35)',

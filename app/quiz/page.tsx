@@ -111,6 +111,12 @@ export default function QuizPage() {
     return (
       <main className="min-h-dvh bg-white">
         <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pt-10 pb-10">
+          <img
+            src="/illustrations/mindfulness.svg"
+            alt=""
+            aria-hidden
+            className="mb-6 w-32 md:w-40"
+          />
           <h2 className="font-display text-center text-3xl font-bold italic leading-snug text-[#0f172a] md:text-4xl">
             ¿Con qué género te identificas?
           </h2>
@@ -172,7 +178,12 @@ export default function QuizPage() {
     return (
       <main className="min-h-dvh bg-white">
         <div className="mx-auto flex max-w-md flex-col items-center px-6 pt-20 pb-10 text-center">
-          <DocumentCheckIcon />
+          <img
+            src="/illustrations/celebrating-2026.svg"
+            alt=""
+            aria-hidden
+            className="w-48 md:w-56"
+          />
           <h2 className="font-display mt-8 text-4xl font-bold italic text-[#0f172a] md:text-5xl">
             ¡Enhorabuena!
           </h2>

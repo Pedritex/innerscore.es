@@ -1,6 +1,5 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
 import { Resend } from 'resend';
-import { supabaseAdmin } from '@/lib/supabase';
 import { getDimensionLabel } from '@/lib/scoring';
 import type { QuizResult } from '@/types';
 
@@ -597,22 +596,47 @@ async function buildPdf(
   return pdfDoc.save();
 }
 
+type SendReportBody = {
+  email: string;
+  reportText: string;
+  result: QuizResult;
+  tempPassword?: string | null;
+  magicLinkUrl?: string;
+  purchasedAtIso?: string;
+};
+
 export async function POST(request: Request) {
   try {
-    const { email, reportText, result } = (await request.json()) as {
-      email: string;
-      reportText: string;
-      result: QuizResult;
-    };
+    const body = (await request.json()) as SendReportBody;
+    const { email, reportText, result } = body;
+    const tempPassword = body.tempPassword ?? null;
+    const magicLinkUrl = body.magicLinkUrl ?? '';
+    const purchasedAt = body.purchasedAtIso
+      ? new Date(body.purchasedAtIso)
+      : new Date();
 
     const pdfBytes = await buildPdf(reportText, result, email);
     const pdfBuffer = Buffer.from(pdfBytes);
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ?? 'https://innerscore.es';
+    const loginUrl = `${baseUrl}/login`;
+    const membersUrl = `${baseUrl}/members`;
+
+    const html = renderWelcomeEmail({
+      email,
+      tempPassword,
+      magicLinkUrl,
+      loginUrl,
+      membersUrl,
+      purchasedAt,
+    });
+
     const { error: emailError } = await resend.emails.send({
       from: FROM_ADDRESS,
       to: [email],
-      subject: 'Tu informe de IE InnerScore — Descarga adjunta',
-      html: '<p>Hola,</p><p>Tu informe personalizado de inteligencia emocional ya está listo. Lo encontrarás adjunto a este correo.</p><p>El equipo de InnerScore</p>',
+      subject: 'Tu informe de IE InnerScore y tu acceso al área de miembros',
+      html,
       attachments: [
         { filename: 'InnerScore-Informe-IE.pdf', content: pdfBuffer },
       ],
@@ -622,18 +646,124 @@ export async function POST(request: Request) {
       return Response.json({ error: emailError.message }, { status: 400 });
     }
 
-    const { error: dbError } = await supabaseAdmin
-      .from('purchases')
-      .update({ report_sent: true })
-      .eq('email', email);
-
-    if (dbError) {
-      return Response.json({ error: dbError.message }, { status: 400 });
-    }
-
     return Response.json({ sent: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     return Response.json({ error: message }, { status: 400 });
   }
+}
+
+function renderWelcomeEmail(args: {
+  email: string;
+  tempPassword: string | null;
+  magicLinkUrl: string;
+  loginUrl: string;
+  membersUrl: string;
+  purchasedAt: Date;
+}): string {
+  const { email, tempPassword, magicLinkUrl, loginUrl, membersUrl, purchasedAt } = args;
+  const greetingName = email.split('@')[0];
+  const renewalDate = new Date(purchasedAt.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const fmtDate = (d: Date) =>
+    new Intl.DateTimeFormat('es-ES', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }).format(d);
+
+  const credentialsBlock = tempPassword
+    ? `
+      <p style="margin: 0 0 12px; color: #0f172a;">También tienes acceso completo a tu área de miembros de InnerScore con las siguientes credenciales:</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse; margin: 16px 0; background: #fdf6f0; border: 1px solid #e8d5c8; border-radius: 12px;">
+        <tr>
+          <td style="padding: 16px 20px; color: #64748b; font-size: 13px; width: 130px;">Email</td>
+          <td style="padding: 16px 20px; color: #0f172a; font-size: 14px; font-weight: 600;">${escapeHtml(email)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 16px 20px; color: #64748b; font-size: 13px; border-top: 1px solid #e8d5c8;">Contraseña provisional</td>
+          <td style="padding: 16px 20px; color: #0f172a; font-size: 14px; font-weight: 600; font-family: 'SF Mono', Menlo, monospace; border-top: 1px solid #e8d5c8;">${escapeHtml(tempPassword)}</td>
+        </tr>
+      </table>`
+    : `
+      <p style="margin: 0 0 12px; color: #0f172a;">Ya tenías una cuenta de InnerScore con este correo, así que sigue usando tu contraseña habitual para acceder a tu área de miembros.</p>`;
+
+  const magicBlock = magicLinkUrl
+    ? `
+      <p style="margin: 24px 0 12px; color: #64748b; font-size: 13px;">¿Prefieres acceder sin contraseña? Usa este enlace directo de un solo uso (válido 24h):</p>
+      <p style="margin: 0 0 24px;">
+        <a href="${escapeAttr(magicLinkUrl)}" style="color: #1d4ed8; text-decoration: underline; font-size: 14px;">${escapeHtml(magicLinkUrl)}</a>
+      </p>`
+    : '';
+
+  return `<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Tu informe InnerScore</title></head>
+<body style="margin: 0; padding: 0; background: #fdf6f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a;">
+  <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; background: #fdf6f0;">
+    <tr><td align="center" style="padding: 32px 16px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="max-width: 580px; width: 100%; background: #ffffff; border: 1px solid #e8d5c8; border-radius: 16px; overflow: hidden;">
+        <tr><td style="padding: 28px 32px 0; text-align: center; font-size: 20px;">
+          <span style="font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; color: #0f172a;">Inner</span><span style="font-weight: 600; color: #1d4ed8;">Score</span>
+        </td></tr>
+
+        <tr><td style="padding: 28px 32px 8px;">
+          <h1 style="margin: 0 0 12px; font-size: 24px; line-height: 1.3; color: #0f172a;">Hola, ${escapeHtml(greetingName)}:</h1>
+          <p style="margin: 0; color: #64748b; font-size: 15px; line-height: 1.6;">Tu informe personalizado de inteligencia emocional ya está listo. Lo encontrarás adjunto a este correo, y también puedes descargarlo desde el botón de abajo.</p>
+        </td></tr>
+
+        <tr><td style="padding: 24px 32px 0; text-align: center;">
+          <a href="${escapeAttr(membersUrl)}" style="display: inline-block; padding: 14px 28px; background: #ea580c; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px;">Descargar mi informe</a>
+        </td></tr>
+
+        <tr><td style="padding: 32px 32px 0;">
+          ${credentialsBlock}
+        </td></tr>
+
+        <tr><td style="padding: 8px 32px 0; text-align: center;">
+          <a href="${escapeAttr(loginUrl)}" style="display: inline-block; padding: 14px 28px; background: #1d4ed8; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px;">Acceder a mi área de miembros</a>
+        </td></tr>
+
+        <tr><td style="padding: 0 32px;">
+          ${magicBlock}
+        </td></tr>
+
+        <tr><td style="padding: 16px 32px 0;">
+          <div style="height: 1px; background: #e8d5c8; margin: 8px 0 24px;"></div>
+          <p style="margin: 0 0 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8;">Detalles del pedido</p>
+          <table role="presentation" cellpadding="0" cellspacing="0" style="width: 100%; font-size: 14px;">
+            <tr><td style="padding: 6px 0; color: #64748b;">Nombre</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">${escapeHtml(greetingName)}</td></tr>
+            <tr><td style="padding: 6px 0; color: #64748b;">Plan</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">Acceso 7 días InnerScore</td></tr>
+            <tr><td style="padding: 6px 0; color: #64748b;">Fecha de inicio</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">${fmtDate(purchasedAt)}</td></tr>
+            <tr><td style="padding: 6px 0; color: #64748b;">Total pagado</td><td style="padding: 6px 0; color: #0f172a; text-align: right; font-weight: 600;">1,95 €</td></tr>
+          </table>
+        </td></tr>
+
+        <tr><td style="padding: 24px 32px 0;">
+          <div style="background: #fdf6f0; border: 1px solid #e8d5c8; border-radius: 12px; padding: 16px 20px;">
+            <p style="margin: 0 0 8px; font-size: 13px; color: #0f172a;"><strong>Renovación automática:</strong> Tu suscripción se renovará el ${fmtDate(renewalDate)} por 39,99 €/mes salvo que la canceles antes.</p>
+            <p style="margin: 0; font-size: 13px; color: #64748b;">Puedes cancelar en cualquier momento desde tu área de miembros.</p>
+          </div>
+        </td></tr>
+
+        <tr><td style="padding: 32px 32px 28px;">
+          <p style="margin: 0; color: #64748b; font-size: 14px;">Un abrazo,<br><strong style="color: #0f172a;">Equipo de InnerScore</strong></p>
+        </td></tr>
+      </table>
+
+      <p style="max-width: 580px; margin: 16px auto 0; color: #94a3b8; font-size: 11px; text-align: center;">Si tienes cualquier duda responde a este correo y te ayudamos.</p>
+    </td></tr>
+  </table>
+</body></html>`;
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function escapeAttr(s: string): string {
+  return escapeHtml(s);
 }

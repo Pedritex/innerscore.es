@@ -9,7 +9,7 @@ export default function LegalNoticePage() {
         Aviso Legal
       </h1>
       <p className="mt-2 text-sm text-[#64748b]">
-        Última actualización: 12 de mayo de 2026
+        Última actualización: 2 de junio de 2026
       </p>
 
       <Section title="1. Titular del sitio">
@@ -20,8 +20,10 @@ export default function LegalNoticePage() {
           o &ldquo;nosotros&rdquo;).
         </p>
         <p className="mt-3">
-          NIF / Identificación fiscal: [pendiente de completar]<br />
-          Domicilio social: [pendiente de completar]<br />
+          {/* [ACCIÓN REQUERIDA: Introduce aquí tu NIF/CIF de autónomo o empresa] */}
+          NIF / Identificación fiscal: [ACCIÓN REQUERIDA: Introduce aquí tu NIF/CIF de autónomo o empresa]<br />
+          {/* [ACCIÓN REQUERIDA: Introduce aquí tu domicilio fiscal real] */}
+          Domicilio social: [ACCIÓN REQUERIDA: Introduce aquí tu domicilio fiscal real]<br />
           Correo de contacto:{' '}
           <a
             href="mailto:legal@innerscore.es"

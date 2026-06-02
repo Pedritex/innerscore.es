@@ -10,7 +10,116 @@ export default function Home() {
       <WhatYouGet />
       <PDFPreview />
       <Testimonials />
+      <FAQ />
     </div>
+  );
+}
+
+const FAQ_ITEMS = [
+  {
+    q: '¿Cuánto dura el test?',
+    a: 'Aproximadamente 5 minutos. Son 30 afirmaciones a las que respondes según tu opinión personal.',
+  },
+  {
+    q: '¿Qué recibo al completar el pago?',
+    a: 'Un informe personalizado de 15 páginas con tu arquetipo emocional, puntuación en las 5 dimensiones de IE, fortalezas, áreas de mejora y un plan de acción de 90 días. Lo recibirás en tu correo en 5-10 minutos.',
+  },
+  {
+    q: '¿Cuándo se me cobra el precio mensual?',
+    a: 'El séptimo día después de tu primer pago de 1,95 €. Puedes cancelar antes desde tu área de miembros y no se te cobrará nada más.',
+  },
+  {
+    q: '¿Puedo cancelar en cualquier momento?',
+    a: 'Sí, sin permanencia ni penalización. Cancela desde tu área de miembros o escribiendo a support@innerscore.es.',
+  },
+  {
+    q: '¿El informe lo genera una inteligencia artificial?',
+    a: 'Sí, el informe es generado por IA (Claude de Anthropic) basándose en tus respuestas. Es un documento orientativo con fines educativos, no un diagnóstico profesional.',
+  },
+  {
+    q: '¿Están seguros mis datos?',
+    a: 'Sí. Los pagos se procesan con Stripe (certificado PCI DSS) y los datos se almacenan de forma segura. Nunca compartimos ni vendemos tus datos.',
+  },
+];
+
+function FAQ() {
+  return (
+    <section className="bg-[#fdf6f0] py-20">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
+            Preguntas frecuentes
+          </h2>
+          <p className="mt-3 text-[#64748b]">
+            Resolvemos las dudas más habituales antes de empezar.
+          </p>
+        </div>
+
+        <ul className="mt-10 flex flex-col gap-3">
+          {FAQ_ITEMS.map((item) => (
+            <li key={item.q}>
+              <details
+                className="group overflow-hidden rounded-2xl bg-white"
+                style={{
+                  border: '1px solid #e8d5c8',
+                  boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
+                }}
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5">
+                  <span className="font-display text-sm font-bold text-[#0f172a] md:text-base">
+                    {item.q}
+                  </span>
+                  <span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#1d4ed8] transition-transform group-open:rotate-180"
+                    style={{
+                      backgroundColor: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                    }}
+                    aria-hidden
+                  >
+                    <ChevronDown />
+                  </span>
+                </summary>
+                <div
+                  className="px-5 pb-5 text-sm leading-relaxed text-[#64748b] md:px-6 md:pb-6 md:text-base"
+                  style={{ borderTop: '1px solid #f1ebe5' }}
+                >
+                  <p className="pt-4">{item.a}</p>
+                </div>
+              </details>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10 text-center text-sm text-[#64748b]">
+          ¿No encuentras lo que buscas?{' '}
+          <Link
+            href="/preguntas-frecuentes"
+            className="font-semibold text-[#1d4ed8] hover:underline"
+          >
+            Ver todas las preguntas
+          </Link>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ChevronDown() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
   );
 }
 
@@ -142,52 +251,252 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-20">
-        {/* Two-column flex: copy left, phone right on desktop; stacked on mobile */}
-        <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16">
-
-          {/* Copy */}
-          <div className="min-w-0 flex-1 text-center md:text-left">
+      <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-3 md:py-24">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_minmax(0,300px)] md:gap-14">
+          <div className="text-center md:text-left">
             <span
               className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-              style={{ backgroundColor: 'rgba(255,255,255,0.8)', border: '1px solid #fed7aa', color: '#ea580c' }}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                border: '1px solid #fed7aa',
+                color: '#ea580c',
+              }}
             >
               Test de Inteligencia Emocional
             </span>
-            <p className="mt-2 text-sm text-[#64748b]">Descubre cómo gestionas tus emociones</p>
+            <p className="mt-2 text-sm text-[#64748b]">
+              Descubre cómo gestionas tus emociones
+            </p>
 
             <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
               Test de Inteligencia Emocional
             </h1>
 
-            <p className="mt-3 max-w-lg text-xs text-[#64748b] md:mt-6 md:text-lg">
-              30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
-              en tu bandeja de entrada.
+            <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mx-0 md:mt-6 md:text-lg">
+              30 preguntas. 5 dimensiones. Un informe personalizado de 15
+              páginas en tu bandeja de entrada.
             </p>
 
             <Link
               href="/quiz"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:w-auto md:text-lg"
-              style={{ backgroundColor: '#1d4ed8', boxShadow: '0 8px 24px rgba(29,78,216,0.35)' }}
+              className="mt-4 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
+              style={{
+                backgroundColor: '#1d4ed8',
+                boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
+              }}
             >
               Hacer el test gratuito
             </Link>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
-              <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
-              <TrustItem icon={<IconBolt />} text="Informe por correo electrónico" />
+            <p className="mt-3 text-xs text-[#64748b] md:mt-4 md:text-sm">
+              Acceso completo 7 días por 1,95 € · Después 39,99 €/mes ·
+              Cancela cuando quieras
+            </p>
+
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
+              <TrustItem
+                icon={<IconUsers />}
+                text="Únete a miles que descubren su IE"
+              />
+              <TrustItem
+                icon={<IconBolt />}
+                text="Te enviaremos tu informe por correo electrónico"
+              />
               <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
             </div>
           </div>
 
-          {/* Phone mockup */}
-          <div className="flex shrink-0 justify-center">
+          {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}
+          <div className="flex justify-center md:justify-end">
             <PhoneMockup />
           </div>
-
         </div>
       </div>
     </section>
+  );
+}
+
+function PhoneMockup() {
+  const ANSWERS = [
+    { num: 1, label: 'Nunca' },
+    { num: 2, label: 'Rara vez' },
+    { num: 3, label: 'A veces' },
+    { num: 4, label: 'A menudo' },
+    { num: 5, label: 'Siempre' },
+  ];
+  const SELECTED = 4;
+
+  return (
+    <div
+      className="relative w-[280px] shrink-0"
+      style={{ filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
+      aria-hidden
+    >
+      {/* Outer phone frame */}
+      <div
+        className="relative"
+        style={{
+          backgroundColor: '#0f172a',
+          borderRadius: '46px',
+          padding: '12px',
+          aspectRatio: '9 / 19.5',
+        }}
+      >
+        {/* Side buttons */}
+        <span
+          className="absolute"
+          style={{
+            left: '-2px',
+            top: '110px',
+            width: '3px',
+            height: '34px',
+            borderRadius: '2px 0 0 2px',
+            backgroundColor: '#1e293b',
+          }}
+        />
+        <span
+          className="absolute"
+          style={{
+            right: '-2px',
+            top: '130px',
+            width: '3px',
+            height: '60px',
+            borderRadius: '0 2px 2px 0',
+            backgroundColor: '#1e293b',
+          }}
+        />
+
+        {/* Screen */}
+        <div
+          className="relative h-full w-full overflow-hidden bg-white"
+          style={{ borderRadius: '34px' }}
+        >
+          {/* Dynamic Island / notch */}
+          <div
+            className="absolute left-1/2 top-2 -translate-x-1/2"
+            style={{
+              width: '88px',
+              height: '24px',
+              borderRadius: '999px',
+              backgroundColor: '#0f172a',
+            }}
+          />
+
+          {/* Status bar dots */}
+          <div className="absolute right-5 top-3.5 flex items-center gap-1">
+            <span
+              className="block h-1 w-1 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+            <span
+              className="block h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+            <span
+              className="block h-2 w-2 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="flex h-full flex-col px-5 pt-12 pb-5">
+            {/* Progress header */}
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold text-[#1d4ed8]">
+                Pregunta 03 de 30
+              </span>
+              <span className="text-[10px] font-medium tabular-nums text-[#94a3b8]">
+                10%
+              </span>
+            </div>
+            <div
+              className="mt-2 w-full overflow-hidden rounded-full"
+              style={{ height: '4px', backgroundColor: '#e2e8f0' }}
+            >
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: '10%',
+                  background:
+                    'linear-gradient(90deg, #ea580c 0%, #f59e0b 100%)',
+                }}
+              />
+            </div>
+
+            {/* Dimension badge */}
+            <div className="mt-5 flex justify-center">
+              <span
+                className="rounded-full px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest"
+                style={{
+                  backgroundColor: 'rgba(234,88,12,0.10)',
+                  border: '1px solid #fed7aa',
+                  color: '#c2410c',
+                }}
+              >
+                Autorregulación
+              </span>
+            </div>
+
+            {/* Question */}
+            <p className="font-display mt-4 text-center text-[12px] font-bold italic leading-snug text-[#0f172a]">
+              Cuando algo me molesta, soy capaz de mantener la calma antes de
+              responder.
+            </p>
+
+            {/* Answers */}
+            <div className="mt-4 flex flex-1 flex-col gap-2">
+              {ANSWERS.map((a) => {
+                const selected = a.num === SELECTED;
+                return (
+                  <div
+                    key={a.num}
+                    className="flex items-center gap-2 rounded-lg px-2.5 py-2"
+                    style={{
+                      backgroundColor: selected
+                        ? 'rgba(234,88,12,0.10)'
+                        : '#f8faff',
+                      border: selected
+                        ? '1px solid #ea580c'
+                        : '1px solid #dde8ff',
+                    }}
+                  >
+                    <span
+                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded text-[10px] font-bold"
+                      style={{
+                        backgroundColor: selected ? '#ea580c' : '#eff6ff',
+                        color: selected ? '#ffffff' : '#1d4ed8',
+                        border: selected ? 'none' : '1px solid #bfdbfe',
+                      }}
+                    >
+                      {a.num}
+                    </span>
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{ color: selected ? '#c2410c' : '#0f172a' }}
+                    >
+                      {a.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Home indicator */}
+            <div className="mt-4 flex justify-center">
+              <span
+                className="block rounded-full"
+                style={{
+                  width: '90px',
+                  height: '4px',
+                  backgroundColor: '#0f172a',
+                  opacity: 0.85,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

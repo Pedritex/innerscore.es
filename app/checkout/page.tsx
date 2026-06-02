@@ -17,14 +17,6 @@ import { calculateScores } from '@/lib/scoring';
 
 type Session = { email: string; answers: QuizAnswer[] };
 
-const BULLETS = [
-  'Análisis profundo de tu Arquetipo Emocional',
-  'Plan de crecimiento de 90 días',
-  'Análisis de patrones relacionales',
-  'Estrategias de IE en el trabajo',
-  'Pasos de acción personalizados',
-];
-
 const stripePromise: Promise<StripeClient | null> = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
@@ -87,9 +79,7 @@ export default function CheckoutPage() {
           </span>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-2">
-          <OrderSummary archetype={result.archetype} />
-
+        <div className="mx-auto max-w-xl">
           <div
             className="rounded-2xl bg-white p-8"
             style={{ border: '1px solid #e8d5c8' }}
@@ -104,68 +94,6 @@ export default function CheckoutPage() {
   );
 }
 
-function OrderSummary({ archetype }: { archetype: string }) {
-  return (
-    <div>
-      <p className="text-[11px] font-medium uppercase tracking-widest text-[#1d4ed8]">
-        Resumen del pedido
-      </p>
-      <h1 className="font-display mt-2 text-3xl font-bold text-[#0f172a] md:text-4xl">
-        Informe completo de IE InnerScore
-      </h1>
-      <p className="mt-3 text-sm text-[#64748b]">
-        Personalizado para{' '}
-        <span className="font-display font-bold italic text-[#0f172a]">
-          {archetype}
-        </span>
-      </p>
-
-      <div className="mt-6 flex items-baseline gap-3">
-        <span className="font-display text-5xl font-bold text-[#0f172a]">
-          £9.99
-        </span>
-        <span className="text-base text-[#94a3b8] line-through">£24.99</span>
-      </div>
-
-      <div
-        className="my-8 h-px w-full"
-        style={{ backgroundColor: '#e8d5c8' }}
-      />
-
-      <p className="text-[11px] font-medium uppercase tracking-widest text-[#0f172a]">
-        Qué incluye
-      </p>
-      <ul className="mt-4 flex flex-col gap-3">
-        {BULLETS.map((item) => (
-          <li
-            key={item}
-            className="flex items-start gap-3 text-sm text-[#0f172a]"
-          >
-            <span className="mt-0.5 shrink-0 text-[#1d4ed8]">
-              <CheckIcon />
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className="my-8 h-px w-full"
-        style={{ backgroundColor: '#e8d5c8' }}
-      />
-
-      <div className="flex items-baseline justify-between text-sm">
-        <span className="text-[#64748b]">Total a pagar hoy</span>
-        <span className="font-display text-xl font-bold text-[#0f172a]">
-          £9.99
-        </span>
-      </div>
-      <p className="mt-2 text-xs text-[#94a3b8]">
-        Te enviaremos tu informe por correo electrónico · Pago único
-      </p>
-    </div>
-  );
-}
 
 function CheckoutForm({
   session,
@@ -181,10 +109,11 @@ function CheckoutForm({
   const [name, setName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const canSubmit = useMemo(
-    () => Boolean(stripe && elements && email && !submitting),
-    [stripe, elements, email, submitting],
+    () => Boolean(stripe && elements && email && termsAccepted && !submitting),
+    [stripe, elements, email, termsAccepted, submitting],
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -222,7 +151,9 @@ function CheckoutForm({
       }
 
       if (paymentIntent?.status === 'succeeded') {
-        router.push(`/success?email=${encodeURIComponent(email)}`);
+        router.push(
+          `/upsell/1?pi=${encodeURIComponent(paymentIntent.id)}&email=${encodeURIComponent(email)}`,
+        );
         return;
       }
 
@@ -299,6 +230,32 @@ function CheckoutForm({
         </p>
       ) : null}
 
+      <label
+        className="mt-2 flex cursor-pointer items-start gap-3 rounded-xl p-3"
+        style={{
+          backgroundColor: '#fdf6f0',
+          border: '1px solid #e8d5c8',
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[#ea580c]"
+          aria-describedby="terms-acceptance-text"
+          required
+        />
+        <span
+          id="terms-acceptance-text"
+          className="text-[12px] leading-relaxed text-[#0f172a]"
+        >
+          He leído y acepto que se me cobrarán 1,95 € hoy por 7 días de
+          acceso completo. Después del período de prueba, se realizará un
+          cargo automático de 39,99 €/mes hasta que cancele la suscripción.
+          Puedo cancelar en cualquier momento desde mi área de miembros.
+        </span>
+      </label>
+
       <button
         type="submit"
         disabled={!canSubmit}
@@ -308,10 +265,50 @@ function CheckoutForm({
           boxShadow: '0 10px 24px rgba(234,88,12,0.35)',
         }}
       >
-        {submitting ? 'Procesando…' : 'Pagar 9,99 £ de forma segura'}
+        {submitting ? 'Procesando…' : 'Pagar 1,95 € de forma segura'}
       </button>
 
-      <div className="mt-2 flex items-center justify-between">
+      <p className="mt-4 text-center text-[11px] leading-relaxed text-[#94a3b8]">
+        Al continuar con el pago, aceptas que se te cobre la cantidad de 1,95 €
+        ahora, aceptas nuestras{' '}
+        <Link
+          href="/legal/terms-of-service"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          Condiciones del servicio
+        </Link>{' '}
+        y reconoces que has leído nuestra{' '}
+        <Link
+          href="/legal/privacy-policy"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          Política de privacidad
+        </Link>
+        . Tu pago aparecerá como &ldquo;innerscore.es&rdquo; en tu extracto
+        bancario. Después de 7 días, se te cobrará 39,99 € al mes hasta que
+        canceles tu suscripción. Puedes cancelar en cualquier momento desde tu
+        área de miembros. Para cualquier consulta, contáctanos en{' '}
+        <a
+          href="mailto:support@innerscore.es"
+          className="underline transition-colors hover:text-[#64748b]"
+        >
+          support@innerscore.es
+        </a>
+        .
+      </p>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        <TrustBlock
+          title="Devolución del dinero"
+          body="Si no quedas completamente satisfecho durante el periodo de prueba de 7 días, contáctanos y estaremos encantados de tramitar un reembolso completo."
+        />
+        <TrustBlock
+          title="Cancela en cualquier momento"
+          body="Puedes cancelar en cualquier momento desde tu área de miembros o contactándonos en support@innerscore.es."
+        />
+      </div>
+
+      <div className="mt-6 flex items-center justify-between">
         <span className="flex items-center gap-1.5 text-xs text-[#64748b]">
           <LockIcon />
           Tecnología de Stripe
@@ -322,6 +319,23 @@ function CheckoutForm({
         </span>
       </div>
     </form>
+  );
+}
+
+function TrustBlock({ title, body }: { title: string; body: string }) {
+  return (
+    <div
+      className="rounded-xl p-4"
+      style={{
+        backgroundColor: '#fdf6f0',
+        border: '1px solid #e8d5c8',
+      }}
+    >
+      <p className="text-xs font-semibold text-[#0f172a]">{title}</p>
+      <p className="mt-1.5 text-[11px] leading-relaxed text-[#64748b]">
+        {body}
+      </p>
+    </div>
   );
 }
 
@@ -348,24 +362,6 @@ function ElementBox({ children }: { children: React.ReactNode }) {
     >
       {children}
     </div>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
   );
 }
 

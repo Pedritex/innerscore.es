@@ -123,46 +123,23 @@ function ChevronDown() {
   );
 }
 
-
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
+      {/* Background glows */}
       <div
         className="pointer-events-none absolute"
-        style={{
-          top: '-60px',
-          left: '-60px',
-          width: '280px',
-          height: '280px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(251,146,60,0.22) 0%, transparent 70%)',
-        }}
+        style={{ top: '-60px', left: '-60px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(251,146,60,0.22) 0%, transparent 70%)' }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute"
-        style={{
-          top: '-40px',
-          right: '-40px',
-          width: '220px',
-          height: '220px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(220,38,38,0.18) 0%, transparent 70%)',
-        }}
+        style={{ top: '-40px', right: '-40px', width: '220px', height: '220px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(220,38,38,0.18) 0%, transparent 70%)' }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute left-1/2 -translate-x-1/2"
-        style={{
-          bottom: '-50px',
-          width: '320px',
-          height: '180px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(ellipse, rgba(234,88,12,0.14) 0%, transparent 70%)',
-        }}
+        style={{ bottom: '-50px', width: '320px', height: '180px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(234,88,12,0.14) 0%, transparent 70%)' }}
         aria-hidden
       />
 
@@ -208,14 +185,7 @@ function Hero() {
               Cancela cuando quieras
             </p>
 
-            <img
-              src="/illustrations/overly-proud.svg"
-              alt=""
-              aria-hidden
-              className="mx-auto mt-8 w-full max-w-xs md:hidden"
-            />
-
-            <div className="mt-10 hidden flex-wrap items-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:flex">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
               <TrustItem
                 icon={<IconUsers />}
                 text="Únete a miles que descubren su IE"
@@ -228,7 +198,8 @@ function Hero() {
             </div>
           </div>
 
-          <div className="hidden md:flex md:justify-end">
+          {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}
+          <div className="flex justify-center md:justify-end">
             <PhoneMockup />
           </div>
         </div>
@@ -249,8 +220,8 @@ function PhoneMockup() {
 
   return (
     <div
-      className="relative w-[280px] shrink-0"
-      style={{ filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
+      className="relative shrink-0"
+      style={{ width: '280px', filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
       aria-hidden
     >
       {/* Outer phone frame */}

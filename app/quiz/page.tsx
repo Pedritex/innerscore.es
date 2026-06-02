@@ -26,12 +26,18 @@ const INTRO_MESSAGES = [
   'Responde con sinceridad, no hay respuestas correctas.',
 ];
 
+const PREPARE_MESSAGES = [
+  'Analizando tus respuestas...',
+  'Calculando tu perfil emocional...',
+  'Identificando tu arquetipo...',
+];
+
 const INTRO_CIRCLE_MS = 6000;
 const INTRO_MESSAGE_MS = 2000;
 const INTRO_CHECK_FADE_MS = 500;
 const INTRO_HOLD_MS = 500;
 
-type Phase = 'gender' | 'intro' | 'quiz' | 'done';
+type Phase = 'gender' | 'intro' | 'quiz' | 'preparing';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -43,26 +49,34 @@ export default function QuizPage() {
   const [introCheckVisible, setIntroCheckVisible] = useState(false);
 
   const total = QUESTIONS.length;
-  const completed = phase === 'done' ? total : currentIndex;
+  const completed = phase === 'preparing' ? total : currentIndex;
   const progressPct = (completed / total) * 100;
 
   useEffect(() => {
-    if (phase !== 'intro') return;
+    if (phase !== 'intro' && phase !== 'preparing') return;
+    const messages =
+      phase === 'intro' ? INTRO_MESSAGES : PREPARE_MESSAGES;
     const timers: ReturnType<typeof setTimeout>[] = [];
-    for (let i = 1; i < INTRO_MESSAGES.length; i++) {
+    for (let i = 1; i < messages.length; i++) {
       timers.push(setTimeout(() => setIntroStep(i), i * INTRO_MESSAGE_MS));
     }
     timers.push(setTimeout(() => setIntroCheckVisible(true), INTRO_CIRCLE_MS));
     timers.push(
       setTimeout(
-        () => setPhase('quiz'),
+        () => {
+          if (phase === 'intro') {
+            setPhase('quiz');
+          } else {
+            router.push('/result');
+          }
+        },
         INTRO_CIRCLE_MS + INTRO_CHECK_FADE_MS + INTRO_HOLD_MS,
       ),
     );
     return () => {
       timers.forEach(clearTimeout);
     };
-  }, [phase]);
+  }, [phase, router]);
 
   const persistSession = (allAnswers: QuizAnswer[]) => {
     localStorage.setItem(
@@ -89,22 +103,14 @@ export default function QuizPage() {
       setCurrentIndex(currentIndex + 1);
     } else {
       persistSession(next);
-      setPhase('done');
+      setIntroStep(0);
+      setIntroCheckVisible(false);
+      setPhase('preparing');
     }
   };
 
   const handlePrevious = () => {
     if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
-  };
-
-  const handleEditAnswers = () => {
-    setCurrentIndex(total - 1);
-    setPhase('quiz');
-  };
-
-  const handleGoToCheckout = () => {
-    persistSession(answers);
-    router.push('/result');
   };
 
   if (phase === 'gender') {
@@ -174,40 +180,41 @@ export default function QuizPage() {
     );
   }
 
-  if (phase === 'done') {
+  if (phase === 'preparing') {
     return (
-      <main className="min-h-dvh bg-white">
-        <div className="mx-auto flex max-w-md flex-col items-center px-6 pt-20 pb-10 text-center">
-          <img
-            src="/illustrations/celebrating-2026.svg"
-            alt=""
-            aria-hidden
-            className="w-48 md:w-56"
-          />
-          <h2 className="font-display mt-8 text-4xl font-bold italic text-[#0f172a] md:text-5xl">
-            ¡Enhorabuena!
+      <main className="flex min-h-dvh items-center justify-center bg-white">
+        <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-10 text-center">
+          <h2 className="font-display text-3xl font-bold italic text-[#0f172a] md:text-4xl">
+            Preparando tu informe...
           </h2>
-          <p className="mt-4 text-base text-[#64748b]">
-            Has completado el test de inteligencia emocional.
-          </p>
-          <button
-            type="button"
-            onClick={handleGoToCheckout}
-            className="mt-10 w-full rounded-xl px-6 py-3 text-base font-semibold text-white transition-transform hover:scale-[1.01]"
-            style={{
-              backgroundColor: '#1d4ed8',
-              boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
-            }}
+          <div className="mt-10">
+            <ProgressCircle
+              durationMs={INTRO_CIRCLE_MS}
+              checkVisible={introCheckVisible}
+              checkFadeMs={INTRO_CHECK_FADE_MS}
+            />
+          </div>
+          <div
+            className="mt-10 w-full max-w-md"
+            style={{ position: 'relative', height: '4rem' }}
           >
-            Obtener mis resultados
-          </button>
-          <button
-            type="button"
-            onClick={handleEditAnswers}
-            className="mt-5 text-sm font-medium text-[#64748b] transition-colors hover:text-[#1d4ed8]"
-          >
-            Editar respuestas
-          </button>
+            {PREPARE_MESSAGES.map((msg, i) => (
+              <p
+                key={i}
+                className="text-base text-[#64748b] md:text-lg"
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  opacity: introStep === i ? 1 : 0,
+                  transition: 'opacity 500ms ease-in-out',
+                }}
+              >
+                {msg}
+              </p>
+            ))}
+          </div>
         </div>
       </main>
     );
@@ -443,27 +450,3 @@ function ProgressCircle({
   );
 }
 
-function DocumentCheckIcon() {
-  return (
-    <span
-      className="flex h-20 w-20 items-center justify-center rounded-full"
-      style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe' }}
-      aria-hidden
-    >
-      <svg
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#1d4ed8"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <polyline points="9 14 11 16 15 12" />
-      </svg>
-    </span>
-  );
-}

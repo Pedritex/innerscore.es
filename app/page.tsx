@@ -10,7 +10,116 @@ export default function Home() {
       <WhatYouGet />
       <PDFPreview />
       <Testimonials />
+      <FAQ />
     </div>
+  );
+}
+
+const FAQ_ITEMS = [
+  {
+    q: '¿Cuánto dura el test?',
+    a: 'Aproximadamente 5 minutos. Son 30 afirmaciones a las que respondes según tu opinión personal.',
+  },
+  {
+    q: '¿Qué recibo al completar el pago?',
+    a: 'Un informe personalizado de 15 páginas con tu arquetipo emocional, puntuación en las 5 dimensiones de IE, fortalezas, áreas de mejora y un plan de acción de 90 días. Lo recibirás en tu correo en 5-10 minutos.',
+  },
+  {
+    q: '¿Cuándo se me cobra el precio mensual?',
+    a: 'El séptimo día después de tu primer pago de 1,95 €. Puedes cancelar antes desde tu área de miembros y no se te cobrará nada más.',
+  },
+  {
+    q: '¿Puedo cancelar en cualquier momento?',
+    a: 'Sí, sin permanencia ni penalización. Cancela desde tu área de miembros o escribiendo a support@innerscore.es.',
+  },
+  {
+    q: '¿El informe lo genera una inteligencia artificial?',
+    a: 'Sí, el informe es generado por IA (Claude de Anthropic) basándose en tus respuestas. Es un documento orientativo con fines educativos, no un diagnóstico profesional.',
+  },
+  {
+    q: '¿Están seguros mis datos?',
+    a: 'Sí. Los pagos se procesan con Stripe (certificado PCI DSS) y los datos se almacenan de forma segura. Nunca compartimos ni vendemos tus datos.',
+  },
+];
+
+function FAQ() {
+  return (
+    <section className="bg-[#fdf6f0] py-20">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
+            Preguntas frecuentes
+          </h2>
+          <p className="mt-3 text-[#64748b]">
+            Resolvemos las dudas más habituales antes de empezar.
+          </p>
+        </div>
+
+        <ul className="mt-10 flex flex-col gap-3">
+          {FAQ_ITEMS.map((item) => (
+            <li key={item.q}>
+              <details
+                className="group overflow-hidden rounded-2xl bg-white"
+                style={{
+                  border: '1px solid #e8d5c8',
+                  boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
+                }}
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 md:px-6 md:py-5">
+                  <span className="font-display text-sm font-bold text-[#0f172a] md:text-base">
+                    {item.q}
+                  </span>
+                  <span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#1d4ed8] transition-transform group-open:rotate-180"
+                    style={{
+                      backgroundColor: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                    }}
+                    aria-hidden
+                  >
+                    <ChevronDown />
+                  </span>
+                </summary>
+                <div
+                  className="px-5 pb-5 text-sm leading-relaxed text-[#64748b] md:px-6 md:pb-6 md:text-base"
+                  style={{ borderTop: '1px solid #f1ebe5' }}
+                >
+                  <p className="pt-4">{item.a}</p>
+                </div>
+              </details>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10 text-center text-sm text-[#64748b]">
+          ¿No encuentras lo que buscas?{' '}
+          <Link
+            href="/preguntas-frecuentes"
+            className="font-semibold text-[#1d4ed8] hover:underline"
+          >
+            Ver todas las preguntas
+          </Link>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ChevronDown() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
   );
 }
 

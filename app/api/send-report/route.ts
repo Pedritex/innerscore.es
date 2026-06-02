@@ -733,7 +733,7 @@ function renderWelcomeEmail(args: {
             <tr><td style="padding: 6px 0; color: #64748b;">Nombre</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">${escapeHtml(greetingName)}</td></tr>
             <tr><td style="padding: 6px 0; color: #64748b;">Plan</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">Acceso 7 días InnerScore</td></tr>
             <tr><td style="padding: 6px 0; color: #64748b;">Fecha de inicio</td><td style="padding: 6px 0; color: #0f172a; text-align: right;">${fmtDate(purchasedAt)}</td></tr>
-            <tr><td style="padding: 6px 0; color: #64748b;">Total pagado</td><td style="padding: 6px 0; color: #0f172a; text-align: right; font-weight: 600;">3,00 €</td></tr>
+            <tr><td style="padding: 6px 0; color: #64748b;">Total pagado</td><td style="padding: 6px 0; color: #0f172a; text-align: right; font-weight: 600;">1,95 €</td></tr>
           </table>
         </td></tr>
 

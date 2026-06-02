@@ -109,10 +109,11 @@ function CheckoutForm({
   const [name, setName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const canSubmit = useMemo(
-    () => Boolean(stripe && elements && email && !submitting),
-    [stripe, elements, email, submitting],
+    () => Boolean(stripe && elements && email && termsAccepted && !submitting),
+    [stripe, elements, email, termsAccepted, submitting],
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -229,6 +230,32 @@ function CheckoutForm({
         </p>
       ) : null}
 
+      <label
+        className="mt-2 flex cursor-pointer items-start gap-3 rounded-xl p-3"
+        style={{
+          backgroundColor: '#fdf6f0',
+          border: '1px solid #e8d5c8',
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[#ea580c]"
+          aria-describedby="terms-acceptance-text"
+          required
+        />
+        <span
+          id="terms-acceptance-text"
+          className="text-[12px] leading-relaxed text-[#0f172a]"
+        >
+          He leído y acepto que se me cobrarán 1,95 € hoy por 7 días de
+          acceso completo. Después del período de prueba, se realizará un
+          cargo automático de 39,99 €/mes hasta que cancele la suscripción.
+          Puedo cancelar en cualquier momento desde mi área de miembros.
+        </span>
+      </label>
+
       <button
         type="submit"
         disabled={!canSubmit}
@@ -238,11 +265,11 @@ function CheckoutForm({
           boxShadow: '0 10px 24px rgba(234,88,12,0.35)',
         }}
       >
-        {submitting ? 'Procesando…' : 'Pagar 3,00 € de forma segura'}
+        {submitting ? 'Procesando…' : 'Pagar 1,95 € de forma segura'}
       </button>
 
       <p className="mt-4 text-center text-[11px] leading-relaxed text-[#94a3b8]">
-        Al continuar con el pago, aceptas que se te cobre la cantidad de 3,00 €
+        Al continuar con el pago, aceptas que se te cobre la cantidad de 1,95 €
         ahora, aceptas nuestras{' '}
         <Link
           href="/legal/terms-of-service"
@@ -258,7 +285,7 @@ function CheckoutForm({
           Política de privacidad
         </Link>
         . Tu pago aparecerá como &ldquo;innerscore.es&rdquo; en tu extracto
-        bancario. Después de 7 días, se te cobrará 19,99 € al mes hasta que
+        bancario. Después de 7 días, se te cobrará 39,99 € al mes hasta que
         canceles tu suscripción. Puedes cancelar en cualquier momento desde tu
         área de miembros. Para cualquier consulta, contáctanos en{' '}
         <a

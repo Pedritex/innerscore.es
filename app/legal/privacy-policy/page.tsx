@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
         Política de Privacidad
       </h1>
       <p className="mt-2 text-sm text-[#64748b]">
-        Última actualización: 12 de mayo de 2026
+        Última actualización: 2 de junio de 2026
       </p>
 
       <Section title="1. Responsable del tratamiento">
@@ -50,7 +50,11 @@ export default function PrivacyPolicyPage() {
               directamente nuestro proveedor de pagos (Stripe). No
               almacenamos los datos completos de la tarjeta en nuestros
               servidores; recibimos únicamente un identificador de la
-              transacción y el correo asociado a la compra.
+              transacción y el correo asociado a la compra. Dado que el
+              servicio se contrata como una suscripción con renovación
+              automática, Stripe conserva el método de pago para poder
+              ejecutar los cargos recurrentes (cargo inicial de 1,95 € por
+              7 días y, a continuación, 39,99 € al mes hasta que canceles).
             </>,
             <>
               <strong>Datos técnicos</strong> — información mínima de
@@ -77,9 +81,12 @@ export default function PrivacyPolicyPage() {
               contrato (art. 6.1.b RGPD).
             </>,
             <>
-              <strong>Procesar el pago</strong> — base jurídica: ejecución
-              de un contrato y cumplimiento de obligaciones legales (art.
-              6.1.b y c RGPD).
+              <strong>Procesar el pago inicial y las renovaciones
+              mensuales de la suscripción</strong> — base jurídica:
+              ejecución de un contrato y cumplimiento de obligaciones
+              legales (art. 6.1.b y c RGPD). El servicio implica cargos
+              recurrentes automáticos a través de Stripe hasta que se
+              cancele la suscripción.
             </>,
             <>
               <strong>Atender solicitudes de soporte y ejercicio de
@@ -100,7 +107,9 @@ export default function PrivacyPolicyPage() {
         <List
           items={[
             <>
-              <strong>Stripe</strong> — procesamiento de pagos.
+              <strong>Stripe</strong> — procesamiento de pagos, incluida
+              la facturación recurrente (suscripción mensual con cargo
+              inicial reducido).
             </>,
             <>
               <strong>Supabase</strong> — alojamiento de la base de datos

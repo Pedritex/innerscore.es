@@ -609,10 +609,10 @@ export default function ResultPage() {
               Tu informe está listo
             </p>
             <p className="hidden text-xs text-[#64748b] md:block">
-              3,00 € · 7 días de acceso completo
+              1,95 € · 7 días de acceso completo
             </p>
             <p className="text-xs text-[#64748b] md:hidden">
-              3,00 € · 7 días
+              1,95 € · 7 días
             </p>
           </div>
           <button
@@ -710,7 +710,7 @@ function PurchaseBlock({
                 className="font-display text-5xl font-bold md:text-6xl"
                 style={{ color: '#15803d' }}
               >
-                3,00 €
+                1,95 €
               </span>
               <span className="text-sm text-[#94a3b8] line-through tabular-nums">
                 39,99 €

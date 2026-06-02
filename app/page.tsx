@@ -6,6 +6,8 @@ export default function Home() {
     <div className="flex min-h-dvh flex-col bg-[#fdf6f0]">
       <Header />
       <Hero />
+      <HowItWorks />
+      <ImpactStat />
       <Features />
       <WhatYouGet />
       <PDFPreview />
@@ -457,54 +459,220 @@ function FeatureCard({
   );
 }
 
+function HowItWorks() {
+  const steps = [
+    {
+      n: 1,
+      title: 'Prepárate',
+      body: 'Busca un momento tranquilo y responde con sinceridad. No hay respuestas correctas ni incorrectas.',
+    },
+    {
+      n: 2,
+      title: 'Haz el test',
+      body: 'Responde 30 afirmaciones diseñadas para revelar tu perfil de Inteligencia Emocional.',
+    },
+    {
+      n: 3,
+      title: 'Recibe tu informe',
+      body: 'Accede a tu informe personalizado de 15 páginas con tu arquetipo emocional y plan de acción.',
+    },
+  ];
+
+  return (
+    <section className="bg-[#fdf6f0]">
+      <div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
+        <div className="text-center">
+          <span
+            className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-widest"
+            style={{
+              backgroundColor: 'rgba(234,88,12,0.10)',
+              color: '#c2410c',
+            }}
+          >
+            Cómo funciona
+          </span>
+          <h2 className="font-display mt-4 text-3xl font-bold text-[#0f172a] md:text-4xl">
+            Tres pasos para descubrir tu perfil
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-[#64748b]">
+            Diseñado para que en menos de 10 minutos tengas claridad sobre cómo
+            gestionas tus emociones.
+          </p>
+        </div>
+
+        <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-6">
+          {steps.map((s) => (
+            <li
+              key={s.n}
+              className="rounded-2xl bg-white p-6 md:p-7"
+              style={{
+                border: '1px solid #e8d5c8',
+                boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
+              }}
+            >
+              <span
+                className="font-display flex h-11 w-11 items-center justify-center rounded-full text-base font-bold text-white"
+                style={{
+                  backgroundColor: '#ea580c',
+                  boxShadow: '0 8px 18px rgba(234,88,12,0.30)',
+                }}
+                aria-hidden
+              >
+                {s.n}
+              </span>
+              <p className="mt-5 text-[11px] font-semibold uppercase tracking-widest text-[#94a3b8]">
+                Paso {s.n}
+              </p>
+              <h3 className="font-display mt-2 text-xl font-bold text-[#0f172a]">
+                {s.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#64748b] md:text-[15px]">
+                {s.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-10 text-center">
+          <Link
+            href="/quiz"
+            className="inline-flex items-center justify-center rounded-xl px-8 py-3.5 text-base font-bold text-white transition-transform hover:scale-[1.02] md:text-lg"
+            style={{
+              backgroundColor: '#ea580c',
+              boxShadow: '0 8px 24px rgba(234,88,12,0.35)',
+            }}
+          >
+            Iniciar test gratuito
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ImpactStat() {
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
+        <div
+          className="overflow-hidden rounded-3xl p-8 md:p-12"
+          style={{
+            background:
+              'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+            boxShadow: '0 20px 40px rgba(15,23,42,0.15)',
+          }}
+        >
+          <div className="grid items-center gap-10 md:grid-cols-[1.4fr_1fr]">
+            <div>
+              <p className="font-display text-4xl font-bold text-white md:text-5xl">
+                <span style={{ color: '#fb923c' }}>El 89%</span> de los
+                usuarios afirma haber mejorado su gestión emocional tras
+                recibir su informe InnerScore.
+              </p>
+            </div>
+            <div className="flex flex-col gap-5">
+              <StatBlock value="30" caption="preguntas" />
+              <StatBlock value="5" caption="dimensiones analizadas" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatBlock({ value, caption }: { value: string; caption: string }) {
+  return (
+    <div
+      className="rounded-2xl p-5 md:p-6"
+      style={{
+        backgroundColor: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.10)',
+      }}
+    >
+      <p className="font-display text-4xl font-bold tabular-nums text-white md:text-5xl">
+        {value}
+      </p>
+      <p className="mt-1 text-sm uppercase tracking-widest text-white/70">
+        {caption}
+      </p>
+    </div>
+  );
+}
+
 function WhatYouGet() {
   const items = [
-    { icon: <IconChart />, text: 'Tu puntuación global de IE en las 5 dimensiones' },
-    { icon: <IconEye />, text: 'Análisis profundo de Autoconciencia' },
-    { icon: <IconHeart />, text: 'Análisis de empatía y habilidades sociales' },
-    { icon: <IconShield />, text: 'Estrategias de autorregulación emocional' },
-    { icon: <IconMap />, text: 'Plan de acción personalizado' },
-    { icon: <IconInbox />, text: 'Te enviaremos tu informe por correo electrónico' },
+    {
+      title: 'Informe de IE',
+      body: 'Un análisis detallado de 15 páginas con tu arquetipo emocional, puntuaciones y fortalezas.',
+      icon: <IconChart />,
+    },
+    {
+      title: 'Plan de 90 días',
+      body: 'Un plan de acción personalizado para desarrollar tu Inteligencia Emocional paso a paso.',
+      icon: <IconMap />,
+    },
+    {
+      title: 'Tests adicionales',
+      body: 'Accede a 10 tests de las 5 dimensiones de Goleman para profundizar en tu perfil.',
+      icon: <IconEye />,
+    },
+    {
+      title: 'Cursos de IE',
+      body: 'Cursos completos sobre inteligencia emocional, comunicación, liderazgo y más.',
+      icon: <IconHeart />,
+    },
+    {
+      title: 'Certificados',
+      body: 'Al completar los cursos recibirás un certificado descargable de InnerScore.',
+      icon: <IconShield />,
+    },
   ];
 
   return (
     <section className="bg-white">
-      <div
-        className="mx-auto max-w-3xl px-6 py-20"
-      >
+      <div className="mx-auto max-w-5xl px-6 py-20">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-            Lo que recibirás
+            Qué recibirás
           </h2>
           <p className="mt-3 text-[#64748b]">
-            Todo lo que necesitas para entender y desarrollar tu inteligencia emocional.
+            Todo lo que necesitas para entender y desarrollar tu inteligencia
+            emocional.
           </p>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-2">
+        <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <li
-              key={item.text}
-              className="flex items-start gap-4 rounded-xl p-4"
+              key={item.title}
+              className="rounded-2xl bg-white p-6"
               style={{
-                backgroundColor: '#fdf6f0',
                 border: '1px solid #e8d5c8',
+                boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
               }}
             >
               <span
-                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white"
-                style={{ backgroundColor: '#1d4ed8' }}
+                className="flex h-12 w-12 items-center justify-center rounded-full text-white"
+                style={{
+                  backgroundColor: '#ea580c',
+                  boxShadow: '0 8px 18px rgba(234,88,12,0.25)',
+                }}
+                aria-hidden
               >
                 {item.icon}
               </span>
-              <span className="text-sm font-medium text-[#0f172a]">
-                {item.text}
-              </span>
+              <h3 className="font-display mt-5 text-lg font-bold text-[#0f172a]">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#64748b]">
+                {item.body}
+              </p>
             </li>
           ))}
         </ul>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link
             href="/quiz"
             className="inline-flex items-center justify-center rounded-xl px-8 py-3 text-base font-semibold text-white transition-transform hover:scale-[1.02]"

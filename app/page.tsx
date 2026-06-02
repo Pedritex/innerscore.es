@@ -123,114 +123,6 @@ function ChevronDown() {
   );
 }
 
-
-function PhoneMockup() {
-  const dims = [
-    { label: 'Autoconciencia', value: 78, color: '#1d4ed8' },
-    { label: 'Autorregulación', value: 65, color: '#ea580c' },
-    { label: 'Motivación', value: 82, color: '#059669' },
-    { label: 'Empatía', value: 71, color: '#7c3aed' },
-    { label: 'Habilidades sociales', value: 69, color: '#dc2626' },
-  ];
-
-  return (
-    <div
-      className="relative shrink-0"
-      style={{
-        width: '230px',
-        borderRadius: '2.5rem',
-        backgroundColor: '#0f172a',
-        padding: '10px',
-        boxShadow: '0 32px 64px rgba(15,23,42,0.35), 0 0 0 1px rgba(255,255,255,0.08)',
-      }}
-    >
-      {/* Notch */}
-      <div
-        className="absolute"
-        style={{
-          left: '50%',
-          top: '10px',
-          transform: 'translateX(-50%)',
-          width: '80px',
-          height: '18px',
-          borderRadius: '999px',
-          backgroundColor: '#0f172a',
-          zIndex: 10,
-        }}
-      />
-      {/* Screen */}
-      <div style={{ overflow: 'hidden', borderRadius: '2rem', backgroundColor: '#ffffff' }}>
-        {/* Status bar */}
-        <div
-          className="flex items-center justify-between"
-          style={{ backgroundColor: '#0f172a', padding: '20px 16px 8px' }}
-        >
-          <span style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>9:41</span>
-          <span style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>●●●</span>
-        </div>
-        {/* App content */}
-        <div style={{ backgroundColor: '#fdf6f0', padding: '12px 16px 20px' }}>
-          <p style={{ fontSize: '8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#ea580c', margin: 0 }}>
-            Tu InnerScore
-          </p>
-          {/* Score ring */}
-          <div className="flex items-center" style={{ gap: '12px', margin: '12px 0' }}>
-            <div
-              className="flex shrink-0 items-center justify-center"
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                backgroundColor: '#1d4ed8',
-                boxShadow: '0 4px 12px rgba(29,78,216,0.4)',
-                fontSize: '20px',
-                fontWeight: 700,
-                color: '#ffffff',
-              }}
-            >
-              73
-            </div>
-            <div>
-              <p style={{ fontSize: '9px', color: '#64748b', margin: 0 }}>Puntuación IE</p>
-              <p style={{ fontSize: '11px', fontWeight: 700, color: '#0f172a', margin: '2px 0' }}>Bien equilibrado</p>
-              <p style={{ fontSize: '8px', color: '#64748b', margin: 0 }}>Top 34% global</p>
-            </div>
-          </div>
-          {/* Dimension bars */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {dims.map((d) => (
-              <div key={d.label}>
-                <div className="flex justify-between" style={{ marginBottom: '2px' }}>
-                  <span style={{ fontSize: '8px', color: '#64748b' }}>{d.label}</span>
-                  <span style={{ fontSize: '8px', fontWeight: 500, color: '#0f172a' }}>{d.value}</span>
-                </div>
-                <div style={{ height: '4px', width: '100%', overflow: 'hidden', borderRadius: '999px', backgroundColor: '#e8d5c8' }}>
-                  <div style={{ height: '100%', borderRadius: '999px', width: `${d.value}%`, backgroundColor: d.color }} />
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* CTA stub */}
-          <div
-            style={{
-              marginTop: '16px',
-              borderRadius: '8px',
-              padding: '8px',
-              textAlign: 'center',
-              fontSize: '9px',
-              fontWeight: 700,
-              color: '#ffffff',
-              backgroundColor: '#1d4ed8',
-            }}
-          >
-            Ver informe completo
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
@@ -328,8 +220,8 @@ function PhoneMockup() {
 
   return (
     <div
-      className="relative w-[280px] shrink-0"
-      style={{ filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
+      className="relative shrink-0"
+      style={{ width: '280px', filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
       aria-hidden
     >
       {/* Outer phone frame */}

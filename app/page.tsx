@@ -15,85 +15,135 @@ export default function Home() {
 }
 
 
+function PhoneMockup() {
+  const dims = [
+    { label: 'Autoconciencia', value: 78, color: '#1d4ed8' },
+    { label: 'Autorregulación', value: 65, color: '#ea580c' },
+    { label: 'Motivación', value: 82, color: '#059669' },
+    { label: 'Empatía', value: 71, color: '#7c3aed' },
+    { label: 'Habilidades sociales', value: 69, color: '#dc2626' },
+  ];
+
+  return (
+    <div
+      className="relative mx-auto w-[220px] shrink-0 rounded-[2.5rem] bg-[#0f172a] p-[10px] shadow-2xl md:w-[260px]"
+      style={{ boxShadow: '0 32px 64px rgba(15,23,42,0.35), 0 0 0 1px rgba(255,255,255,0.08)' }}
+    >
+      {/* Notch */}
+      <div className="absolute left-1/2 top-[10px] z-10 h-[18px] w-[80px] -translate-x-1/2 rounded-full bg-[#0f172a]" />
+      {/* Screen */}
+      <div className="overflow-hidden rounded-[2rem] bg-white">
+        {/* Status bar */}
+        <div className="flex items-center justify-between bg-[#0f172a] px-4 pt-6 pb-2">
+          <span className="text-[9px] font-semibold text-white/70">9:41</span>
+          <span className="text-[9px] font-semibold text-white/70">●●●</span>
+        </div>
+        {/* App content */}
+        <div className="bg-[#fdf6f0] px-4 pb-5 pt-3">
+          <p className="text-[8px] font-semibold uppercase tracking-widest text-[#ea580c]">Tu InnerScore</p>
+          {/* Score ring */}
+          <div className="my-3 flex items-center gap-3">
+            <div
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-xl font-bold text-white"
+              style={{ backgroundColor: '#1d4ed8', boxShadow: '0 4px 12px rgba(29,78,216,0.4)' }}
+            >
+              73
+            </div>
+            <div>
+              <p className="text-[9px] text-[#64748b]">Puntuación IE</p>
+              <p className="text-[11px] font-bold text-[#0f172a]">Bien equilibrado</p>
+              <p className="text-[8px] text-[#64748b]">Top 34% global</p>
+            </div>
+          </div>
+          {/* Dimension bars */}
+          <div className="space-y-2">
+            {dims.map((d) => (
+              <div key={d.label}>
+                <div className="mb-0.5 flex justify-between">
+                  <span className="text-[8px] text-[#64748b]">{d.label}</span>
+                  <span className="text-[8px] font-medium text-[#0f172a]">{d.value}</span>
+                </div>
+                <div className="h-1 w-full overflow-hidden rounded-full bg-[#e8d5c8]">
+                  <div className="h-full rounded-full" style={{ width: `${d.value}%`, backgroundColor: d.color }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* CTA stub */}
+          <div
+            className="mt-4 rounded-lg py-2 text-center text-[9px] font-bold text-white"
+            style={{ backgroundColor: '#1d4ed8' }}
+          >
+            Ver informe completo
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-white">
+      {/* Background glows */}
       <div
         className="pointer-events-none absolute"
-        style={{
-          top: '-60px',
-          left: '-60px',
-          width: '280px',
-          height: '280px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(251,146,60,0.22) 0%, transparent 70%)',
-        }}
+        style={{ top: '-60px', left: '-60px', width: '280px', height: '280px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(251,146,60,0.22) 0%, transparent 70%)' }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute"
-        style={{
-          top: '-40px',
-          right: '-40px',
-          width: '220px',
-          height: '220px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(220,38,38,0.18) 0%, transparent 70%)',
-        }}
+        style={{ top: '-40px', right: '-40px', width: '220px', height: '220px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(220,38,38,0.18) 0%, transparent 70%)' }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute left-1/2 -translate-x-1/2"
-        style={{
-          bottom: '-50px',
-          width: '320px',
-          height: '180px',
-          borderRadius: '50%',
-          background:
-            'radial-gradient(ellipse, rgba(234,88,12,0.14) 0%, transparent 70%)',
-        }}
+        style={{ bottom: '-50px', width: '320px', height: '180px', borderRadius: '50%', background: 'radial-gradient(ellipse, rgba(234,88,12,0.14) 0%, transparent 70%)' }}
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 pt-6 pb-3 text-center md:py-24">
-        <span
-          className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.8)',
-            border: '1px solid #fed7aa',
-            color: '#ea580c',
-          }}
-        >
-          Test de Inteligencia Emocional
-        </span>
-        <p className="mt-2 text-sm text-[#64748b]">Descubre cómo gestionas tus emociones</p>
+      <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-20">
+        <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16">
 
-        <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
-          Test de Inteligencia Emocional
-        </h1>
+          {/* Copy — left column on desktop, full width on mobile */}
+          <div className="flex-1 text-center md:text-left">
+            <span
+              className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+              style={{ backgroundColor: 'rgba(255,255,255,0.8)', border: '1px solid #fed7aa', color: '#ea580c' }}
+            >
+              Test de Inteligencia Emocional
+            </span>
+            <p className="mt-2 text-sm text-[#64748b]">Descubre cómo gestionas tus emociones</p>
 
-        <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mt-6 md:text-lg">
-          30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
-          en tu bandeja de entrada.
-        </p>
+            <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
+              Test de Inteligencia Emocional
+            </h1>
 
-        <Link
-          href="/quiz"
-          className="mt-4 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
-          style={{
-            backgroundColor: '#1d4ed8',
-            boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
-          }}
-        >
-          Hacer el test gratuito
-        </Link>
+            <p className="mt-3 max-w-lg text-xs text-[#64748b] md:mt-6 md:text-lg">
+              30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
+              en tu bandeja de entrada.
+            </p>
 
-        <div className="mt-10 hidden flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:flex">
-          <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
-          <TrustItem icon={<IconBolt />} text="Te enviaremos tu informe por correo electrónico" />
-          <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
+            <Link
+              href="/quiz"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:w-auto md:text-lg"
+              style={{ backgroundColor: '#1d4ed8', boxShadow: '0 8px 24px rgba(29,78,216,0.35)' }}
+            >
+              Hacer el test gratuito
+            </Link>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
+              <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
+              <TrustItem icon={<IconBolt />} text="Informe por correo electrónico" />
+              <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
+            </div>
+          </div>
+
+          {/* Phone mockup — right column on desktop, below CTA on mobile */}
+          <div className="flex justify-center md:shrink-0">
+            <PhoneMockup />
+          </div>
+
         </div>
       </div>
     </section>

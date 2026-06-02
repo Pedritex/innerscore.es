@@ -90,6 +90,11 @@ function Hero() {
           Hacer el test gratuito
         </Link>
 
+        <p className="mt-3 text-xs text-[#64748b] md:mt-4 md:text-sm">
+          Acceso completo 7 días por 1,95 € · Después 39,99 €/mes · Cancela
+          cuando quieras
+        </p>
+
         <img
           src="/illustrations/overly-proud.svg"
           alt=""

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Footer from './components/Footer';
@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   title: 'InnerScore — Evaluación de Inteligencia Emocional',
   description:
     'Descubre cómo gestionas realmente tus emociones. 30 preguntas, 5 dimensiones, un informe personalizado de 15 páginas.',
+  icons: {
+    icon: '/icon',
+    apple: '/apple-icon',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0f172a',
 };
 
 export default function RootLayout({

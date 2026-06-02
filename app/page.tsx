@@ -167,8 +167,8 @@ function Hero() {
             </h1>
 
             <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mx-0 md:mt-6 md:text-lg">
-              30 preguntas. 5 dimensiones. Un informe personalizado de 15
-              páginas en tu bandeja de entrada.
+              30 preguntas. 5 dimensiones analizadas. Tu perfil emocional
+              completo.
             </p>
 
             <Link
@@ -182,11 +182,6 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <p className="mt-3 text-xs text-[#64748b] md:mt-4 md:text-sm">
-              Acceso completo 7 días por 1,95 € · Después 39,99 €/mes ·
-              Cancela cuando quieras
-            </p>
-
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
               <TrustItem
                 icon={<IconUsers />}
@@ -194,7 +189,7 @@ function Hero() {
               />
               <TrustItem
                 icon={<IconBolt />}
-                text="Te enviaremos tu informe por correo electrónico"
+                text="Descubre tu perfil emocional al instante"
               />
               <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
             </div>
@@ -420,12 +415,12 @@ function Features() {
       <FeatureCard
         accent="#1d4ed8"
         title="Totalmente personalizado"
-        body="Tu informe se genera de forma única a partir de tus respuestas"
+        body="Tus resultados se generan de forma única a partir de tus respuestas"
       />
       <FeatureCard
         accent="#dc2626"
-        title="Por correo electrónico"
-        body="Te enviaremos tu informe por correo electrónico"
+        title="Acceso inmediato"
+        body="Recibe tus resultados al instante en tu correo electrónico"
       />
     </section>
   );
@@ -473,8 +468,8 @@ function HowItWorks() {
     },
     {
       n: 3,
-      title: 'Recibe tu informe',
-      body: 'Accede a tu informe personalizado de 15 páginas con tu arquetipo emocional y plan de acción.',
+      title: 'Descubre tus resultados',
+      body: 'Accede a tu perfil emocional completo con tu arquetipo, las 5 dimensiones y un plan de acción de 90 días.',
     },
   ];
 
@@ -567,7 +562,7 @@ function ImpactStat() {
               <p className="font-display text-4xl font-bold text-white md:text-5xl">
                 <span style={{ color: '#fb923c' }}>El 89%</span> de los
                 usuarios afirma haber mejorado su gestión emocional tras
-                recibir su informe InnerScore.
+                descubrir su perfil emocional con InnerScore.
               </p>
             </div>
             <div className="flex flex-col gap-5">
@@ -734,7 +729,7 @@ function PDFPreview() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-[#0f172a] md:text-4xl">
-            Lo que contiene tu informe
+            Lo que contienen tus resultados
           </h2>
           <p className="mt-3 text-[#64748b]">
             Un desglose detallado y basado en ciencia de tu inteligencia emocional.
@@ -853,7 +848,7 @@ function Testimonials() {
       age: 31,
       result: 'Puntuación IE: 84',
       quote:
-        'Siempre me ha costado explicar por qué me bloqueo tanto en los conflictos. Mi informe me mostró que mi puntuación en Autorregulación era de 58, más baja de lo que esperaba. El plan de acción era lo bastante concreto como para usarlo en el trabajo esa misma semana.',
+        'Siempre me ha costado explicar por qué me bloqueo tanto en los conflictos. Mis resultados me mostraron que mi puntuación en Autorregulación era de 58, más baja de lo que esperaba. El plan de acción era lo bastante concreto como para usarlo en el trabajo esa misma semana.',
     },
     {
       name: 'Daniel R.',
@@ -867,7 +862,7 @@ function Testimonials() {
       age: 38,
       result: 'Puntuación IE: 91',
       quote:
-        'En general saqué buena puntuación, pero mi dimensión de Autoconciencia se quedó en 69. El informe identificaba un patrón que yo no había nombrado antes. Se lo enseñé a mi terapeuta y me dijo que era una de las autoevaluaciones más útiles que había visto traer a una consulta.',
+        'En general saqué buena puntuación, pero mi dimensión de Autoconciencia se quedó en 69. El análisis identificaba un patrón que yo no había nombrado antes. Se lo enseñé a mi terapeuta y me dijo que era una de las autoevaluaciones más útiles que había visto traer a una consulta.',
     },
   ];
 

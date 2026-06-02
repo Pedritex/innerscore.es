@@ -166,58 +166,258 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 pt-6 pb-3 text-center md:py-24">
-        <span
-          className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.8)',
-            border: '1px solid #fed7aa',
-            color: '#ea580c',
-          }}
-        >
-          Test de Inteligencia Emocional
-        </span>
-        <p className="mt-2 text-sm text-[#64748b]">Descubre cómo gestionas tus emociones</p>
+      <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-3 md:py-24">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_minmax(0,300px)] md:gap-14">
+          <div className="text-center md:text-left">
+            <span
+              className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                border: '1px solid #fed7aa',
+                color: '#ea580c',
+              }}
+            >
+              Test de Inteligencia Emocional
+            </span>
+            <p className="mt-2 text-sm text-[#64748b]">
+              Descubre cómo gestionas tus emociones
+            </p>
 
-        <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
-          Test de Inteligencia Emocional
-        </h1>
+            <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
+              Test de Inteligencia Emocional
+            </h1>
 
-        <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mt-6 md:text-lg">
-          30 preguntas. 5 dimensiones. Un informe personalizado de 15 páginas
-          en tu bandeja de entrada.
-        </p>
+            <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mx-0 md:mt-6 md:text-lg">
+              30 preguntas. 5 dimensiones. Un informe personalizado de 15
+              páginas en tu bandeja de entrada.
+            </p>
 
-        <Link
-          href="/quiz"
-          className="mt-4 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
-          style={{
-            backgroundColor: '#1d4ed8',
-            boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
-          }}
-        >
-          Hacer el test gratuito
-        </Link>
+            <Link
+              href="/quiz"
+              className="mt-4 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
+              style={{
+                backgroundColor: '#1d4ed8',
+                boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
+              }}
+            >
+              Hacer el test gratuito
+            </Link>
 
-        <p className="mt-3 text-xs text-[#64748b] md:mt-4 md:text-sm">
-          Acceso completo 7 días por 1,95 € · Después 39,99 €/mes · Cancela
-          cuando quieras
-        </p>
+            <p className="mt-3 text-xs text-[#64748b] md:mt-4 md:text-sm">
+              Acceso completo 7 días por 1,95 € · Después 39,99 €/mes ·
+              Cancela cuando quieras
+            </p>
 
-        <img
-          src="/illustrations/overly-proud.svg"
-          alt=""
-          aria-hidden
-          className="mx-auto mt-8 w-full max-w-xs md:mt-12 md:max-w-sm"
-        />
+            <img
+              src="/illustrations/overly-proud.svg"
+              alt=""
+              aria-hidden
+              className="mx-auto mt-8 w-full max-w-xs md:hidden"
+            />
 
-        <div className="mt-10 hidden flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:flex">
-          <TrustItem icon={<IconUsers />} text="Únete a miles que descubren su IE" />
-          <TrustItem icon={<IconBolt />} text="Te enviaremos tu informe por correo electrónico" />
-          <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
+            <div className="mt-10 hidden flex-wrap items-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:flex">
+              <TrustItem
+                icon={<IconUsers />}
+                text="Únete a miles que descubren su IE"
+              />
+              <TrustItem
+                icon={<IconBolt />}
+                text="Te enviaremos tu informe por correo electrónico"
+              />
+              <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
+            </div>
+          </div>
+
+          <div className="hidden md:flex md:justify-end">
+            <PhoneMockup />
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function PhoneMockup() {
+  const ANSWERS = [
+    { num: 1, label: 'Nunca' },
+    { num: 2, label: 'Rara vez' },
+    { num: 3, label: 'A veces' },
+    { num: 4, label: 'A menudo' },
+    { num: 5, label: 'Siempre' },
+  ];
+  const SELECTED = 4;
+
+  return (
+    <div
+      className="relative w-[280px] shrink-0"
+      style={{ filter: 'drop-shadow(0 30px 50px rgba(15,23,42,0.28))' }}
+      aria-hidden
+    >
+      {/* Outer phone frame */}
+      <div
+        className="relative"
+        style={{
+          backgroundColor: '#0f172a',
+          borderRadius: '46px',
+          padding: '12px',
+          aspectRatio: '9 / 19.5',
+        }}
+      >
+        {/* Side buttons */}
+        <span
+          className="absolute"
+          style={{
+            left: '-2px',
+            top: '110px',
+            width: '3px',
+            height: '34px',
+            borderRadius: '2px 0 0 2px',
+            backgroundColor: '#1e293b',
+          }}
+        />
+        <span
+          className="absolute"
+          style={{
+            right: '-2px',
+            top: '130px',
+            width: '3px',
+            height: '60px',
+            borderRadius: '0 2px 2px 0',
+            backgroundColor: '#1e293b',
+          }}
+        />
+
+        {/* Screen */}
+        <div
+          className="relative h-full w-full overflow-hidden bg-white"
+          style={{ borderRadius: '34px' }}
+        >
+          {/* Dynamic Island / notch */}
+          <div
+            className="absolute left-1/2 top-2 -translate-x-1/2"
+            style={{
+              width: '88px',
+              height: '24px',
+              borderRadius: '999px',
+              backgroundColor: '#0f172a',
+            }}
+          />
+
+          {/* Status bar dots */}
+          <div className="absolute right-5 top-3.5 flex items-center gap-1">
+            <span
+              className="block h-1 w-1 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+            <span
+              className="block h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+            <span
+              className="block h-2 w-2 rounded-full"
+              style={{ backgroundColor: '#0f172a' }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="flex h-full flex-col px-5 pt-12 pb-5">
+            {/* Progress header */}
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold text-[#1d4ed8]">
+                Pregunta 03 de 30
+              </span>
+              <span className="text-[10px] font-medium tabular-nums text-[#94a3b8]">
+                10%
+              </span>
+            </div>
+            <div
+              className="mt-2 w-full overflow-hidden rounded-full"
+              style={{ height: '4px', backgroundColor: '#e2e8f0' }}
+            >
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: '10%',
+                  background:
+                    'linear-gradient(90deg, #ea580c 0%, #f59e0b 100%)',
+                }}
+              />
+            </div>
+
+            {/* Dimension badge */}
+            <div className="mt-5 flex justify-center">
+              <span
+                className="rounded-full px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest"
+                style={{
+                  backgroundColor: 'rgba(234,88,12,0.10)',
+                  border: '1px solid #fed7aa',
+                  color: '#c2410c',
+                }}
+              >
+                Autorregulación
+              </span>
+            </div>
+
+            {/* Question */}
+            <p className="font-display mt-4 text-center text-[12px] font-bold italic leading-snug text-[#0f172a]">
+              Cuando algo me molesta, soy capaz de mantener la calma antes de
+              responder.
+            </p>
+
+            {/* Answers */}
+            <div className="mt-4 flex flex-1 flex-col gap-2">
+              {ANSWERS.map((a) => {
+                const selected = a.num === SELECTED;
+                return (
+                  <div
+                    key={a.num}
+                    className="flex items-center gap-2 rounded-lg px-2.5 py-2"
+                    style={{
+                      backgroundColor: selected
+                        ? 'rgba(234,88,12,0.10)'
+                        : '#f8faff',
+                      border: selected
+                        ? '1px solid #ea580c'
+                        : '1px solid #dde8ff',
+                    }}
+                  >
+                    <span
+                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded text-[10px] font-bold"
+                      style={{
+                        backgroundColor: selected ? '#ea580c' : '#eff6ff',
+                        color: selected ? '#ffffff' : '#1d4ed8',
+                        border: selected ? 'none' : '1px solid #bfdbfe',
+                      }}
+                    >
+                      {a.num}
+                    </span>
+                    <span
+                      className="text-[11px] font-medium"
+                      style={{ color: selected ? '#c2410c' : '#0f172a' }}
+                    >
+                      {a.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Home indicator */}
+            <div className="mt-4 flex justify-center">
+              <span
+                className="block rounded-full"
+                style={{
+                  width: '90px',
+                  height: '4px',
+                  backgroundColor: '#0f172a',
+                  opacity: 0.85,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

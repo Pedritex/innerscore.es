@@ -26,53 +26,93 @@ function PhoneMockup() {
 
   return (
     <div
-      className="relative mx-auto w-[220px] shrink-0 rounded-[2.5rem] bg-[#0f172a] p-[10px] shadow-2xl md:w-[260px]"
-      style={{ boxShadow: '0 32px 64px rgba(15,23,42,0.35), 0 0 0 1px rgba(255,255,255,0.08)' }}
+      className="relative shrink-0"
+      style={{
+        width: '230px',
+        borderRadius: '2.5rem',
+        backgroundColor: '#0f172a',
+        padding: '10px',
+        boxShadow: '0 32px 64px rgba(15,23,42,0.35), 0 0 0 1px rgba(255,255,255,0.08)',
+      }}
     >
       {/* Notch */}
-      <div className="absolute left-1/2 top-[10px] z-10 h-[18px] w-[80px] -translate-x-1/2 rounded-full bg-[#0f172a]" />
+      <div
+        className="absolute"
+        style={{
+          left: '50%',
+          top: '10px',
+          transform: 'translateX(-50%)',
+          width: '80px',
+          height: '18px',
+          borderRadius: '999px',
+          backgroundColor: '#0f172a',
+          zIndex: 10,
+        }}
+      />
       {/* Screen */}
-      <div className="overflow-hidden rounded-[2rem] bg-white">
+      <div style={{ overflow: 'hidden', borderRadius: '2rem', backgroundColor: '#ffffff' }}>
         {/* Status bar */}
-        <div className="flex items-center justify-between bg-[#0f172a] px-4 pt-6 pb-2">
-          <span className="text-[9px] font-semibold text-white/70">9:41</span>
-          <span className="text-[9px] font-semibold text-white/70">●●●</span>
+        <div
+          className="flex items-center justify-between"
+          style={{ backgroundColor: '#0f172a', padding: '20px 16px 8px' }}
+        >
+          <span style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>9:41</span>
+          <span style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>●●●</span>
         </div>
         {/* App content */}
-        <div className="bg-[#fdf6f0] px-4 pb-5 pt-3">
-          <p className="text-[8px] font-semibold uppercase tracking-widest text-[#ea580c]">Tu InnerScore</p>
+        <div style={{ backgroundColor: '#fdf6f0', padding: '12px 16px 20px' }}>
+          <p style={{ fontSize: '8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#ea580c', margin: 0 }}>
+            Tu InnerScore
+          </p>
           {/* Score ring */}
-          <div className="my-3 flex items-center gap-3">
+          <div className="flex items-center" style={{ gap: '12px', margin: '12px 0' }}>
             <div
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-xl font-bold text-white"
-              style={{ backgroundColor: '#1d4ed8', boxShadow: '0 4px 12px rgba(29,78,216,0.4)' }}
+              className="flex shrink-0 items-center justify-center"
+              style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '50%',
+                backgroundColor: '#1d4ed8',
+                boxShadow: '0 4px 12px rgba(29,78,216,0.4)',
+                fontSize: '20px',
+                fontWeight: 700,
+                color: '#ffffff',
+              }}
             >
               73
             </div>
             <div>
-              <p className="text-[9px] text-[#64748b]">Puntuación IE</p>
-              <p className="text-[11px] font-bold text-[#0f172a]">Bien equilibrado</p>
-              <p className="text-[8px] text-[#64748b]">Top 34% global</p>
+              <p style={{ fontSize: '9px', color: '#64748b', margin: 0 }}>Puntuación IE</p>
+              <p style={{ fontSize: '11px', fontWeight: 700, color: '#0f172a', margin: '2px 0' }}>Bien equilibrado</p>
+              <p style={{ fontSize: '8px', color: '#64748b', margin: 0 }}>Top 34% global</p>
             </div>
           </div>
           {/* Dimension bars */}
-          <div className="space-y-2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {dims.map((d) => (
               <div key={d.label}>
-                <div className="mb-0.5 flex justify-between">
-                  <span className="text-[8px] text-[#64748b]">{d.label}</span>
-                  <span className="text-[8px] font-medium text-[#0f172a]">{d.value}</span>
+                <div className="flex justify-between" style={{ marginBottom: '2px' }}>
+                  <span style={{ fontSize: '8px', color: '#64748b' }}>{d.label}</span>
+                  <span style={{ fontSize: '8px', fontWeight: 500, color: '#0f172a' }}>{d.value}</span>
                 </div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-[#e8d5c8]">
-                  <div className="h-full rounded-full" style={{ width: `${d.value}%`, backgroundColor: d.color }} />
+                <div style={{ height: '4px', width: '100%', overflow: 'hidden', borderRadius: '999px', backgroundColor: '#e8d5c8' }}>
+                  <div style={{ height: '100%', borderRadius: '999px', width: `${d.value}%`, backgroundColor: d.color }} />
                 </div>
               </div>
             ))}
           </div>
           {/* CTA stub */}
           <div
-            className="mt-4 rounded-lg py-2 text-center text-[9px] font-bold text-white"
-            style={{ backgroundColor: '#1d4ed8' }}
+            style={{
+              marginTop: '16px',
+              borderRadius: '8px',
+              padding: '8px',
+              textAlign: 'center',
+              fontSize: '9px',
+              fontWeight: 700,
+              color: '#ffffff',
+              backgroundColor: '#1d4ed8',
+            }}
           >
             Ver informe completo
           </div>
@@ -103,10 +143,11 @@ function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-6 py-10 md:py-20">
+        {/* Two-column flex: copy left, phone right on desktop; stacked on mobile */}
         <div className="flex flex-col items-center gap-10 md:flex-row md:items-center md:gap-16">
 
-          {/* Copy — left column on desktop, full width on mobile */}
-          <div className="flex-1 text-center md:text-left">
+          {/* Copy */}
+          <div className="min-w-0 flex-1 text-center md:text-left">
             <span
               className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
               style={{ backgroundColor: 'rgba(255,255,255,0.8)', border: '1px solid #fed7aa', color: '#ea580c' }}
@@ -139,8 +180,8 @@ function Hero() {
             </div>
           </div>
 
-          {/* Phone mockup — right column on desktop, below CTA on mobile */}
-          <div className="flex justify-center md:shrink-0">
+          {/* Phone mockup */}
+          <div className="flex shrink-0 justify-center">
             <PhoneMockup />
           </div>
 

@@ -100,6 +100,27 @@ export default async function MembersDashboard() {
           <aside className="flex flex-col gap-6">
             <StreakWidget />
             <ProgressWidget />
+            <div
+              className="rounded-2xl bg-white p-5"
+              style={{
+                border: '1px solid #e8d5c8',
+                boxShadow: '0 10px 24px rgba(15,23,42,0.04)',
+              }}
+            >
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#64748b]">
+                Tu cuenta
+              </p>
+              <Link
+                href="/update-password"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#1d4ed8] hover:underline"
+              >
+                Cambiar contraseña →
+              </Link>
+              <p className="mt-2 text-xs text-[#94a3b8]">
+                Si entraste con la contraseña provisional, cámbiala por una
+                propia.
+              </p>
+            </div>
           </aside>
         </div>
 

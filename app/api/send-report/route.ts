@@ -5,7 +5,7 @@ import type { QuizResult } from '@/types';
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-const FROM_ADDRESS = 'reports@innerscore.es';
+const FROM_ADDRESS = 'InnerScore <reports@innerscore.es>';
 
 const PAGE_WIDTH = 595;
 const PAGE_HEIGHT = 842;

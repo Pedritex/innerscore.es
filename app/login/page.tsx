@@ -131,7 +131,7 @@ function LoginInner() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[#94a3b8]">
-          ¿Aún no eres miembro? Compra tu informe de IE en{' '}
+          ¿Aún no eres miembro? Consigue tu acceso en{' '}
           <Link href="/" className="font-medium text-[#0f172a] hover:underline">
             innerscore.es
           </Link>

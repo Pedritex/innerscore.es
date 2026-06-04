@@ -122,35 +122,40 @@ export async function POST(request: Request) {
     if (!tempPassword) {
       const candidate = generateTempPassword();
       console.log('[dispatch-report] creating auth user for', row.email);
-      const { error: createError } = await supabaseAdmin.auth.admin.createUser({
-        email: row.email,
-        password: candidate,
-        email_confirm: true,
-        user_metadata: { source: 'innerscore-purchase' },
-      });
+      // Best-effort: any failure here (existing user, transient Supabase
+      // error, unexpected exception) MUST NOT block the report pipeline.
+      // The email is the deliverable; auth user provisioning is a nice-to-
+      // have we can retry later out-of-band.
+      let createError: unknown = null;
+      try {
+        const { error } = await supabaseAdmin.auth.admin.createUser({
+          email: row.email,
+          password: candidate,
+          email_confirm: true,
+          user_metadata: { source: 'innerscore-purchase' },
+        });
+        createError = error;
+      } catch (thrown) {
+        createError = thrown;
+      }
 
       if (createError) {
-        const code = (createError as { code?: string }).code;
-        const msg = createError.message?.toLowerCase() ?? '';
-        const alreadyRegistered =
-          code === 'email_exists' ||
-          msg.includes('already') ||
-          msg.includes('registered');
-        if (alreadyRegistered) {
-          console.log(
-            '[dispatch-report] auth user already exists, no temp_password to share',
-          );
-          tempPassword = null;
-        } else {
-          console.error(
-            '[dispatch-report] auth.createUser failed',
-            createError,
-          );
-          return Response.json(
-            { error: 'No se pudo crear el usuario', step: 'auth.createUser' },
-            { status: 500 },
-          );
-        }
+        // Log the full error so we can diagnose 422 / user_already_exists /
+        // anything else from Vercel logs — but always continue.
+        const errObj = createError as {
+          code?: string;
+          status?: number;
+          message?: string;
+          name?: string;
+        };
+        console.error('[dispatch-report] auth.createUser failed (ignored, continuing)', {
+          code: errObj.code,
+          status: errObj.status,
+          name: errObj.name,
+          message: errObj.message,
+          raw: createError,
+        });
+        tempPassword = null;
       } else {
         tempPassword = candidate;
         console.log('[dispatch-report] saving temp_password on purchase row');
@@ -170,6 +175,9 @@ export async function POST(request: Request) {
     } else {
       console.log('[dispatch-report] reusing existing temp_password from row');
     }
+    console.log('[dispatch-report] PATH=auth-step-done', {
+      hasTempPassword: Boolean(tempPassword),
+    });
 
     // ── Magic link token ────────────────────────────────────────────────
     const magicToken = randomUUID();

@@ -29,28 +29,64 @@ function resolveBaseUrl(request: Request): string {
 }
 
 export async function POST(request: Request) {
+  const t0 = Date.now();
   try {
-    const { pi } = await request.json();
-    console.log('[dispatch-report] received pi:', pi);
+    const rawBody = await request.json().catch((err) => {
+      console.error('[dispatch-report] JSON parse failed', err);
+      return null;
+    });
+    const pi = rawBody?.pi;
+    console.log('[dispatch-report] received', {
+      pi,
+      piType: typeof pi,
+      piLength: typeof pi === 'string' ? pi.length : null,
+      piStartsWithPi: typeof pi === 'string' ? pi.startsWith('pi_') : null,
+    });
     if (!pi || typeof pi !== 'string') {
+      console.warn('[dispatch-report] PATH=invalid-pi → 400');
       return Response.json(
         { error: 'Falta el identificador del pago' },
         { status: 400 },
       );
     }
 
+    // We log all rows that share this stripe_session_id first so we can tell
+    // from logs whether the lookup is hitting the expected row (or zero, or
+    // duplicates). maybeSingle() below will still error if there are
+    // duplicates, so this is purely diagnostic.
+    const { data: allRows, error: scanError } = await supabaseAdmin
+      .from('purchases')
+      .select('id, email, stripe_session_id, report_sent, temp_password, created_at')
+      .eq('stripe_session_id', pi);
+    if (scanError) {
+      console.error('[dispatch-report] diagnostic scan error', scanError);
+    } else {
+      console.log('[dispatch-report] rows matching stripe_session_id', {
+        count: allRows?.length ?? 0,
+        rows: (allRows ?? []).map((r) => ({
+          id: r.id,
+          email: r.email,
+          stripe_session_id: r.stripe_session_id,
+          report_sent: r.report_sent,
+          report_sent_type: typeof r.report_sent,
+          hasTempPassword: Boolean(r.temp_password),
+          created_at: r.created_at,
+        })),
+      });
+    }
+
     const { data: row, error: lookupError } = await supabaseAdmin
       .from('purchases')
-      .select('id, email, answers, result, report_sent, temp_password')
+      .select('id, email, answers, result, report_sent, temp_password, stripe_session_id')
       .eq('stripe_session_id', pi)
       .maybeSingle();
 
     if (lookupError) {
-      console.error('[dispatch-report] purchases lookup error', lookupError);
+      console.error('[dispatch-report] PATH=lookup-error → 500', lookupError);
       return Response.json({ error: lookupError.message }, { status: 500 });
     }
     if (!row) {
-      console.warn('[dispatch-report] no purchase row for pi:', pi);
+      console.warn('[dispatch-report] PATH=no-row → 404 for pi:', pi);
       return Response.json(
         { error: 'No se encontró el pedido' },
         { status: 404 },
@@ -59,14 +95,22 @@ export async function POST(request: Request) {
     console.log('[dispatch-report] row found', {
       id: row.id,
       email: row.email,
+      stripe_session_id: row.stripe_session_id,
+      stripeIdsMatch: row.stripe_session_id === pi,
       report_sent: row.report_sent,
+      report_sent_type: typeof row.report_sent,
       hasTempPassword: Boolean(row.temp_password),
+      hasAnswers: Array.isArray(row.answers) && row.answers.length > 0,
+      hasResult: row.result !== null && row.result !== undefined,
     });
 
-    if (row.report_sent) {
-      console.log('[dispatch-report] already sent, skipping');
+    // Be strict about the truthiness check so a stray string like "false"
+    // doesn't accidentally skip the send. Only literal boolean true counts.
+    if (row.report_sent === true) {
+      console.log('[dispatch-report] PATH=already-sent → 200 alreadySent:true');
       return Response.json({ success: true, alreadySent: true });
     }
+    console.log('[dispatch-report] PATH=proceeding-to-pipeline');
 
     // ── Ensure auth user (idempotent) ───────────────────────────────────
     // We keep / reuse any temp_password already stored from a previous
@@ -145,7 +189,11 @@ export async function POST(request: Request) {
     }
 
     // ── Generate + send email (await so failures stay retryable) ────────
-    console.log('[dispatch-report] running report pipeline');
+    console.log(
+      '[dispatch-report] PATH=about-to-run-pipeline t+',
+      Date.now() - t0,
+      'ms',
+    );
     const pipelineResult = await runReportPipeline({
       email: row.email,
       answers: row.answers,
@@ -158,7 +206,7 @@ export async function POST(request: Request) {
 
     if (!pipelineResult.ok) {
       console.error(
-        '[dispatch-report] pipeline failed; leaving report_sent=false for retry',
+        '[dispatch-report] PATH=pipeline-failed → 500; report_sent stays false',
         pipelineResult,
       );
       return Response.json(
@@ -172,7 +220,12 @@ export async function POST(request: Request) {
     }
 
     // ── Only now is the email confirmed delivered to Resend ─────────────
-    console.log('[dispatch-report] marking report_sent=true for id:', row.id);
+    console.log(
+      '[dispatch-report] PATH=email-sent t+',
+      Date.now() - t0,
+      'ms; marking report_sent=true for id:',
+      row.id,
+    );
     const { error: flagError } = await supabaseAdmin
       .from('purchases')
       .update({ report_sent: true })
@@ -187,10 +240,20 @@ export async function POST(request: Request) {
       // false — annoying but not broken; log loudly so we notice.
     }
 
-    console.log('[dispatch-report] success for', row.email);
+    console.log(
+      '[dispatch-report] PATH=success t+',
+      Date.now() - t0,
+      'ms for',
+      row.email,
+    );
     return Response.json({ success: true, alreadySent: false });
   } catch (err) {
-    console.error('[dispatch-report] unexpected error', err);
+    console.error(
+      '[dispatch-report] PATH=unexpected-exception → 500 t+',
+      Date.now() - t0,
+      'ms',
+      err,
+    );
     const message = err instanceof Error ? err.message : 'Unknown error';
     return Response.json({ error: message }, { status: 500 });
   }

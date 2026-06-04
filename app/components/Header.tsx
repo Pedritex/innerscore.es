@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -16,9 +17,15 @@ export default function Header() {
   return (
     <header className="bg-white" style={{ borderBottom: '1px solid #e8d5c8' }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3 md:py-4">
-        <Link href="/" className="text-xl">
-          <span className="font-display font-bold italic text-[#0f172a]">Inner</span>
-          <span className="font-semibold text-[#1d4ed8]">Score</span>
+        <Link href="/" className="flex items-center gap-2 text-xl">
+          <Image src="/icon" width={32} height={32} alt="InnerScore" className="rounded-lg" />
+          <div className="flex flex-col leading-none">
+            <span>
+              <span className="font-display font-bold italic text-[#0f172a]">Inner</span>
+              <span className="font-semibold text-[#1d4ed8]">Score</span>
+            </span>
+            <span className="mt-0.5 text-xs text-[#64748b]">Basado en ciencia</span>
+          </div>
         </Link>
 
         {/* Desktop nav */}

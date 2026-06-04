@@ -158,12 +158,14 @@ function Hero() {
             >
               Test de Inteligencia Emocional
             </span>
-            <p className="mt-2 text-sm text-[#64748b]">
+            <p className="mt-2 text-sm text-[#1e293b]">
               Descubre cómo gestionas tus emociones
             </p>
 
             <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
-              Test de Inteligencia Emocional
+              <span className="text-[#0f172a]">Descubre cómo gestionas</span>{' '}
+              <span className="text-[#f97316]">realmente tus emociones</span>{' '}
+              <span className="text-[#0f172a]">con este test científico</span>
             </h1>
 
             <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mx-0 md:mt-6 md:text-lg">
@@ -182,7 +184,7 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#94a3b8] md:justify-start">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-base text-[#1e293b] md:justify-start">
               <TrustItem
                 icon={<IconUsers />}
                 text="Únete a miles que descubren su IE"
@@ -196,7 +198,7 @@ function Hero() {
           </div>
 
           {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}
-          <div className="flex justify-center md:justify-end">
+          <div className="flex max-h-[450px] justify-center overflow-hidden md:justify-end">
             <PhoneMockup />
           </div>
         </div>

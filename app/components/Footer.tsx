@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { href: '/preguntas-frecuentes', label: 'Preguntas frecuentes' },
   { href: '/contacto', label: 'Contacto' },
   { href: '/login', label: 'Iniciar sesión' },
-  { href: '/contacto', label: 'Cancelar suscripción' },
+  { href: '/cancel', label: 'Cancelar suscripción' },
 ];
 
 const LEGAL_LINKS = [

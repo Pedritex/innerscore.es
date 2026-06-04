@@ -146,8 +146,8 @@ function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-3 md:py-24">
-        <div className="grid items-center gap-10 md:grid-cols-[1fr_minmax(0,300px)] md:gap-14">
-          <div className="text-center md:text-left">
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
+          <div className="text-center md:max-w-xl md:text-left">
             <span
               className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
               style={{
@@ -158,24 +158,23 @@ function Hero() {
             >
               Test de Inteligencia Emocional
             </span>
-            <p className="mt-2 text-sm text-[#1e293b]">
-              Descubre cómo gestionas tus emociones
-            </p>
 
-            <h1 className="font-display mt-3 text-5xl font-bold leading-tight text-[#0f172a] md:mt-6 md:text-6xl md:leading-[1.08]">
-              <span className="text-[#0f172a]">Descubre cómo gestionas</span>{' '}
-              <span className="text-[#f97316]">realmente tus emociones</span>{' '}
-              <span className="text-[#0f172a]">con este test científico</span>
+            <h1 className="font-display mt-5 text-5xl font-bold leading-[1.05] text-[#0f172a] md:mt-7 md:text-6xl md:leading-[1.08]">
+              <span className="text-[#0f172a]">Descubre </span>
+              <span className="text-[#f97316]">cómo gestionas tus emociones </span>
+              <span className="text-[#0f172a]">
+                con este test de inteligencia emocional
+              </span>
             </h1>
 
-            <p className="mx-auto mt-3 max-w-lg text-xs text-[#64748b] md:mx-0 md:mt-6 md:text-lg">
-              30 preguntas. 5 dimensiones analizadas. Tu perfil emocional
-              completo.
+            <p className="mx-auto mt-5 max-w-lg text-base text-[#1e293b] md:mx-0 md:mt-7 md:text-lg">
+              Con este test, descubrirás tu tipo y capacidad de inteligencia
+              emocional exacto.
             </p>
 
             <Link
               href="/quiz"
-              className="mt-4 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-10 md:inline-flex md:w-auto md:text-lg"
+              className="mt-6 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-8 md:inline-flex md:w-auto md:text-lg"
               style={{
                 backgroundColor: '#1d4ed8',
                 boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
@@ -184,17 +183,16 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-base text-[#1e293b] md:justify-start">
-              <TrustItem
-                icon={<IconUsers />}
-                text="Únete a miles que descubren su IE"
-              />
-              <TrustItem
-                icon={<IconBolt />}
-                text="Descubre tu perfil emocional al instante"
-              />
-              <TrustItem icon={<IconSparkles />} text="Basado en ciencia" />
-            </div>
+            <p className="mt-4 text-xs text-[#94a3b8]">
+              Al utilizar esta web, aceptas los{' '}
+              <Link
+                href="/legal/terms-of-service"
+                className="underline transition-colors hover:text-[#1e293b]"
+              >
+                Términos y condiciones
+              </Link>
+              .
+            </p>
           </div>
 
           {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}

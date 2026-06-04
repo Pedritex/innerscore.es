@@ -291,6 +291,12 @@ export default async function MembersDashboard() {
             ))}
           </div>
         </section>
+
+        <p className="mt-16 text-center text-xs text-[#94a3b8]">
+          <Link href="/cancel" className="hover:text-[#64748b] hover:underline">
+            Cancelar suscripción
+          </Link>
+        </p>
       </div>
 
       <MembersMobileNav />

@@ -159,7 +159,7 @@ function Hero() {
               Test de Inteligencia Emocional
             </span>
 
-            <h1 className="font-display mt-3 text-3xl font-bold leading-[1.1] text-[#0f172a] md:mt-7 md:text-6xl md:leading-[1.08]">
+            <h1 className="font-display mt-3 text-3xl font-bold leading-[1.1] text-[#0f172a] text-justify md:mt-7 md:text-6xl md:leading-[1.08] md:text-center">
               <span className="text-[#0f172a]">Descubre </span>
               <span className="text-[#f97316]">cómo gestionas tus emociones </span>
               <span className="text-[#0f172a]">
@@ -167,7 +167,7 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="mx-auto mt-3 max-w-lg text-sm text-[#1e293b] md:mx-0 md:mt-7 md:text-lg">
+            <p className="mx-auto mt-3 max-w-lg text-sm text-[#1e293b] text-justify md:mx-0 md:mt-7 md:text-lg md:text-center">
               Con este test, descubrirás tu tipo y capacidad de inteligencia
               emocional exacto.
             </p>
@@ -183,7 +183,7 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <p className="mt-2 text-xs text-[#94a3b8] md:mt-4">
+            <p className="mt-2 text-xs text-[#94a3b8] text-justify md:mt-4 md:text-center">
               Al utilizar esta web, aceptas los{' '}
               <Link
                 href="/legal/terms-of-service"

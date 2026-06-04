@@ -615,11 +615,30 @@ export async function POST(request: Request) {
       ? new Date(body.purchasedAtIso)
       : new Date();
 
+    console.log('[send-report] received', {
+      email,
+      reportTextLength: reportText?.length ?? 0,
+      hasTempPassword: Boolean(tempPassword),
+      hasMagicLink: Boolean(magicLinkUrl),
+    });
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error('[send-report] RESEND_API_KEY is not set in this environment');
+      return Response.json(
+        { error: 'Missing RESEND_API_KEY' },
+        { status: 500 },
+      );
+    }
+
+    console.log('[send-report] building PDF');
     const pdfBytes = await buildPdf(reportText, result, email);
     const pdfBuffer = Buffer.from(pdfBytes);
+    console.log('[send-report] PDF built, size:', pdfBuffer.length, 'bytes');
 
     const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ?? 'https://innerscore.es';
+      process.env.NEXT_PUBLIC_BASE_URL && process.env.NEXT_PUBLIC_BASE_URL.length > 0
+        ? process.env.NEXT_PUBLIC_BASE_URL
+        : 'https://innerscore.es';
     const loginUrl = `${baseUrl}/login`;
     const membersUrl = `${baseUrl}/members`;
 
@@ -632,7 +651,8 @@ export async function POST(request: Request) {
       purchasedAt,
     });
 
-    const { error: emailError } = await resend.emails.send({
+    console.log('[send-report] calling Resend');
+    const { data: emailData, error: emailError } = await resend.emails.send({
       from: FROM_ADDRESS,
       to: [email],
       subject: 'Tu informe de IE InnerScore y tu acceso al área de miembros',
@@ -643,13 +663,16 @@ export async function POST(request: Request) {
     });
 
     if (emailError) {
+      console.error('[send-report] Resend rejected the email', emailError);
       return Response.json({ error: emailError.message }, { status: 400 });
     }
 
-    return Response.json({ sent: true });
+    console.log('[send-report] Resend accepted, id:', emailData?.id);
+    return Response.json({ sent: true, id: emailData?.id });
   } catch (err) {
+    console.error('[send-report] unexpected error', err);
     const message = err instanceof Error ? err.message : 'Unknown error';
-    return Response.json({ error: message }, { status: 400 });
+    return Response.json({ error: message }, { status: 500 });
   }
 }
 

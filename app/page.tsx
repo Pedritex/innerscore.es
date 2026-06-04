@@ -145,8 +145,8 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-3 md:py-24">
-        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
+      <div className="relative mx-auto max-w-6xl px-6 pt-5 pb-2 md:py-24">
+        <div className="grid items-center gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
           <div className="text-center md:max-w-xl md:text-left">
             <span
               className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
@@ -159,7 +159,7 @@ function Hero() {
               Test de Inteligencia Emocional
             </span>
 
-            <h1 className="font-display mt-5 text-5xl font-bold leading-[1.05] text-[#0f172a] md:mt-7 md:text-6xl md:leading-[1.08]">
+            <h1 className="font-display mt-3 text-3xl font-bold leading-[1.1] text-[#0f172a] md:mt-7 md:text-6xl md:leading-[1.08]">
               <span className="text-[#0f172a]">Descubre </span>
               <span className="text-[#f97316]">cómo gestionas tus emociones </span>
               <span className="text-[#0f172a]">
@@ -167,14 +167,14 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="mx-auto mt-5 max-w-lg text-base text-[#1e293b] md:mx-0 md:mt-7 md:text-lg">
+            <p className="mx-auto mt-3 max-w-lg text-sm text-[#1e293b] md:mx-0 md:mt-7 md:text-lg">
               Con este test, descubrirás tu tipo y capacidad de inteligencia
               emocional exacto.
             </p>
 
             <Link
               href="/quiz"
-              className="mt-6 flex w-full items-center justify-center rounded-xl px-8 py-4 text-base font-bold text-white transition-transform hover:scale-[1.02] md:mt-8 md:inline-flex md:w-auto md:text-lg"
+              className="mt-4 flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] md:mt-8 md:inline-flex md:w-auto md:px-8 md:py-4 md:text-lg"
               style={{
                 backgroundColor: '#1d4ed8',
                 boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
@@ -183,7 +183,7 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <p className="mt-4 text-xs text-[#94a3b8]">
+            <p className="mt-2 text-xs text-[#94a3b8] md:mt-4">
               Al utilizar esta web, aceptas los{' '}
               <Link
                 href="/legal/terms-of-service"
@@ -196,7 +196,7 @@ function Hero() {
           </div>
 
           {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}
-          <div className="flex max-h-[450px] justify-center overflow-hidden md:justify-end">
+          <div className="flex max-h-[280px] justify-center overflow-hidden md:max-h-[450px] md:justify-end">
             <PhoneMockup />
           </div>
         </div>

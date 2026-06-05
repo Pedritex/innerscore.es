@@ -145,8 +145,8 @@ function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-6 pt-5 pb-2 md:px-10 md:py-[60px]">
-        <div className="grid items-center gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
+      <div className="relative mx-auto max-w-[1400px] px-6 pt-0 pb-4 md:px-10 md:pb-[40px]">
+        <div className="grid items-center gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
           <div className="text-center md:max-w-xl md:text-left">
             <h1 className="font-display max-w-full text-left font-bold text-[40px] leading-[60px] tracking-[-1px] text-[#0f172a] md:max-w-[545px] md:text-[48px]">
               <span className="text-[#0f172a]">Sabrás </span>
@@ -156,14 +156,14 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="mx-auto mt-3 max-w-lg text-sm text-[#1e293b] text-justify md:mx-0 md:mt-7 md:text-lg md:text-center">
+            <p className="mx-auto mt-2 max-w-lg text-sm text-[#1e293b] text-justify md:mx-0 md:mt-3 md:text-lg md:text-center">
               Con este test, descubrirás tu tipo y capacidad de inteligencia
               emocional exacto.
             </p>
 
             <Link
               href="/quiz"
-              className="mt-4 flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] md:mt-8 md:inline-flex md:w-auto md:px-8 md:py-4 md:text-lg"
+              className="mt-3 flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] md:mt-4 md:inline-flex md:w-auto md:px-8 md:py-4 md:text-lg"
               style={{
                 backgroundColor: '#1d4ed8',
                 boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
@@ -172,7 +172,7 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <p className="mt-2 text-xs text-[#94a3b8] text-justify md:mt-4 md:text-center">
+            <p className="mt-2 text-xs text-[#94a3b8] text-justify md:mt-2 md:text-center">
               Al utilizar esta web, aceptas los{' '}
               <Link
                 href="/legal/terms-of-service"
@@ -184,8 +184,8 @@ function Hero() {
             </p>
           </div>
 
-          {/* Phone mockup: visible on all breakpoints — right side on desktop, centered below CTA on mobile */}
-          <div className="flex max-h-[280px] justify-center overflow-hidden md:max-h-[450px] md:justify-end">
+          {/* Phone mockup: square crop, full phone underneath */}
+          <div className="flex aspect-square w-[280px] justify-center overflow-hidden justify-self-center md:justify-self-end">
             <PhoneMockup />
           </div>
         </div>

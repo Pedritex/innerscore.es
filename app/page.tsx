@@ -148,18 +148,7 @@ function Hero() {
       <div className="relative mx-auto max-w-[1400px] px-6 pt-5 pb-2 md:px-10 md:py-[60px]">
         <div className="grid items-center gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
           <div className="text-center md:max-w-xl md:text-left">
-            <span
-              className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.8)',
-                border: '1px solid #fed7aa',
-                color: '#ea580c',
-              }}
-            >
-              Test de Inteligencia Emocional
-            </span>
-
-            <h1 className="font-display mt-3 max-w-full text-left font-bold text-[40px] leading-[60px] tracking-[-1px] text-[#0f172a] md:mt-7 md:max-w-[545px] md:text-[48px]">
+            <h1 className="font-display max-w-full text-left font-bold text-[40px] leading-[60px] tracking-[-1px] text-[#0f172a] md:max-w-[545px] md:text-[48px]">
               <span className="text-[#0f172a]">Sabrás </span>
               <span className="text-[#f97316]">cómo gestionas tus emociones </span>
               <span className="text-[#0f172a]">

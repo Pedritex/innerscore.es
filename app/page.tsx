@@ -148,7 +148,7 @@ function Hero() {
       <div className="relative mx-auto max-w-[1400px] px-6 pt-0 pb-4 md:px-10 md:pb-[40px]">
         <div className="grid items-center gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,360px)] md:gap-14">
           <div className="text-center md:max-w-xl md:text-left">
-            <h1 className="font-display max-w-full text-left font-bold text-[40px] leading-[60px] tracking-[-1px] text-[#0f172a] md:max-w-[545px] md:text-[48px]">
+            <h1 className="font-display mx-auto max-w-full text-center font-bold text-[40px] leading-[60px] tracking-[-1px] text-[#0f172a] md:max-w-[545px] md:text-[48px]">
               <span className="text-[#0f172a]">Sabrás </span>
               <span className="text-[#f97316]">cómo gestionas tus emociones </span>
               <span className="text-[#0f172a]">
@@ -156,7 +156,7 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="mx-auto mt-2 max-w-lg text-sm text-[#1e293b] text-justify md:mx-0 md:mt-3 md:text-lg md:text-center">
+            <p className="mx-auto mt-2 max-w-lg text-sm text-[#1e293b] text-center md:mt-3 md:text-lg">
               Con este test, descubrirás tu tipo y capacidad de inteligencia
               emocional exacto.
             </p>
@@ -172,7 +172,7 @@ function Hero() {
               Hacer el test gratuito
             </Link>
 
-            <p className="mt-2 text-xs text-[#94a3b8] text-justify md:mt-2 md:text-center">
+            <p className="mt-2 text-center text-xs text-[#94a3b8] md:mt-2">
               Al utilizar esta web, aceptas los{' '}
               <Link
                 href="/legal/terms-of-service"

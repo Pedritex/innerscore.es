@@ -163,7 +163,7 @@ function Hero() {
 
             <Link
               href="/quiz"
-              className="mt-3 flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] md:mt-4 md:inline-flex md:w-auto md:px-8 md:py-4 md:text-lg"
+              className="mt-3 flex w-full items-center justify-center rounded-xl px-6 py-3 text-sm font-bold text-white transition-transform hover:scale-[1.02] md:mx-auto md:mt-4 md:w-auto md:px-8 md:py-4 md:text-lg"
               style={{
                 backgroundColor: '#1d4ed8',
                 boxShadow: '0 8px 24px rgba(29,78,216,0.35)',
